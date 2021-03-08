@@ -1,0 +1,450 @@
+{
+	"info": {
+		"_postman_id": "b35ae390-4806-4ed4-a1bc-898381da0152",
+		"name": "ESD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Activity log - Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": 201,\r\n  \"data\": {\r\n      \"created\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"customer_id\": \"Apple TAN\",\r\n      \"modified\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"order_id\": 2,\r\n      \"order_item\": [{\r\n         \"book_id\": \"9781434474234\",\r\n         \"item_id\": 3,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      },\r\n      {\r\n         \"book_id\": \"9781449474212\",\r\n         \"item_id\": 4,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      }],\r\n      \"status\": \"NEW\"\r\n   }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/activity_log",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"activity_log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activity log - Failure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": 201,\r\n  \"description\": \"Content is JSON BUT the type is Text\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/activity_log",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"activity_log"
+					]
+				},
+				"description": "Request type is text"
+			},
+			"response": []
+		},
+		{
+			"name": "Error - create a record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": 500,\r\n  \"message\": \"An error occurred creating the order...Can't connect to MySQL server on 'localhost:3306'\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5004/error",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5004",
+					"path": [
+						"error"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order - get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/order",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order - get an order given id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/order/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"order",
+						"1"
+					]
+				},
+				"description": "Please check that the order id specified is available in your database"
+			},
+			"response": []
+		},
+		{
+			"name": "Order - create an order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"customer_id\": \"Apple TAN\",\r\n   \"cart_item\": [{\r\n      \"book_id\": \"9781434474234\",\r\n      \"quantity\": 1\r\n   },\r\n   {\r\n      \"book_id\": \"9781449474212\",\r\n      \"quantity\": 1\r\n   }]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/order",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"order"
+					]
+				},
+				"description": "Stop your database to test error conditions"
+			},
+			"response": []
+		},
+		{
+			"name": "Order - update an order",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"status\": \"PROCESSING\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/order/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"order",
+						"1"
+					]
+				},
+				"description": "Please check that the order id exists in your database"
+			},
+			"response": []
+		},
+		{
+			"name": "Shipping record - Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"created\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"customer_id\": \"Apple TAN\",\r\n      \"modified\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"order_id\": 2,\r\n      \"order_item\": [{\r\n         \"book_id\": \"9781434474234\",\r\n         \"item_id\": 3,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      },\r\n      {\r\n         \"book_id\": \"9781449474212\",\r\n         \"item_id\": 4,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      }],\r\n      \"status\": \"NEW\"\r\n   }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5002/shipping_record",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"shipping_record"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shipping record - Failed shipping process",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"created\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"customer_id\": \"Apple ERROR\",\r\n      \"modified\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"order_id\": 2,\r\n      \"order_item\": [{\r\n         \"book_id\": \"9781434474234\",\r\n         \"item_id\": 3,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      },\r\n      {\r\n         \"book_id\": \"9781449474212\",\r\n         \"item_id\": 4,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      }],\r\n      \"status\": \"NEW\"\r\n   }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5002/shipping_record",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"shipping_record"
+					]
+				},
+				"description": "Send customer_id that contains \"ERROR\" to simulate error"
+			},
+			"response": []
+		},
+		{
+			"name": "Shipping record - Bad input",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"created\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"customer_id\": \"Apple ERROR\",\r\n      \"modified\": \"Wed, 16 Dec 2020 13:15:47 GMT\",\r\n      \"order_id\": 2,\r\n      \"order_item\": [{\r\n         \"book_id\": \"9781434474234\",\r\n         \"item_id\": 3,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      },\r\n      {\r\n         \"book_id\": \"9781449474212\",\r\n         \"item_id\": 4,\r\n         \"order_id\": 2,\r\n         \"quantity\": 1\r\n      }],\r\n      \"status\": \"NEW\"\r\n   }\r\n",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5002/shipping_record",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"shipping_record"
+					]
+				},
+				"description": "Request type is Text, not JSON"
+			},
+			"response": []
+		},
+		{
+			"name": "Place order - correct inputs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"customer_id\": \"Apple TAN\",\r\n   \"cart_item\": [{\r\n      \"book_id\": \"9781434474234\",\r\n      \"quantity\": 1\r\n   },\r\n   {\r\n      \"book_id\": \"9781449474212\",\r\n      \"quantity\": 1\r\n   }]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5100/place_order",
+					"host": [
+						"localhost"
+					],
+					"port": "5100",
+					"path": [
+						"place_order"
+					]
+				},
+				"description": "To try error conditions (code 500)\r\n- MySQL stopped, order.py running\r\n- order.py stopped"
+			},
+			"response": []
+		},
+		{
+			"name": "Place order - shipping failure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"customer_id\": \"Apple ERROR\",\r\n   \"cart_item\": [{\r\n      \"book_id\": \"9781434474234\",\r\n      \"quantity\": 1\r\n   },\r\n   {\r\n      \"book_id\": \"9781449474212\",\r\n      \"quantity\": 1\r\n   }]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5100/place_order",
+					"host": [
+						"localhost"
+					],
+					"port": "5100",
+					"path": [
+						"place_order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book - get all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AccountKey",
+						"value": "yiIhcBT6TFuBrusSFC3Prg==",
+						"type": "text"
+					},
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"availability\": 5,\r\n    \"price\": 87.5,\r\n    \"title\": \"Lay Foo's wisdom\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book - get one",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AccountKey",
+						"value": "yiIhcBT6TFuBrusSFC3Prg==",
+						"type": "text"
+					},
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"availability\": 5,\r\n    \"price\": 87.5,\r\n    \"title\": \"Lay Foo's wisdom\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/book/9781129474251",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"book",
+						"9781129474251"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "AccountKey",
+						"value": "yiIhcBT6TFuBrusSFC3Prg==",
+						"type": "text"
+					},
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"availability\": 5,\r\n    \"price\": 87.5,\r\n    \"title\": \"Lay Foo's coding -_-'''\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/book/1234567890123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"book",
+						"1234567890123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
