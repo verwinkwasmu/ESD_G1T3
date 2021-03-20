@@ -2,7 +2,10 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from os import environ
+
 app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/cart'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/cart'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -16,22 +19,22 @@ class Cart(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, nullable=False)
     item_id = db.Column(db.String, nullable=False)
-    fb_datetime = db.Column(db.DateTime, nullable=False)
+    order_datetime = db.Column(db.DateTime, nullable=False)
     rs_quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float(precision=2), nullable=False)
 
 
-    def __init__(self, order_id, booking_id, item_id, fb_datetime, rs_quantity, price):
+    def __init__(self, order_id, booking_id, item_id, order_datetime, rs_quantity, price):
         self.order_id = order_id
         self.booking_id = booking_id
         self.item_id = item_id
-        self.fb_datetime = fb_datetime
+        self.order_datetime = order_datetime
         self.rs_quantity = rs_quantity
         self.price = price
         
 
     def json(self):
-        return {"order_id": self.order_id, "booking_id": self.booking_id, "item_id": self.item_id, "fb_datetime": self.fb_datetime, "rs_quantity": self.rs_quantity, "price": self.price}
+        return {"order_id": self.order_id, "booking_id": self.booking_id, "item_id": self.item_id, "order_datetime": self.order_datetime, "rs_quantity": self.rs_quantity, "price": self.price}
 
 #getting all room service/facility booking request by booking_id
 @app.route("/cart/booking/<string:booking_id>")
@@ -71,22 +74,35 @@ def get_by_orderID(order_id):
         }
     ), 404
 
-#create new room service/facility booking 
-@app.route("/cart/add/<string:booking_id>", methods=['POST'])
-def create_new_booking(booking_id):
-    if (Cart.query.filter_by(booking_id=booking_id).first()):
+#create new facility booking 
+@app.route("/cart/add_fb/<string:booking_id>", methods=['POST'])
+def create_fb(booking_id):
+    data = request.get_json()
+    booking = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_quantity=None, price=None, **data)
+
+    try:
+        db.session.add(booking)
+        db.session.commit()
+    except Exception as e:
         return jsonify(
             {
-                "code": 400,
-                "data": {
-                    "booking_id": booking_id
-                },
-                "message": "booking already exists."
+                "code": 500,
+                "message": "An error occurred creating the facility booking." + str(e)
             }
-        ), 400
+        ), 500
 
+    return jsonify(
+        {
+            "code": 201,
+            "data": booking.json()
+        }
+    ), 201
+
+# Create new room service
+@app.route("/cart/add_rs/<string:booking_id>", methods=['POST'])
+def create_rs_order(booking_id):
     data = request.get_json()
-    booking = Cart(booking_id, **data)
+    booking = Cart(order_id=None, booking_id=booking_id, order_datetime=None, **data)
 
     try:
         db.session.add(booking)
@@ -98,7 +114,7 @@ def create_new_booking(booking_id):
                 "data": {
                     "booking_id": booking_id
                 },
-                "message": "An error occurred creating the book."
+                "message": "An error occurred creating the room service order."
             }
         ), 500
 
@@ -109,16 +125,17 @@ def create_new_booking(booking_id):
         }
     ), 201
 
-#get the number of bookings of a specific facility at a specific timeslot
-@app.route("/cart?item_id=<string:item_id>&fb_datetime=<string:fb_datetime>/")
-def get_number_of_bookings(item_id,fb_datetime):
-    total = Cart.query.filter_by(item_id=item_id, fb_datetime=fb_datetime).all()
-    if len(total):
+
+# Get the number of bookings of a specific facility at a specific timeslot
+@app.route("/cart/item_id=<string:item_id>&order_datetime=<string:order_datetime>")
+def get_number_of_bookings(item_id,order_datetime):
+    total = Cart.query.filter((Cart.order_datetime.like(order_datetime + "%")) & (Cart.item_id==item_id)).all()
+    if len(total) >= 0:
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "bookings": [booking.json() for booking in total], #can remove if we just need the total number
+                    # "bookings": [booking.json() for booking in total], #can remove if we just need the total number
                     "total": len(total)
                 }
             }
@@ -126,7 +143,7 @@ def get_number_of_bookings(item_id,fb_datetime):
     return jsonify(
         {
             "code": 404,
-            "message": "There are no bookings."
+            "message": "Error."
         }
     ), 404
 

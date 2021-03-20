@@ -23,23 +23,24 @@ USE `cart`;
 -- Table structure for table `cart`
 --
 
-CREATE TABLE `cart` (
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
   `order_id` int(10) NOT NULL,
   `booking_id` int(10) NOT NULL,
   `item_id` varchar(10) NOT NULL,
-  `fb_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `rs_quantity` int(5) NOT NULL,
-  `price` double(10,2) NOT NULL
+  `order_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rs_quantity` int(5) NULL,
+  `price` double(10,2) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`order_id`, `booking_id`, `item_id`, `fb_datetime`, `rs_quantity`, `price`) VALUES
-(1, 1, 'item1', '2021-03-20 05:10:19', 1, 100.20),
-(2, 2, 'item1', '2021-03-20 05:29:22', 2, 3.00);
-(3, 1, 'item2', '2021-03-20 05:51:00', 1, 200.49),
+INSERT INTO `cart` (`order_id`, `booking_id`, `item_id`, `order_datetime`, `rs_quantity`, `price`) VALUES
+(1, 1, 'fb_1', CURRENT_TIMESTAMP, null, null),
+(2, 2, 'rs_1', CURRENT_TIMESTAMP, 2, 3.00),
+(3, 1, 'fb_2', CURRENT_TIMESTAMP, null, null);
 
 --
 -- Indexes for dumped tables
