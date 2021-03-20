@@ -13,30 +13,30 @@ CORS(app)
 class Cart(db.Model):
     __tablename__ = 'Cart'
 
-    OrderID = db.Column(db.Integer, primary_key=True)
-    BookingID = db.Column(db.Integer, nullable=False)
-    itemID = db.Column(db.Varchar, nullable=False)
-    FBDateTime = db.Column(db.DateTime, nullable=False)
-    RSQuantity = db.Column(db.Integer, nullable=False)
-    Price = db.Column(db.Float(precision=2), nullable=False)
+    order_id = db.Column(db.Integer, primary_key=True)
+    booking_id = db.Column(db.Integer, nullable=False)
+    item_id = db.Column(db.Varchar, nullable=False)
+    fb_datetime = db.Column(db.DateTime, nullable=False)
+    rs_quantity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float(precision=2), nullable=False)
 
 
-    def __init__(self, OrderID, BookingID, itemID, FBDateTime, RSQuantity, Price):
-        self.OrderID = OrderID
-        self.BookingID = BookingID
-        self.itemID = itemID
-        self.FBDateTime = FBDateTime
-        self.RSQuantity = RSQuantity
-        self.Price = Price
+    def __init__(self, order_id, booking_id, item_id, fb_datetime, rs_quantity, price):
+        self.order_id = order_id
+        self.booking_id = booking_id
+        self.item_id = item_id
+        self.fb_datetime = fb_datetime
+        self.rs_quantity = rs_quantity
+        self.price = price
         
 
     def json(self):
-        return {"OrderID": self.OrderID, "BookingID": self.BookingID, "itemID": self.itemID, "FBDateTime": self.FBDateTime, "RSQuantity": self.RSQuantity, "Price": self.Price}
+        return {"order_id": self.order_id, "booking_id": self.booking_id, "item_id": self.item_id, "fb_datetime": self.fb_datetime, "rs_quantity": self.rs_quantity, "price": self.price}
 
-#getting all room service/facility booking request by bookingID
-@app.route("/cart/<string:bookingID>")
-def get_by_bookingID(bookingID):
-    bookings = Cart.query.filter_by(bookingID=bookingID).all()
+#getting all room service/facility booking request by booking_id
+@app.route("/cart/<string:booking_id>")
+def get_by_bookingID(booking_id):
+    bookings = Cart.query.filter_by(booking_id=booking_id).all()
     if len(bookings):
         return jsonify(
             {
@@ -53,10 +53,10 @@ def get_by_bookingID(bookingID):
         }
     ), 404
 
-#getting information about a room service/facility booking request by orderID
-@app.route("/cart/<string:orderID>")
-def get_by_orderID(orderID):
-    order = Cart.query.filter_by(orderID=orderID).first()
+#getting information about a room service/facility booking request by order_id
+@app.route("/cart/<string:order_id>")
+def get_by_orderID(order_id):
+    order = Cart.query.filter_by(order_id=order_id).first()
     if order:
         return jsonify(
             {
@@ -72,21 +72,21 @@ def get_by_orderID(orderID):
     ), 404
 
 #create new room service/facility booking 
-@app.route("/cart/<string:bookingID>", methods=['POST'])
-def create_new_booking(bookingID):
-    if (Cart.query.filter_by(bookingID=bookingID).first()):
+@app.route("/cart/<string:booking_id>", methods=['POST'])
+def create_new_booking(booking_id):
+    if (Cart.query.filter_by(booking_id=booking_id).first()):
         return jsonify(
             {
                 "code": 400,
                 "data": {
-                    "bookingID": bookingID
+                    "booking_id": booking_id
                 },
                 "message": "booking already exists."
             }
         ), 400
 
     data = request.get_json()
-    booking = Cart(bookingID, **data)
+    booking = Cart(booking_id, **data)
 
     try:
         db.session.add(booking)
@@ -96,7 +96,7 @@ def create_new_booking(bookingID):
             {
                 "code": 500,
                 "data": {
-                    "bookingID": bookingID
+                    "booking_id": booking_id
                 },
                 "message": "An error occurred creating the book."
             }
@@ -110,9 +110,9 @@ def create_new_booking(bookingID):
     ), 201
 
 #get the number of bookings of a specific facility at a specific timeslot
-@app.route("/cart?ItemID=<string:itemID>&FBDateTime=<string:FBDateTime>/")
-def get_number_of_bookings(itemID,FBDateTime):
-    total = Cart.query.filter_by(itemID=itemID, FBDateTime=FBDateTime).all()
+@app.route("/cart?item_id=<string:item_id>&fb_datetime=<string:fb_datetime>/")
+def get_number_of_bookings(item_id,fb_datetime):
+    total = Cart.query.filter_by(item_id=item_id, fb_datetime=fb_datetime).all()
     if len(total):
         return jsonify(
             {
