@@ -15,7 +15,7 @@ class Cart(db.Model):
 
     order_id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, nullable=False)
-    item_id = db.Column(db.Varchar, nullable=False)
+    item_id = db.Column(db.String, nullable=False)
     fb_datetime = db.Column(db.DateTime, nullable=False)
     rs_quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float(precision=2), nullable=False)
@@ -34,7 +34,7 @@ class Cart(db.Model):
         return {"order_id": self.order_id, "booking_id": self.booking_id, "item_id": self.item_id, "fb_datetime": self.fb_datetime, "rs_quantity": self.rs_quantity, "price": self.price}
 
 #getting all room service/facility booking request by booking_id
-@app.route("/cart/<string:booking_id>")
+@app.route("/cart/booking/<string:booking_id>")
 def get_by_bookingID(booking_id):
     bookings = Cart.query.filter_by(booking_id=booking_id).all()
     if len(bookings):
@@ -54,7 +54,7 @@ def get_by_bookingID(booking_id):
     ), 404
 
 #getting information about a room service/facility booking request by order_id
-@app.route("/cart/<string:order_id>")
+@app.route("/cart/order/<string:order_id>")
 def get_by_orderID(order_id):
     order = Cart.query.filter_by(order_id=order_id).first()
     if order:
@@ -72,7 +72,7 @@ def get_by_orderID(order_id):
     ), 404
 
 #create new room service/facility booking 
-@app.route("/cart/<string:booking_id>", methods=['POST'])
+@app.route("/cart/add/<string:booking_id>", methods=['POST'])
 def create_new_booking(booking_id):
     if (Cart.query.filter_by(booking_id=booking_id).first()):
         return jsonify(

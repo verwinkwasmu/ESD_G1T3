@@ -55,7 +55,7 @@ def get_all():
 @app.route("/facility/<string:itemID>")
 def get_by_itemID(itemID):
     facility = Facility.query.filter_by(itemID=itemID).first()
-    if order:
+    if facility:
         return jsonify(
             {
                 "code": 200,
