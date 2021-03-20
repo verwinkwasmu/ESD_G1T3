@@ -17,7 +17,7 @@ class Cart(db.Model):
     BookingID = db.Column(db.Integer, nullable=False)
     itemID = db.Column(db.Varchar, nullable=False)
     FBDateTime = db.Column(db.DateTime, nullable=False)
-    RSQuantity = db.Column(db.Interger, nullable=False)
+    RSQuantity = db.Column(db.Integer, nullable=False)
     Price = db.Column(db.Float(precision=2), nullable=False)
 
 
