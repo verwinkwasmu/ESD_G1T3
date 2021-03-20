@@ -13,23 +13,23 @@ CORS(app)
 class Facility(db.Model):
     __tablename__ = 'Facility'
 
-    itemID = db.Column(db.Varchar, primary_key=True)
-    itemName = db.Column(db.Varchar, nullable=False)
-    Price = db.Column(db.Float(precision=2), nullable=False)
-    MaxCapacity = db.Column(db.Integer, nullable=False)
-    Description = db.Column(db.Varchar, nullable=False)
+    item_id = db.Column(db.Varchar, primary_key=True)
+    item_name = db.Column(db.Varchar, nullable=False)
+    price = db.Column(db.Float(precision=2), nullable=False)
+    max_capacity = db.Column(db.Integer, nullable=False)
+    facility_description = db.Column(db.Varchar, nullable=False)
 
 
-    def __init__(self, itemID, itemName, Price, MaxCapacity, Description):
-        self.itemID = itemID
-        self.itemName = itemName
-        self.Price = Price
-        self.MaxCapacity = MaxCapacity
-        self.Description = Description
+    def __init__(self, item_id, item_name, price, max_capacity, facility_description):
+        self.item_id = item_id
+        self.item_name = item_name
+        self.price = price
+        self.max_capacity = max_capacity
+        self.facility_description = facility_description
         
 
     def json(self):
-        return {"itemID": self.itemID, "itemName": self.itemName, "Price": self.Price, "MaxCapacity": self.MaxCapacity, "Description": self.Description}
+        return {"item_id": self.item_id, "item_name": self.item_name, "price": self.price, "max_capacity": self.max_capacity, "facility_description": self.facility_description}
 
 #getting all hotel facility information
 @app.route("/facility")
@@ -51,10 +51,10 @@ def get_all():
         }
     ), 404
 
-#getting hotel facility information by itemID
-@app.route("/facility/<string:itemID>")
-def get_by_itemID(itemID):
-    facility = Facility.query.filter_by(itemID=itemID).first()
+#getting hotel facility information by item_id
+@app.route("/facility/<string:item_id>")
+def get_by_item_id(item_id):
+    facility = Facility.query.filter_by(item_id=item_id).first()
     if facility:
         return jsonify(
             {
