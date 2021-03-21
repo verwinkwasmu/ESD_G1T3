@@ -17,19 +17,19 @@ class Facility(db.Model):
     item_name = db.Column(db.Varchar, nullable=False)
     item_price = db.Column(db.Float(precision=2), nullable=False)
     max_capacity = db.Column(db.Integer, nullable=False)
-    item_description = db.Column(db.Varchar, nullable=False)
+    item_desc = db.Column(db.Varchar, nullable=False)
 
 
-    def __init__(self, item_id, item_name, item_price, max_capacity, item_description):
+    def __init__(self, item_id, item_name, item_price, max_capacity, item_desc):
         self.item_id = item_id
         self.item_name = item_name
         self.item_price = item_price
         self.max_capacity = max_capacity
-        self.item_description = item_description
+        self.item_desc = item_desc
         
 
     def json(self):
-        return {"item_id": self.item_id, "item_name": self.item_name, "item_price": self.item_price, "max_capacity": self.max_capacity, "item_description": self.item_description}
+        return {"item_id": self.item_id, "item_name": self.item_name, "item_price": self.item_price, "max_capacity": self.max_capacity, "item_desc": self.item_desc}
 
 #getting all hotel facility information
 @app.route("/facility")
