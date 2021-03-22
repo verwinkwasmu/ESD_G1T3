@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `facility` (
 
 INSERT INTO `facility` (`item_id`, `item_name`, `item_price`, `max_capacity`, `item_desc`) VALUES
 ('fb_1', "Gym", 5, 5, "A fully-equipped Gym for hotel guests"),
-('rs_1', "Room Service", 3.00, 5, "A well-functional full meal course"),
+('fb_2', "Balcony", 3.00, 5, "Enjoy"),
 
 --
 -- Indexes for dumped tables
