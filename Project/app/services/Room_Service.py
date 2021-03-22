@@ -5,7 +5,8 @@ from flask_cors import CORS
 from os import environ
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:3306/room_service'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/room_service'
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:3306/room_service'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -20,7 +21,7 @@ class Room_Service(db.Model):
     item_name = db.Column(db.String, nullable=False)
     item_price = db.Column(db.Float(precision=2), nullable=False)
     waiting_time = db.Column(db.DateTime, nullable=False)
-    item_desc = db.Column(db.Varchar, nullable=False)
+    item_desc = db.Column(db.String, nullable=False)
 
     def __init__(self, order_id, booking_id, item_id, order_datetime, rs_quantity, price, rs_delivered_status):
         self.item_id = item_id
@@ -44,7 +45,7 @@ def get_all():
             {
                 "code": 200,
                 "data": {
-                    "room_services": [room_services.json() for room_service in room_services]
+                    "room_services": [room_service.json() for room_service in room_services]
                 }
             }
         )
@@ -77,4 +78,4 @@ def get_by_itemID(item_id):
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5003, debug=True)

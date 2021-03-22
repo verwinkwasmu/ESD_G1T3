@@ -16,10 +16,10 @@ class Booking(db.Model):
 
     booking_id = db.Column(db.Integer, primary_key=True)
     guest_name = db.Column(db.String(64), nullable=False)
-    nric_passportno = db.Column(db.Varchar, nullable=False)
-    email = db.Column(db.Varchar, nullable=False)
+    nric_passportno = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
     stay_duration = db.Column(db.DateTime, nullable=False)
-    room_number = db.Column(db.Varchar, nullable=False)
+    room_number = db.Column(db.String, nullable=False)
     room_price = db.Column(db.Float(precision=2), nullable=False)
     checkin_status = db.Column(db.Boolean, nullable=False)
     checkout_status = db.Column(db.Boolean, nullable=False)
