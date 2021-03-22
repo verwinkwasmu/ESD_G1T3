@@ -27,9 +27,9 @@ DROP TABLE IF EXISTS `room_service`;
 CREATE TABLE IF NOT EXISTS `room_service` (
   `item_id` varchar(10) NOT NULL,
   `item_name` varchar(10) NOT NULL,
-  `item_price` double(10,2) NOT NULL,
+  `item_price` float(10,2) NOT NULL,
   `waiting_time` varchar(10) NOT NULL,
-  `item_desc` varchar(10) NOT NULL,
+  `item_desc` varchar(50) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
