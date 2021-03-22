@@ -58,7 +58,7 @@ def get_by_bookingID(booking_id):
     return jsonify(
         {
             "code": 404,
-            "message": "There are no bookings."
+            "message": "There are no room service or facility bookings."
         }
     ), 404
 
@@ -86,10 +86,10 @@ def get_by_orderID(order_id):
 @app.route("/cart/add_fb/<string:booking_id>", methods=['POST'])
 def create_fb(booking_id):
     data = request.get_json()
-    booking = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_quantity=None, price=None, rs_delivered_status=None **data)
+    new_fb = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_quantity=None, price=None, rs_delivered_status=None **data)
 
     try:
-        db.session.add(booking)
+        db.session.add(new_fb)
         db.session.commit()
     except Exception as e:
         return jsonify(
@@ -102,7 +102,7 @@ def create_fb(booking_id):
     return jsonify(
         {
             "code": 201,
-            "data": booking.json()
+            "data": new_fb.json()
         }
     ), 201
 
@@ -111,10 +111,10 @@ def create_fb(booking_id):
 @app.route("/cart/add_rs/<string:booking_id>", methods=['POST'])
 def create_rs_order(booking_id):
     data = request.get_json()
-    booking = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_delivered_status=False, **data)
+    new_rs = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_delivered_status=False, **data)
 
     try:
-        db.session.add(booking)
+        db.session.add(new_rs)
         db.session.commit()
     except:
         return jsonify(
@@ -130,7 +130,7 @@ def create_rs_order(booking_id):
     return jsonify(
         {
             "code": 201,
-            "data": booking.json()
+            "data": new_rs.json()
         }
     ), 201
 
