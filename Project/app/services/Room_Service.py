@@ -14,7 +14,7 @@ CORS(app)
 
 
 class Room_Service(db.Model):
-    __tablename__ = 'Room Service'
+    __tablename__ = 'Room_Service'
 
     item_id = db.Column(db.String, primary_key=True)
     item_name = db.Column(db.String, nullable=False)
@@ -36,7 +36,7 @@ class Room_Service(db.Model):
 
 
 # getting all room service information
-@app.route("/roomservice")
+@app.route("/room_service")
 def get_all():
     room_services = Room_Service.query.all()
     if len(room_services):
@@ -58,7 +58,7 @@ def get_all():
 
 # getting information about a room service by item_id
 # requires item_id in url
-@app.route("/roomservice/<string:item_id>")
+@app.route("/room_service/<string:item_id>")
 def get_by_itemID(item_id):
     rm_items = Room_Service.query.filter_by(item_id=item_id).first()
     if rm_items:
