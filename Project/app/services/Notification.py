@@ -9,12 +9,13 @@ with open('Email_content.html', 'r') as f:
 # email address, subject and body
 message = Mail(
     from_email='hotelenterprise@esd.sg',
-    to_emails='verwin.kwa.2019@smu.edu.sg',
+    to_emails='weixiangtoh.2019@smu.edu.sg',
     subject='Testing sendgrid email services',
     html_content=html_string)
 
 # sending email and printing status
 try:
+    print(os.environ.get('SENDGRID_API_KEY'))
     sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     response = sendgrid_client.send(message)
     print(response.status_code)
