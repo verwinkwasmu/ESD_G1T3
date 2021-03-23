@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `room_service` (
   `item_name` varchar(10) NOT NULL,
   `item_price` float(10,2) NOT NULL,
   `waiting_time` varchar(10) NOT NULL,
-  `item_desc` varchar(50) NOT NULL,
+  `item_desc` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -37,9 +37,9 @@ CREATE TABLE IF NOT EXISTS `room_service` (
 -- Dumping data for table `room_service`
 --
 
-INSERT INTO `facility` (`item_id`, `item_name`, `item_price`, `waiting_time`, `item_desc`) VALUES
+INSERT INTO `room_service` (`item_id`, `item_name`, `item_price`, `waiting_time`, `item_desc`) VALUES
 ('rs_1', "Lunch Special", 15, 30, "Cheap and delicious lunch meal special"),
-('rs_2', "8 Course Meal", 108, 50, "Exquisite 8 Course Meal prepared by the best chef in Singapore, Mr Verwin Kwa"),
+('rs_2', "8 Course Meal", 108, 50, "Exquisite 8 Course Meal prepared by the best chef in Singapore, Mr Verwin Kwa");
 
 --
 -- Indexes for dumped tables

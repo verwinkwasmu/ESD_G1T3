@@ -2,8 +2,11 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from os import environ
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/facility'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/facility'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/facility'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -13,11 +16,11 @@ CORS(app)
 class Facility(db.Model):
     __tablename__ = 'Facility'
 
-    item_id = db.Column(db.Varchar, primary_key=True)
-    item_name = db.Column(db.Varchar, nullable=False)
+    item_id = db.Column(db.String, primary_key=True)
+    item_name = db.Column(db.String, nullable=False)
     item_price = db.Column(db.Float(precision=2), nullable=False)
     max_capacity = db.Column(db.Integer, nullable=False)
-    item_desc = db.Column(db.Varchar, nullable=False)
+    item_desc = db.Column(db.String, nullable=False)
 
 
     def __init__(self, item_id, item_name, item_price, max_capacity, item_desc):
@@ -40,7 +43,7 @@ def get_all():
             {
                 "code": 200,
                 "data": {
-                    "books": [facility.json() for facility in facility_list]
+                    "facilities": [facility.json() for facility in facility_list]
                 }
             }
         )
@@ -70,4 +73,4 @@ def get_by_item_id(item_id):
     ), 404
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5002, debug=True)
