@@ -17,7 +17,6 @@ CORS(app)
 
 
 class Room_Service(db.Model):
-    __tablename__ = 'Room_Service'
 
     item_id = db.Column(db.String, primary_key=True)
     item_name = db.Column(db.String, nullable=False)

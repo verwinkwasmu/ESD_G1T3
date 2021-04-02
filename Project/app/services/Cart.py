@@ -5,7 +5,6 @@ from flask_cors import CORS
 from os import environ
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/cart'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/cart'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -14,7 +13,6 @@ db = SQLAlchemy(app)
 CORS(app)  
 
 class Cart(db.Model):
-    __tablename__ = 'Cart'
 
     order_id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, nullable=False)
