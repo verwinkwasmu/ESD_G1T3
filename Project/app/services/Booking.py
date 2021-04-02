@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from os import environ 
+
 app = Flask(__name__)
 #For Mac
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/room_service'
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
+
 #For windows
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/room_service'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -24,7 +27,7 @@ class Booking(db.Model):
     stay_duration = db.Column(db.DateTime, nullable=False)
     room_number = db.Column(db.String, nullable=False)
     room_price = db.Column(db.Float(precision=2), nullable=False)
-    discount = db.Column(db.Float(precision=2, nullable=False))
+    discount = db.Column(db.Float(precision=2), nullable=False)
     checkin_status = db.Column(db.Boolean, nullable=False)
     checkout_status = db.Column(db.Boolean, nullable=False)
 
@@ -45,7 +48,7 @@ class Booking(db.Model):
         return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "discount": self.discount, "checkin_status": self.checkin_status, "checkout_status": self.checkout_status}
 
 #getting specific booking with unique booking_id
-@app.route("/book/<string:booking_id>")
+@app.route("/booking/<string:booking_id>")
 def find_by_booking_id(booking_id):
     booking = Booking.query.filter_by(booking_id=booking_id).first()
     if booking:
