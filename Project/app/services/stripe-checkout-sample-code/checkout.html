@@ -29,7 +29,13 @@
     checkoutButton.addEventListener("click", function () {
       fetch("http://127.0.0.1:4242/create-checkout-session", {
         method: "POST",
-        body: {}
+        headers: {
+          'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify({
+            "amount": 3040
+          }) // body data type must match "Content-Type" header
       })
         .then(function (response) {
           return response.json();
