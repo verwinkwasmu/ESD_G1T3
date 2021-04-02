@@ -1,58 +1,59 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+#! /usr/bin/env python3.6
 
-from os import environ
+"""
+server.py
+Stripe Sample.
+Python 3.6 or newer required.
+"""
+import os
+from flask import Flask, jsonify, request
+
+import stripe
+# This is your real test secret API key.
+stripe.api_key = 'sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM'
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/room_service'
-# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:3306/room_service'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
-CORS(app)
-
-# getting all room service information
-@app.route("/room_service")
-def get_all():
-    room_services = Room_Service.query.all()
-    if len(room_services):
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "room_services": [room_service.json() for room_service in room_services]
+@app.route('/make_payment', methods=['POST'])
+def create_charge():
+    payment_details = request.get_json()
+    try:
+        # `source` is obtained with Stripe.js; see https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token
+        checkout = stripe.checkout.Session.create(
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    'price_data': {
+                        'currency': 'usd',
+                        'unit_amount': payment_details['price'],
+                        'product_data': {
+                            'name': 'Hotel Dream',
+                            'images': ['https://www.swissotel.com/assets/0/92/3686/3768/3770/6442451433/ae87da19-9f23-450a-8927-6f4c700aa104.jpg'],
+                        },
+                    },
+                    'quantity': 1,
                 }
-            }
+            ],
+            mode="payment",
         )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "There are no room services."
-        }
-    ), 404
 
-
-# getting information about a room service by item_id
-# requires item_id in url
-@app.route("/room_service/<string:item_id>")
-def get_by_itemID(item_id):
-    rm_items = Room_Service.query.filter_by(item_id=item_id).first()
-    if rm_items:
+        if checkout['paid'] == True:
+            return jsonify(
+                {
+                    "code": 200,
+                    "status": 'Payment successfully made'
+                }
+            )
         return jsonify(
             {
-                "code": 200,
-                "data": rm_items.json()
+                "code": 404,
+                "message": "Payment failed"
             }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "Room Service not found."
-        }
-    ), 404
-
+        ), 404
+    except Exception as e:
+        return jsonify(error=str(e)), 403
 
 if __name__ == '__main__':
-    app.run(port=5003, debug=True)
+    app.run(port=4242, debug = True)
