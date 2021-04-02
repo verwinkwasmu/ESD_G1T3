@@ -2,9 +2,12 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from os import environ 
+
 app = Flask(__name__)
 #For Mac
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
+
 #For windows
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,7 +27,7 @@ class Booking(db.Model):
     stay_duration = db.Column(db.DateTime, nullable=False)
     room_number = db.Column(db.String, nullable=False)
     room_price = db.Column(db.Float(precision=2), nullable=False)
-    discount = db.Column(db.Float(precision=2, nullable=False))
+    discount = db.Column(db.Float(precision=2), nullable=False)
     checkin_status = db.Column(db.Boolean, nullable=False)
     checkout_status = db.Column(db.Boolean, nullable=False)
 
