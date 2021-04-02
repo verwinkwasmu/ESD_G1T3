@@ -4,9 +4,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 #For Mac
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/room_service'
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
 #For windows
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/room_service'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -45,7 +45,7 @@ class Booking(db.Model):
         return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "discount": self.discount, "checkin_status": self.checkin_status, "checkout_status": self.checkout_status}
 
 #getting specific booking with unique booking_id
-@app.route("/book/<string:booking_id>")
+@app.route("/booking/<string:booking_id>")
 def find_by_booking_id(booking_id):
     booking = Booking.query.filter_by(booking_id=booking_id).first()
     if booking:
