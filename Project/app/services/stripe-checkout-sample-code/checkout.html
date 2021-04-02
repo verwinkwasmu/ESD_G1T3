@@ -27,8 +27,9 @@
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
-      fetch("/create-checkout-session", {
+      fetch("http://127.0.0.1:4242/create-checkout-session", {
         method: "POST",
+        body: {}
       })
         .then(function (response) {
           return response.json();

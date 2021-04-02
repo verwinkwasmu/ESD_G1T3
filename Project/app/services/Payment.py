@@ -27,7 +27,7 @@ def create_charge():
                 {
                     'price_data': {
                         'currency': 'usd',
-                        'unit_amount': payment_details['price'],
+                        'unit_amount': payment_details['amount'],
                         'product_data': {
                             'name': 'Hotel Dream',
                             'images': ['https://www.swissotel.com/assets/0/92/3686/3768/3770/6442451433/ae87da19-9f23-450a-8927-6f4c700aa104.jpg'],
@@ -39,7 +39,7 @@ def create_charge():
             mode="payment",
         )
 
-        if checkout['paid'] == True:
+        if checkout['payment_status'] == True:
             return jsonify(
                 {
                     "code": 200,
