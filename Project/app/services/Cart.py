@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import datetime
 
 from os import environ
 
@@ -87,7 +88,7 @@ def get_by_orderID(order_id):
 @app.route("/cart/add_fb/<string:booking_id>", methods=['POST'])
 def create_fb(booking_id):
     data = request.get_json()
-    new_fb = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_quantity=None, price=None, rs_delivered_status=None **data)
+    new_fb = Cart(order_id=None, booking_id=booking_id, order_datetime=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), rs_quantity=None, price=None, rs_delivered_status=None, **data)
 
     try:
         db.session.add(new_fb)
@@ -112,7 +113,7 @@ def create_fb(booking_id):
 @app.route("/cart/add_rs/<string:booking_id>", methods=['POST'])
 def create_rs_order(booking_id):
     data = request.get_json()
-    new_rs = Cart(order_id=None, booking_id=booking_id, order_datetime=None, rs_delivered_status=False, **data)
+    new_rs = Cart(order_id=None, booking_id=booking_id, order_datetime=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), rs_delivered_status=False, **data)
 
     try:
         db.session.add(new_rs)

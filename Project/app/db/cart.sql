@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `order_id` int(10) NOT NULL,
   `booking_id` int(10) NOT NULL,
   `item_id` varchar(10) NOT NULL,
-  `order_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_datetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `rs_quantity` int(5) NULL DEFAULT NULL,
   `price` double(10,2) NULL DEFAULT NULL,
   `rs_delivered_status` boolean NULL DEFAULT NULL
