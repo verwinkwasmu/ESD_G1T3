@@ -28,14 +28,16 @@ def receiveNotification():
     # an implicit loop waiting to receive messages;
     amqp_setup.channel.start_consuming()
     # it doesn't exit by default. Use Ctrl+C in the command window to terminate it.
-    mail()
 
 
 # required signature for the callback; no return
 def callback(channel, method, properties, body):
-    print("\nReceived an error by " + __file__)
-    processError(body)
-    print()  # print a new line feed
+    print("\nReceived an email request by " + __file__)
+    try:
+        print(body)
+        mail(json.loads(body))
+    except:
+        processError(body)
 
 
 def processError(errorMsg):
@@ -48,26 +50,29 @@ def processError(errorMsg):
         print("--DATA:", errorMsg)
     print()
 
-# sending email to to_email
-# requires form to be filled up --> from_email, to_email, subject, html_content
-# @app.route("/notification", methods=['POST', 'GET'])
+def format_email(data):
+    name = str(data["guest_name"])
+    email_content = "<h4>Hello " + name + "!</h4><p>Here are your order details during your stay with us:</p>"
+    table = "<p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + str(data["quantity"]) + "</strong></p>"
+    end = "<p>For your reference, here is your order number <strong>#" + str(data["order_id"]) + "</strong> and your booking number <strong>#"+ str(data["booking_id"]) +"</p>"
 
-# import email html file
-with open('Email_content.html', 'r') as f:
-    html_string = f.read()
+    return email_content + table + end
 
-def mail():
+def mail(json_msg):
     # email address, subject and body
+    email_content = format_email(json_msg)
+    subject = "Order #" + str(json_msg["order_id"]) + " for Hotel Stay"
+
     message = Mail(
         from_email='hotelenterprise@esd.sg',
-        to_emails='jessie.ng.2019@smu.edu.sg',
-        subject='Testing sendgrid email services',
-        html_content=html_string)
+        to_emails= str(json_msg["email"]),
+        subject= subject,
+        html_content=email_content)
 
     # sending email and printing status
     try:
         print(SENDGRID_API_KEY)
-        sendgrid_client = SENDGRID_API_KEY
+        sendgrid_client = SendGridAPIClient(SENDGRID_API_KEY)
         response = sendgrid_client.send(message)
         print(response.status_code)
         print(response.body)
@@ -76,45 +81,11 @@ def mail():
     except Exception as e:
         print(e)
 
-    # if request.method == "POST":
-    #     sg = SendGridAPIClient(SENDGRID_API_KEY)
-    #     from_email = Email(request.form.get("from_email"))
-    #     to_email = To(request.form.get("to_email"))
-    #     subject = request.form.get("subject")
-    #     content = Content("text/html", request.form.get("content"))
-
-    #     message = Mail(
-    #         from_email=from_email,
-    #         to_emails=to_email,
-    #         subject=subject,
-    #         html_content=content)
-
-    #     response = sg.send(message)
-    #     if response.status_code == 202:
-    #         return message.get()
-    #         # return "Email sent successfully!"
-    #     else:
-    #         return "Status Code: " + str(response.status_code)
-    # else:
-    #     return """
-    #     <html>
-    #        <body>
-    #           <form method = "POST">
-    #              <p>From: <input type = "text" name = "from_email" value="test@example.com" style="width: 500px;" /></p>
-    #              <p>To: <input type = "text" name = "to_email" value="jessie.ng.2019@smu.edu.sg" style="width: 500px;" /></p>
-    #              <p>Subject: <input type = "text" name = "subject" value="Sending with SendGrid is Fun" style="width: 500px;" /></p>
-    #              <p>Content: <input type ="text" name = "content" value="Hello! This is a ESD test :)" style="width: 500px;" /></p>
-    #              <p><input type = "submit" value = "send email" /></p>
-    #           </form>
-    #        </body>
-    #     </html>
-    #     """
 
 
 if __name__ == "__main__":
-    # app.run(port=5004, debug=True)
+    # app.run(debug=True)
     print("\nThis is " + os.path.basename(__file__), end='')
     print(": monitoring routing key '{}' in exchange '{}' ...".format(
         monitorBindingKey, amqp_setup.exchangename))
     receiveNotification()
-    mail()
