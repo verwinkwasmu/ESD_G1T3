@@ -29,6 +29,7 @@
     checkoutButton.addEventListener("click", function () {
       fetch("/create-checkout-session", {
         method: "POST",
+        body: {}
       })
         .then(function (response) {
           return response.json();

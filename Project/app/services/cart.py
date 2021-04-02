@@ -103,7 +103,7 @@ def create_fb(booking_id):
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "data": new_fb.json()
         }
     ), 201
@@ -131,7 +131,7 @@ def create_rs_order(booking_id):
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "data": new_rs.json()
         }
     ), 201
