@@ -26,7 +26,7 @@ USE `room_service`;
 DROP TABLE IF EXISTS `room_service`;
 CREATE TABLE IF NOT EXISTS `room_service` (
   `item_id` varchar(10) NOT NULL,
-  `item_name` varchar(10) NOT NULL,
+  `item_name` varchar(40) NOT NULL,
   `item_price` float(10,2) NOT NULL,
   `waiting_time` varchar(10) NOT NULL,
   `item_desc` varchar(50) NOT NULL
