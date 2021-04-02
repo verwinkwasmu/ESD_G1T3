@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `room_number` varchar(10) NOT NULL,
   `room_price` double(10,2) NOT NULL,
   `checkin_status` BOOLEAN NOT NULL,
-  `checkout_status` BOOLEAN NOT NULL,
+  `checkout_status` BOOLEAN NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
 
 INSERT INTO `booking` (`booking_id`, `guest_name`, `nric_passportno`, `email`, `stay_duration`, `room_number`, `room_price`, `checkin_status`,`checkout_status`) VALUES
 (1, "Jessie", "S9920937I", "jessie@gmail.com", "14 March-18 March 2021", "A800", 299.99, TRUE, TRUE), 
-(1, "James", "S9920347I", "james@gmail.com", "21 March- 23 March 2021", "A801", 299.99, TRUE, FALSE), 
+(2, "James", "S9920347I", "james@gmail.com", "21 March- 23 March 2021", "A801", 299.99, TRUE, FALSE); 
 
 
 --
@@ -59,5 +59,7 @@ ALTER TABLE `booking`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
+ALTER TABLE `booking`
+  MODIFY  `booking_id` int(10) NOT NULL 
+  AUTO_INCREMENT, AUTO_INCREMENT=3; 
 --
