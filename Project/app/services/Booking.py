@@ -9,6 +9,11 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
 
 #For windows
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
+
+# RDS url
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/booking'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -17,6 +22,7 @@ CORS(app)
 
 #do i have to write down all columns in db or just the ones i want? 
 class Booking(db.Model):
+    __tablename__ = 'booking'
 
     booking_id = db.Column(db.Integer, primary_key=True)
     guest_name = db.Column(db.String(64), nullable=False)
