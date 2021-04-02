@@ -2,8 +2,18 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from os import environ 
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/book'
+#For Mac
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
+
+#For windows
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
+
+# RDS url
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/booking'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -12,7 +22,7 @@ CORS(app)
 
 #do i have to write down all columns in db or just the ones i want? 
 class Booking(db.Model):
-    __tablename__ = 'Booking'
+    __tablename__ = 'booking'
 
     booking_id = db.Column(db.Integer, primary_key=True)
     guest_name = db.Column(db.String(64), nullable=False)
@@ -21,10 +31,11 @@ class Booking(db.Model):
     stay_duration = db.Column(db.DateTime, nullable=False)
     room_number = db.Column(db.String, nullable=False)
     room_price = db.Column(db.Float(precision=2), nullable=False)
+    discount = db.Column(db.Float(precision=2), nullable=False)
     checkin_status = db.Column(db.Boolean, nullable=False)
     checkout_status = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, booking_id, guest_name, nric_passportno, email, stay_duration, room_number, room_price, checkin_status, checkout_status ):
+    def __init__(self, booking_id, guest_name, nric_passportno, email, stay_duration, room_number, room_price, discount, checkin_status, checkout_status ):
         self.booking_id = booking_id
         self.guest_name = guest_name
         self.nric_passportno = nric_passportno
@@ -32,15 +43,16 @@ class Booking(db.Model):
         self.stay_duration = stay_duration
         self.room_number = room_number
         self.room_price = room_price
+        self.discount = discount
         self.checkin_status = checkin_status
         self.checkout_status = checkout_status
         
 
     def json(self):
-        return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "checkin_status": self.checkin_status, "checkout_status": self.checkout_status}
+        return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "discount": self.discount, "checkin_status": self.checkin_status, "checkout_status": self.checkout_status}
 
 #getting specific booking with unique booking_id
-@app.route("/book/<string:booking_id>")
+@app.route("/booking/<string:booking_id>")
 def find_by_booking_id(booking_id):
     booking = Booking.query.filter_by(booking_id=booking_id).first()
     if booking:
