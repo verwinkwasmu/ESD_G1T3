@@ -88,6 +88,10 @@
             }
 
             async function search(page_token) {
+                $("#searchOutput").html(`<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+  <span class="sr-only"></span>
+</div>`)
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
                 }
@@ -98,12 +102,12 @@
                 let type = $("#type").val();
                 let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
 
-                var serviceURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${radius}&type=${type}&key=${API_KEY}`;
+                var serviceURL = `http://127.0.0.1:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
 
                 if (page_token != undefined) {
-                    
+
                     console.log(page_token);
-                    serviceURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${page_token}&key=${API_KEY}`
+                    serviceURL = `http://127.0.0.1:5015/nearest_attractions/next_page/page_token=${page_token}`
                 }
 
                 try {
@@ -119,7 +123,10 @@
                         console.log(result.results)
                         $("#searchOutput").empty()
                         for (let location of result.results) {
-
+                            
+                            if (location.price_level == undefined){
+                                location.price_level = '-'
+                            }
                             if ("photos" in location) {
                                 var photo = location.photos[0].photo_reference
                             }
@@ -158,6 +165,7 @@
                                 var emoji = "&#128522"
                             }
                             else if (location.rating == undefined) {
+                                location.rating = '-'
                                 var emoji = "&#129300"
                             }
                             $("#searchOutput").append(

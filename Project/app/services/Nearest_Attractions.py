@@ -1,32 +1,43 @@
-import googlemaps
-import pprint
-import time
 
-#Get my Key
-API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ'
+import requests
 
-#Define our client
-gmaps = googlemaps.Client(key = API_KEY)
+import os
 
-#Define our search
-places_result = gmaps.places_nearby(location = '1.3817722,103.8964149', radius = 1000, open_now=False, type='restaurant')
-# # pprint.pprint(places_result)
 
-# #pause script for 3 seconds
-# time.sleep(3)
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
-# #get next 20 results
-# places_result = gmaps.places_nearby(page_token = places_result['next_page_token'])
 
-# pprint.pprint(places_result)
+import json
 
-#loop through each place in the results
-for place in places_result['results']:
-    #define my place id
-    my_place_id = place['place_id']
-    #define the fields we want sent back to us
-    my_fields = ['name', 'formatted_phone_number','type']
-    #make a request for the details
-    place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
-    #print the results
-    print(place_details)
+app = Flask(__name__)
+CORS(app)
+
+
+@app.route("/nearest_attractions/radius=<int:radius>&type_of_attraction=<string:type_of_attraction>&lat=<float:lat>&lon=<float:lon>")
+def get_nearest_attractions(radius, type_of_attraction, lat, lon):
+    GOOGLE_API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ'
+    response = requests.get(
+        f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lon}&radius={radius}&type={type_of_attraction}&key={GOOGLE_API_KEY}&fields=website,rating,place_id,name,formatted_address,formatted_phone_number,photo,price_level,business_status")
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return
+
+
+@app.route("/nearest_attractions/next_page/page_token=<string:page_token>")
+def get_next_page(page_token):
+    GOOGLE_API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ'
+    response = requests.get(
+        f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={page_token}&key={GOOGLE_API_KEY}")
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return
+
+
+if __name__ == "__main__":
+    app.run(port=5015, debug=True)
