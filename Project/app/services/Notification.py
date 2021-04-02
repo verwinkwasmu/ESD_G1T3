@@ -52,11 +52,12 @@ def processError(errorMsg):
 
 def format_email(data):
     name = str(data["guest_name"])
+    qty = str(data["quantity"])
     email_content = "<h4>Hello " + name + "!</h4><p>Here are your order details during your stay with us:</p>"
-    table = "<p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + str(data["quantity"]) + "</strong></p>"
+    body = "<p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + qty + "</strong></p><p>Time ordered: " + str(data["date_time"]) + "</p>"
     end = "<p>For your reference, here is your order number <strong>#" + str(data["order_id"]) + "</strong> and your booking number <strong>#"+ str(data["booking_id"]) +"</p>"
 
-    return email_content + table + end
+    return email_content + body + end
 
 def mail(json_msg):
     # email address, subject and body
