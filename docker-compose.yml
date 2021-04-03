@@ -30,7 +30,7 @@ services:
     image: weixiangtoh/cart:esd
     restart: always
     environment:
-      cartURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/cart
+      cart_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/cart
       PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
@@ -45,7 +45,7 @@ services:
     image: weixiangtoh/facility:esd
     restart: always
     environment:
-      facilityURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/facility
+      facility_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/facility
       PYTHONUNBUFFERED: 1
     ports:
       - "5002:5002"
@@ -60,7 +60,7 @@ services:
     image: weixiangtoh/room_service:esd
     restart: always
     environment:
-      room_service_URL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service
+      room_service_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"

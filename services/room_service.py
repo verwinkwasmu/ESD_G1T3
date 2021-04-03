@@ -6,7 +6,7 @@ from os import environ
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/room_service'
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('room_service_URL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('room_service_dbURL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service'
 # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:3306/room_service'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
