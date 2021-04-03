@@ -15,7 +15,7 @@ room_service_URL = "http://localhost:5003/room_service"
 
 
 @app.route("/check_cart", methods=['POST'])
-def place_order():
+def check_cart():
     # Simple check of input format and data of the request are JSON
     if request.is_json:
         try:
