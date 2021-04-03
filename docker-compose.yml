@@ -1,0 +1,115 @@
+version: "3.8"
+
+volumes:
+  rabbitmq_data:
+
+services:
+ 
+  ###################################
+  # Order: The Order microservice
+  ###################################
+  order:
+    build:
+      context: ./services
+      dockerfile: order.Dockerfile
+    image: weixiangtoh/order:esd
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3306/order
+      PYTHONUNBUFFERED: 1
+ 
+  #######################################################
+  # Shipping Record: The Shipping Record microservice
+  #######################################################
+  shipping_record:
+    build:
+      context: ./
+      dockerfile: shipping_record.Dockerfile
+    image: weixiangtoh/shipping_record:esd
+    restart: always
+    environment:
+      PYTHONUNBUFFERED: 1
+
+  ####################################
+  # RabbitMQ: The messaging broker   
+  ####################################
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: esd-rabbit
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - rabbitmq_data:/var/lib/rabbitmq
+      
+  #################################################
+  # Activity Log: The Activity Log microservice
+  #################################################
+  activity_log:
+    build:
+      context: ./
+      dockerfile: activity_log.Dockerfile
+    image: weixiangtoh/activity_log:esd
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      PYTHONUNBUFFERED: 1
+
+  ###################################
+  # Error: The Error microservice
+  ###################################
+  error:
+    build:
+      context: ./
+      dockerfile: error.Dockerfile
+    image: weixiangtoh/error:esd
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      PYTHONUNBUFFERED: 1
+
+  ###############################################
+  # Place Order: The Place Order microservice
+  ###############################################
+  place_order:
+    build:
+      context: ./
+      dockerfile: place_order.Dockerfile
+    image: weixiangtoh/place_order:esd
+    restart: always
+    depends_on:
+      - order
+      - shipping_record
+      - activity_log
+      - error
+      - rabbitmq
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      order_URL: http://order:5001/order
+      shipping_record_URL: http://shipping_record:5002/shipping_record 
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5100:5100"
+
+  ##################################
+  # Book: The Book microservice
+  ##################################
+  book:
+    build:
+      context: ./
+      dockerfile: book.Dockerfile
+    image: weixiangtoh/book:esd
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3306/book
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5000:5000"
