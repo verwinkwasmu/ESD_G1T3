@@ -54,6 +54,8 @@ def total_amount(booking_id):
         }
 
     room_price = booking_result['data']['room_price']
+    discount = booking_result['data']['discount']
+    print(discount)
     # 3. get all facilities and room services from cart microservice
     print('\n-----Invoking cart microservice-----')
 
@@ -64,7 +66,8 @@ def total_amount(booking_id):
         for purchase in cart_items:
             if purchase['price'] != None:
                 total += float(purchase['price']) * int(purchase['rs_quantity'])
-    total = total + room_price
+
+    total = round((total + room_price) * (1 - discount), 2)
 
     return {
         "code": 200,

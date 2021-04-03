@@ -26,19 +26,22 @@ USE `facility`;
 DROP TABLE IF EXISTS `facility`;
 CREATE TABLE IF NOT EXISTS `facility` (
   `item_id` varchar(10) NOT NULL,
-  `item_name` varchar(10) NOT NULL,
-  `item_price` double(10,2) NOT NULL,
+  `item_name` varchar(40) NOT NULL,
   `max_capacity` int(10) NOT NULL,
-  `item_desc` varchar(10) NOT NULL
+  `item_desc` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `facility`
 --
 
-INSERT INTO `facility` (`item_id`, `item_name`, `item_price`, `max_capacity`, `item_desc`) VALUES
-('fb_1', "Gym", 5, 5, "A fully-equipped Gym for hotel guests"),
-('fb_2', "Balcony", 3.00, 5, "Enjoy");
+INSERT INTO `facility` (`item_id`, `item_name`, `max_capacity`, `item_desc`) VALUES
+('fb_1', "Gym", 20, "A fully-equipped gym for hotel guests."),
+('fb_2', "Swimming Pool", 20, "Enjoy the moving body of water for relaxation."),
+('fb_3', "Sauna", 5, "A small room that helps you relax."),
+('fb_4', "Conference Room", 1, "Use our conference rooms for meetings!"),
+('fb_5', "Karaoke", 10, "Enjoy singing to your hearts content!"),
+('fb_6', "Massage Room", 5, "A fully-equipped Gym for hotel guests");
 
 --
 -- Indexes for dumped tables

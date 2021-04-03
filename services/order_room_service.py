@@ -30,8 +30,7 @@ def order_room_service():
 
             # do the actual work
             # 1. Get all cart purchases using booking_id
-            result = processOrderRS(request.json.get(
-                'booking_id'), request.json.get('room_service_orders'))
+            result = processOrderRS(booking_details)
             return jsonify(result), 200
 
         except Exception as e:
@@ -48,25 +47,13 @@ def order_room_service():
     }), 400
 
 
-def processOrderRS(booking_id, room_service_orders):
-    # 2. Send booking id to booking microservice to booking info (guest_name and email)
-    # Invoke booking microservice
-    print('\n-----Invoking booking microservice-----')
-    booking_result = invoke_http(booking_URL + "/" + booking_id)
-    guest_details = {
-        "email": booking_result['data']['email'],
-        "guest_name": booking_result['data']['guest_name']
-    }
-    print('booking_result:', guest_details)
+def processOrderRS(booking_details):
+    print('\n-----Putting guest details-----')
+    booking_id = booking_details['booking_id']
+    email = booking_details['email']
+    guest_name = booking_details['guest_name']
 
-    code = booking_result["code"]
-    if code not in range(200, 300):
-
-        # if there are no bookings, return message
-        return {
-            "code": 404,
-            "data": {"booking_result": booking_result}
-        }
+    room_service_orders = booking_details['room_service_orders']
 
     for order in room_service_orders:
         rs_order = {
@@ -91,8 +78,8 @@ def processOrderRS(booking_id, room_service_orders):
         # Check the order result; if a failure, send it to the error microservice.
         code = add_rs_result["code"]
         email_details = {
-            "email": booking_result['data']['email'],
-            "guest_name": booking_result['data']['guest_name'],
+            "email": email,
+            "guest_name": guest_name,
             "quantity": order['rs_quantity'],
             "price": order['item_price'],
             "item_name" : order["item_name"],
@@ -161,8 +148,8 @@ def processOrderRS(booking_id, room_service_orders):
     return {
         "code": 201,
         "booking_result": {
-            "email": booking_result['data']['email'],
-            "guest_name": booking_result['data']['guest_name'],
+            "email": email,
+            "guest_name": guest_name,
             "status": "success"
         }
     }

@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `room_service` (
 
 INSERT INTO `room_service` (`item_id`, `item_name`, `item_price`, `waiting_time`, `item_desc`) VALUES
 ('rs_1', "Lunch Special", 15, 30, "Cheap and delicious lunch meal special"),
-('rs_2', "8 Course Meal", 108, 50, "Exquisite 8 Course Meal prepared by the best chef in Singapore, Mr Verwin Kwa"),
-('rs_3', 'Hokkien Mee', 7, 20, "Michellelin Speciality HKM, must try!"), 
-('rs_4', 'Ice CreamING x Waffle', 18, 35, "Freshly made Belgium waffles that will make u go woah~!" ), 
+('rs_2', "6 Course Meal", 108, 60, "Exquisite 8 Course Meal prepared by the best chef in Singapore, Mr Verwin Kwa"),
+('rs_3', 'Hokkien Mee', 7, 30, "Michellelin Speciality HKM, must try!"), 
+('rs_4', 'Ice CreamING x Waffle', 18, 30, "Freshly made Belgium waffles that will make u go woah~!" ), 
 ('rs_5', 'Japanese Special', 67, 60, "Bringing Japanese Omakase to your doorstep!"), 
-('rs_6', 'Afternoon Tea Party', 80, 45, "Tea time for ladies and gents picked by the Queen's righthand men"), 
-('rs_7', "Laobu's Nasi Lemak", 20, 15, "Taste better than Punggol Nasi Alamak"), 
-('rs_8', 'Spanish Delight', 80, 55, "Hola! Specially picked by Prof Raf J.Barros"), 
-('rs_9', 'Italian Talent', 70, 45, "Don't be upsetti! Get spagetti!");
+('rs_6', 'Afternoon Tea Party', 80, 30, "Tea time for ladies and gents picked by the Queen's righthand men"), 
+('rs_7', "Laobu's Nasi Lemak", 20, 30, "Taste better than Punggol Nasi Alamak"), 
+('rs_8', 'Spanish Delight', 80, 60, "Hola! Specially picked by Prof Raf J.Barros"), 
+('rs_9', 'Italian Talent', 70, 30, "Don't be upsetti! Get spagetti!");
 
 --
 -- Indexes for dumped tables

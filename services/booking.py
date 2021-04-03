@@ -69,6 +69,43 @@ def find_by_booking_id(booking_id):
         }
     ), 404
 
+# update discount to 10%
+# requires booking_id in URL
+@app.route("/booking/<string:booking_id>", methods=['PUT'])
+def set_discount(booking_id):
+    try:
+        booking = Booking.query.filter_by(booking_id=booking_id).first()
+        if not booking:
+            return jsonify(
+                {
+                    "code": 404,
+                    "data": {
+                        "booking_id": booking_id
+                    },
+                    "message": "booking_id not found."
+                }
+            ), 404
+
+        # update discount
+        booking.discount = 0.1
+        db.session.commit()
+        return jsonify(
+            {
+                "code": 200,
+                "data": booking.json()
+            }
+        ), 200
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "booking_id": booking_id
+                },
+                "message": "An error occurred while updating the order. " + str(e)
+            }
+        ), 500
+
 # dont think we need to get ALL BOOKINGs right.. since we doing client side of things 
 @app.route("/book")
 def get_all():
@@ -155,6 +192,7 @@ def update_book(isbn13):
             "message": "Book not found."
         }
     ), 404
+
 
 # delete booking is not client side so i never do 
 @app.route("/book/<string:isbn13>", methods=['DELETE'])
