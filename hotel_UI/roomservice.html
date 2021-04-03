@@ -89,7 +89,7 @@ https://templatemo.com/tm-529-ramayana
 
                 <div class="d-grid gap-2" style="margin-top: 30px; ">
                   <div class=" filled-rectangle-button">
-                    <a href="#">Check Out</a>
+                    <a href="#" onclick="add()">Check Out</a>
                   </div>
                 </div>              
               </div>
@@ -159,7 +159,14 @@ https://templatemo.com/tm-529-ramayana
     </div>
 
     <script>
-      // Get booking_id upon log in 
+      //Get sessions value 
+      var booking_id = sessionStorage.getItem("booking_id"); 
+      var guest_name = sessionStorage.getItem("guest_name"); 
+      var email = sessionStorage.getItem("email"); 
+      console.log(booking_id);
+      console.log(guest_name);
+      console.log(email);
+      
       function showError(message) {
                 // Hide the table and button in the event of error
                 $('#cards_rs').hide();
@@ -168,8 +175,7 @@ https://templatemo.com/tm-529-ramayana
                 $('#cards_rs')
                     .append("<label>" + message + "</label>");
             }
-      var booking_id = sessionStorage.getItem("booking_id")
-      console.log("booking_id:" + booking_id)
+      
       //async ensure that the document is fully loaded before the function is being executed 
       // anonymous async function 
       // - using await requires the function that calls it to be async
@@ -198,22 +204,29 @@ https://templatemo.com/tm-529-ramayana
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body">
-                                      <h5 class="card-title"><b>${rs.item_name}</b></h5>
+                                      <h5 class="card-title item_name"><b>${rs.item_name}</b></h5>
                                       <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                           😆 ${rs.item_desc}
-                                        </li>                       
+                                        </li>    
+                                        <li class="list-group-item d-none item_id" id="item_id">${rs.item_id}</li>                   
                                         <li class="list-group-item">
-                                          <b>💸 Price:</b> ${rs.item_price}
+                                          <b>💸 Price:</b>
+                                          <div class="item_price">${rs.item_price}</div>
                                         </li>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item" id="waiting_time">
                                           <b>🕒 Waiting Time: </b>
-                                          ${rs.waiting_time}
+                                          <div class="waiting_time">${rs.waiting_time}</div>
                                         </li>
                                         <li class="list-group-item"> 
-                                          <div class="radio-item">
-                                            <input name="${rs.item_id}" type="checkbox" id='${rs.item_id}''>
-                                            <label for="${rs.item_id}"><b>Add to Cart 🛒</b></label>
+                                          <div class="col-md-12">
+                                            <select name="quantity" class="quantity">
+                                              <option value="cart" selected>Add to cart 🛒</option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                            </select>
                                           </div>
                                         </li>
                                       </ul>
@@ -238,6 +251,81 @@ https://templatemo.com/tm-529-ramayana
       ('There is a problem retrieving books data, please try again later.<br />' + error);
               } // error
       });
+
+      // Add room services into cart
+      async function add() {  
+        var room_service_orders = []; 
+            
+        // Retrieve form input in your javascript
+        var quantity = document.getElementsByClassName('quantity');
+        var item_id_nodes = document.getElementsByClassName('item_id'); 
+        var item_price_nodes = document.getElementsByClassName('item_price'); 
+        var item_name_nodes = document.getElementsByClassName('item_name'); 
+        var waiting_time_nodes = document.getElementsByClassName('waiting_time'); 
+        //console.log(quantity.length);
+        for (var i=0; i< quantity.length; i++ ){
+          var rs_quantity = quantity[i].value; 
+          if (rs_quantity != 'cart' ){
+            var item_id = item_id_nodes[i].innerHTML; 
+            var item_price = item_price_nodes[i].innerText; 
+            var item_name = item_name_nodes[i].innerText;
+            var waiting_time = waiting_time_nodes[i].innerText;
+            // console.log(item_id);
+            // console.log(rs_quantity); 
+            // console.log(item_price);  
+            // console.log(item_name); 
+            // console.log(waiting_time);
+
+            room_service_orders.push({
+                  "item_id": item_id,
+                  "rs_quantity": rs_quantity,
+                  "item_price": item_price,
+                  "item_name": item_name,
+                  "waiting_time": waiting_time                
+            }) ; 
+          }
+        }
+        console.log(room_service_orders);
+        var json_file = {
+          "booking_id": booking_id, 
+          "guest_name": guest_name, 
+          "email": email, 
+          room_service_orders
+        };   
+        console.log(json_file);
+            // Change serviceURL to your own
+            var serviceURL = "http://127.0.0.1:5200/order_room_service"; 
+            
+            //for error handling 
+            try {
+                // POST have different way of arranging the fetch
+                const response =
+                 await fetch(
+                   serviceURL, { 
+                       method: 'POST', 
+                       headers: {"Content-Type": "application/json"}, body: JSON.stringify (json_file) 
+                });
+
+                // response.json is to parse the response data as JSON into objects so that we can use it 
+                const result = await response.json();
+                // code 201 is resource create
+                 if (response.status === 201) {
+                     console.log(result); 
+                    // success case
+                    } else if (response.status == 404) {
+                        // No books
+                        showError(result.message);
+                    } else {
+                        // unexpected outcome, throw the error
+                        throw response.status;
+                    }
+                } catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    showError
+        ('There is a problem adding order, please try again later.<br />' + error);
+                } // error
+      };
   
     </script>
 
