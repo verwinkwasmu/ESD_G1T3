@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-import os
-import sys
+import os, sys
+from os import environ
 
 import requests
 from invokes import invoke_http
@@ -14,9 +14,9 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-booking_URL = "http://localhost:5000/booking"
-cart_URL = "http://localhost:5001/cart"
-facility_URL = "http://localhost:5002/facility"
+booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
+cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
+facility_URL = environ.get('facility_URL') or "http://localhost:5002/facility"
 
 @app.route("/book_facilities/send_hotel_facilities", methods=['POST'])
 def send_facilities_booking():

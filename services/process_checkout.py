@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-import os
+import os, sys
+from os import environ
 import stripe
 import requests
 from invokes import invoke_http
+import pika
 
 app = Flask(__name__)
 CORS(app)
 amount = 2500
 
-booking_URL = "http://localhost:5000/booking"
-cart_URL = "http://localhost:5001/cart"
-payment_URL = "http://localhost:4242/make_payment"
+
+booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
+cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
+payment_URL = environ.get('payment_URL') or "http://localhost:5002/payment"
 
 
 @app.route("/calc_total", methods=['POST'])
@@ -142,4 +145,4 @@ def create_checkout():
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for procesing checkouts...")
-    app.run(host="0.0.0.0", port=5300, debug=True)
+    app.run(host="0.0.0.0", port=5400, debug=True)
