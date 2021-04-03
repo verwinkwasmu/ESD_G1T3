@@ -11,9 +11,9 @@ import pika
 app = Flask(__name__)
 CORS(app)
 
-booking_URL = "http://localhost:5000/booking"
-cart_URL = "http://localhost:5001/cart"
-payment_URL = "http://localhost:4242/create-checkout-session"
+booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
+cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
+payment_URL = environ.get('payment_URL') or "http://localhost:4242/create-checkout-session"
 
 
 @app.route("/calc_total", methods=['POST'])
