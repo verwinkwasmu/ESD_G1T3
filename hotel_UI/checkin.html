@@ -1,104 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-    <title>Check-In 🧳</title>
+  <title>Check-In 🧳</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!--
+  <!--
 Ramayana CSS Template
 https://templatemo.com/tm-529-ramayana
 -->
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-style.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-style.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
 
-  </head>
+</head>
 
 <body class="is-preload">
 
-    <!-- Wrapper -->
-    <div id="wrapper">
+  <!-- Wrapper -->
+  <div id="wrapper">
 
-      <!-- Main -->
-        <div id="main">
-          <div class="inner">
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
 
-            <!-- Header -->
-            <header id="header">
-              <div class="logo">
-                <a href="index.html">Hotel</a>
-              </div>
-            </header>
+        <!-- Header -->
+        <header id="header">
+          <div class="logo">
+            <a href="index.html">Hotel</a>
+          </div>
+        </header>
 
-            <!-- Heading  -->
-            <section class="simple-post">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-12">
-                    <img src="assets/images/simple-post.jpg" alt="" style=" display:block;
+        <!-- Heading  -->
+        <section class="simple-post">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <img src="assets/images/simple-post.jpg" alt="" style=" display:block;
                     margin-left: auto;
                     margin-right: auto;
                     width: 50%;">
-                    <div class="down-content">
-                      <h1 style="text-align: center;">Check-In 🧳</h1>
-                    </div>
-                  </div>
-                </div>          
-              </div>
-            </section>
-            
-             <!-- Forms -->
-             <section class="forms" id= "checkin">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-12">
-                    <form id="contact" action="">
-                      <div class="row">
-                        <!--TO SEND FORM !! -->
-                        
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="guest_name" type="text" class="form-control" id="guest_name" placeholder="Name" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="nric_passportno" type="text" class="form-control" id="nric_passportno" placeholder="NRIC/Passport Number" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="email" type="text" class="form-control" id="email" placeholder="Email" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="booking_id" type="number" class="form-control" id="booking_id" placeholder="Booking ID" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-12">
-                            <button type="submit" onclick= "assignSession(); return false; btnclick(event);" id="form-submit" class="button">Check-In</button>
-                          </div>
-                     
-                      </div>
-                    </form>
-                  </div>
+                <div class="down-content">
+                  <h1 style="text-align: center;">Check-In 🧳</h1>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
+        </section>
+
+        <!-- Forms -->
+        <section class="forms" id="checkin">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <form id="contact" action="">
+                  <div class="row">
+                    <!--TO SEND FORM !! -->
+
+                    <div class="col-md-6">
+                      <fieldset>
+                        <input name="guest_name" type="text" class="form-control" id="guest_name" placeholder="Name"
+                          required="">
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <input name="nric_passportno" type="text" class="form-control" id="nric_passportno"
+                          placeholder="NRIC/Passport Number" required="">
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <input name="email" type="text" class="form-control" id="email" placeholder="Email" required="">
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <input name="booking_id" type="number" class="form-control" id="booking_id"
+                          placeholder="Booking ID" required="">
+                      </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="submit" onclick="assignSession(event); return false;" id="form-submit"
+                        class="button">Check-In</button>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+<<<<<<< Updated upstream
         </div>
      
 
@@ -131,39 +134,64 @@ https://templatemo.com/tm-529-ramayana
           <div class="featured-posts">
             <div class="heading">
               <h2>Featured Posts</h2>
-            </div>
-            <div class="owl-carousel owl-theme">
-              <a href="#">
-                <div class="featured-item">
-                  <img src="assets/images/featured_post_01.jpg" alt="featured one">
-                  <p>Travel in comfort with Singapore Airlines~!</p>
-                </div>
-              </a>
-              <a href="#">
-                <div class="featured-item">
-                  <img src="assets/images/featured_post_02.jpg" alt="featured two">
-                  <p>Patiently waiting for your arrival...</p>
-                </div>
-              </a>
-              <a href="#">
-                <div class="featured-item">
-                  <img src="assets/images/featured_post_03.jpg" alt="featured three">
-                  <p>Where elegance meets comfort in the heart of the city</p>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <footer id="footer">
-            <p class="copyright">Copyright &copy; 2021 The Dream Team
-            <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
-          </footer>
-
-        </div>
+=======
+        </section>
       </div>
     </div>
+  </div>
+  <!-- Sidebar -->
+  <div id="sidebar">
 
+    <div class="inner">
+
+      <!-- Search Box -->
+      <section id="search" class="alt">
+        <form method="get" action="#">
+          <input type="text" name="search" id="search" placeholder="Search..." />
+        </form>
+      </section>
+
+      <!-- Menu -->
+      <nav id="menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="roomservice.html">Room Service</a></li>
+          <li><a href="facility.html">Facility Booking</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="attractions.html">Nearby Attractions</a></li>
+        </ul>
+      </nav>
+
+      <!-- Featured Posts -->
+      <div class="featured-posts">
+        <div class="heading">
+          <h2>Featured Posts</h2>
+        </div>
+        <div class="owl-carousel owl-theme">
+          <a href="#">
+            <div class="featured-item">
+              <img src="assets/images/featured_post_01.jpg" alt="featured one">
+              <p>Travel in comfort with Singapore Airlines~!</p>
+>>>>>>> Stashed changes
+            </div>
+          </a>
+          <a href="#">
+            <div class="featured-item">
+              <img src="assets/images/featured_post_02.jpg" alt="featured two">
+              <p>Patiently waiting for your arrival...</p>
+            </div>
+          </a>
+          <a href="#">
+            <div class="featured-item">
+              <img src="assets/images/featured_post_03.jpg" alt="featured three">
+              <p>Where elegance meets comfort in the heart of the city</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+<<<<<<< Updated upstream
   <script>  
       //For testing 
       sessionStorage.setItem("guest_name", "Jessie"); 
@@ -182,19 +210,29 @@ https://templatemo.com/tm-529-ramayana
       e.preventDefault();
       }
      
+=======
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">Copyright &copy; 2021 The Dream Team
+          <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
+      </footer>
+>>>>>>> Stashed changes
 
-    function assignSession() {
-      var guest_name = document.getElementById('guest_name').value; 
-      var nric_passportno = document.getElementById('nric_passportno').value; 
+    </div>
+  </div>
+  </div>
+
+  <script>
+    // sessionStorage.clear()
+    async function assignSession() {
+      var guest_name = document.getElementById('guest_name').value;
+      var nric_passportno = document.getElementById('nric_passportno').value;
       var email = document.getElementById('email').value;
       var booking_id = document.getElementById('booking_id').value;
-      // console.log('hi');
-      // console.log(guest_name); 
 
-      //Retrieve information based on booking_id
-     
       var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
 
+<<<<<<< Updated upstream
       fetch(serviceURL, {
           method: 'GET'}
           )
@@ -214,26 +252,77 @@ https://templatemo.com/tm-529-ramayana
 
         }
     }
+=======
+      try {
+        const response =
+          await fetch(
+            serviceURL, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+          );
+        const result = await response.json();
+        if (result.code === 200) {
+          console.log(result.data)
+          // success case
+          console.log("user found")
+          sessionStorage.setItem("guest_name", guest_name);
+          sessionStorage.setItem("nric_passportno", nric_passportno);
+          sessionStorage.setItem("email", email);
+          sessionStorage.setItem("booking_id", booking_id);
+          console.log(sessionStorage.getItem("guest_name"))
+          console.log(sessionStorage.getItem("nric_passportno"))
+          console.log(sessionStorage.getItem("email"))
+          console.log(sessionStorage.getItem("booking_id"))
+          window.location.replace('index.html')
+        } else if (result.code == 404) {
+          // No booking
+          console.log('no such booking exists!')
+        } else {
+          // unexpected outcome, throw the error
+          console.log('thrown')
+          throw result.code;
+        }
+      } catch (error) {
+        // Errors when calling the service; such as network error, 
+        // service offline, etc
+        console.log(error)
+      } // error
+    }
+
+
+      // storing input values in session 
+      // sessionStorage.setItem("guest_name", guest_name); 
+      // sessionStorage.setItem("nric_passportno", nric_passportno); 
+      // sessionStorage.setItem("email", email); 
+      // sessionStorage.setItem("booking_id", booking_id); 
+      // console.log(sessionStorage.getItem("guest_name"))
+      // console.log(sessionStorage.getItem("nric_passportno"))
+      // console.log(sessionStorage.getItem("email"))
+      // console.log(sessionStorage.getItem("booking_id"))
+>>>>>>> Stashed changes
 
     // sessionStorage.clear();
 
- 
 
 
-    </script>
+
+  </script>
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/transition.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/custom.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/transition.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/custom.js"></script>
 </body>
 
 
-  </body>
+</body>
 
 </html>
