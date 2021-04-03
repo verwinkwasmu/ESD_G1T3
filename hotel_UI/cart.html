@@ -4,10 +4,12 @@
   <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <!-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <meta name="author" content=""> -->
 
     <title>Home 🏘️</title>
 
@@ -31,10 +33,10 @@
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
 
-    <script 
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
+  <script 
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+  crossorigin="anonymous"></script>
 
 <!--
 Ramayana CSS Template
@@ -85,10 +87,10 @@ https://templatemo.com/tm-529-ramayana
                         </div>
                     </div> 
                 </div>         
-            <section>
+              </section>
           </div>
         </div>  
-    </div>
+    
     <!-- Sidebar -->
     <div id="sidebar">
 
@@ -149,81 +151,109 @@ https://templatemo.com/tm-529-ramayana
         </div>
       </div>
     </div>
+  </div>
 
     <script> 
-        // Get booking_id upon log in 
-      function showError(message) {
-                // Hide the table and button in the event of error
-                $('#cards_rs').hide();
+    var booking_id = sessionStorage.getItem("booking_id");
+    console.log(booking_id); 
+    const data = { booking_id: booking_id };
+    console.log(data); 
 
-                // Display an error under the main container
-                $('#cards_rs')
-                    .append("<label>" + message + "</label>");
-            }
-      var booking_id = sessionStorage.getItem("booking_id")
-      console.log("booking_id:" + booking_id)
-      //async ensure that the document is fully loaded before the function is being executed 
-      // anonymous async function 
-      // - using await requires the function that calls it to be async
-      $(async() => {        
-          // Change serviceURL to your own
-          var serviceURL = "http://0.0.0.0:5100/check_cart";
-          console.log(serviceURL); 
-          
-          //for error handling 
-          try {
-              const response =
-               await fetch(
-                 serviceURL, { method: 'GET' }
-              );
-              // response.json is to parse the response data as JSON into objects so that we can use it 
-              const result = await response.json();
-              console.log(result)
-               if (response.status === 200) {
-                  // success case
-                  var cart_items = result.all_bookings.bookings; 
-                  var rows = "";
-                  for (const item of cart_items) {
-                    if (item.rs_delivered_status == null){
-                        item.rs_delivered_status = 'timeslot'; 
-                    }
-                    rows += `<div class="card mb-3">
-                                <div class="row g-0">
-                                  <div class="col-md-4">
-                                    <img src="..." alt="...">
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="card-body">
-                                      <h5 class="card-title"><b>${item.item_name}</b></h5>
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                          ${item.rs_delivered_status ? 'Delivered' : 'Not delivered'}
-                                        </li>                       
-                                        <li class="list-group-item">
-                                          <b>💸 Price:</b> ${item.price}
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>`;
-                 }
-                    // add all the rows to the table
-                    document.getElementById('cards_rs').innerHTML = rows; 
-                  } else if (response.status == 404) {
-                      // No room service 
-                      showError(result.message);
-                  } else {
-                      // unexpected outcome, throw the error
-                      throw response.status;
-                  }
-              } catch (error) {
-                  // Errors when calling the service; such as network error, 
-                  // service offline, etc
-                  showError
-      ('There is a problem retrieving books data, please try again later.<br />' + error);
-              } // error
+      fetch("http://localhost:5100/check_cart", {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
       });
+
+
+      // function showError(message) {
+      //           // Hide the table and button in the event of error
+      //           $('#cards_rs').hide();
+
+      //           // Display an error under the main container
+      //           $('#cards_rs')
+      //               .append("<label>" + message + "</label>");
+      //       }
+
+      // var booking_id = sessionStorage.getItem("booking_id");
+      // console.log("booking_id:" + booking_id);
+      // //async ensure that the document is fully loaded before the function is being executed 
+      // // anonymous async function 
+      // // - using await requires the function that calls it to be async
+      // $(async() => {        
+      //     // Change serviceURL to your own
+      //     var serviceURL = "http://0.0.0.0:5100/check_cart";
+      //     const data = { booking_id: booking_id };
+          
+      //     //for error handling 
+      //     try {
+      //         const response =
+      //          await fetch(
+      //           serviceURL,  {
+      //           method: 'POST', // or 'PUT'
+      //           headers: {
+      //             'Content-Type': 'application/json',
+      //           },
+      //           body: JSON.stringify(data),
+      //       }
+      //         );
+      //         // response.json is to parse the response data as JSON into objects so that we can use it 
+      //         const result = await response.json();
+      //         console.log(result)
+      //          if (response.status === 200) {
+      //             // success case
+      //             var cart_items = result.all_bookings.bookings; 
+      //             var rows = "";
+      //             for (const item of cart_items) {
+      //               if (item.rs_delivered_status == null){
+      //                   item.rs_delivered_status = 'timeslot'; 
+      //               }
+      //               rows += `<div class="card mb-3">
+      //                           <div class="row g-0">
+      //                             <div class="col-md-4">
+      //                               <img src="..." alt="...">
+      //                             </div>
+      //                             <div class="col-md-8">
+      //                               <div class="card-body">
+      //                                 <h5 class="card-title"><b>${item.item_name}</b></h5>
+      //                                 <ul class="list-group list-group-flush">
+      //                                   <li class="list-group-item">
+      //                                     ${item.rs_delivered_status ? 'Delivered' : 'Not delivered'}
+      //                                   </li>                       
+      //                                   <li class="list-group-item">
+      //                                     <b>💸 Price:</b> ${item.price}
+      //                                   </li>
+      //                                 </ul>
+      //                               </div>
+      //                             </div>
+      //                           </div>
+      //                         </div>`;
+      //            }
+      //               // add all the rows to the table
+      //               document.getElementById('cards_rs').innerHTML = rows; 
+      //             } else if (response.status == 404) {
+      //                 // No room service 
+      //                 showError(result.message);
+      //             } else {
+      //                 // unexpected outcome, throw the error
+      //                 throw response.status;
+      //             }
+      //         } catch (error) {
+      //             // Errors when calling the service; such as network error, 
+      //             // service offline, etc
+      //             showError
+      // ('There is a problem retrieving books data, please try again later.<br />' + error);
+      //         } // error
+      // });
       
      
 
@@ -243,8 +273,5 @@ https://templatemo.com/tm-529-ramayana
     <script src="assets/js/owl-carousel.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
-
-
-  </body>
 
 </html>

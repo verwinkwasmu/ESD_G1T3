@@ -100,7 +100,9 @@ https://templatemo.com/tm-529-ramayana
             </section>
           </div>
         </div>
-      </div>
+     
+
+      <!-- TO BE REMOVED !! redirect people to home page immediately upon successful log in -->
       <!-- Sidebar -->
       <div id="sidebar">
 
@@ -162,7 +164,19 @@ https://templatemo.com/tm-529-ramayana
       </div>
     </div>
 
-  <script>   
+  <script>  
+      //For testing 
+      sessionStorage.setItem("guest_name", "Jessie"); 
+      sessionStorage.setItem("nric_passportno", "ok"); 
+      sessionStorage.setItem("email", "ok"); 
+      sessionStorage.setItem("booking_id", 1); 
+
+      console.log(sessionStorage.getItem("guest_name"))
+      console.log(sessionStorage.getItem("nric_passportno"))
+      console.log(sessionStorage.getItem("email"))
+      console.log(sessionStorage.getItem("booking_id"))
+
+    
     function btnclick(e) {
     // comment and uncomment e.preventDefault to see the differences
       e.preventDefault();
@@ -196,23 +210,9 @@ https://templatemo.com/tm-529-ramayana
         });
 
         if (guest_name == booking.guest_name && nric_passportno == booking.nric_passportno && email == booking.email) {
-          
+
 
         }
-
-
-      
-     
-      //storing input values in session 
-      // sessionStorage.setItem("guest_name", guest_name); 
-      // sessionStorage.setItem("nric_passportno", nric_passportno); 
-      // sessionStorage.setItem("email", email); 
-      // sessionStorage.setItem("booking_id", booking_id); 
-      // console.log(sessionStorage.getItem("guest_name"))
-      // console.log(sessionStorage.getItem("nric_passportno"))
-      // console.log(sessionStorage.getItem("email"))
-      // console.log(sessionStorage.getItem("booking_id"))
-
     }
 
     // sessionStorage.clear();
