@@ -11,7 +11,7 @@ services:
   booking:
     build:
       context: ./services
-      dockerfile: booking.Dockerfile
+      dockerfile: Dockerfile.booking
     image: weixiangtoh/booking:esd
     restart: always
     environment:
@@ -26,7 +26,7 @@ services:
   cart:
     build:
       context: ./services
-      dockerfile: cart.Dockerfile
+      dockerfile: Dockerfile.cart
     image: weixiangtoh/cart:esd
     restart: always
     environment:
@@ -41,7 +41,7 @@ services:
   facility:
     build:
       context: ./services
-      dockerfile: facility.Dockerfile
+      dockerfile: Dockerfile.facility
     image: weixiangtoh/facility:esd
     restart: always
     environment:
@@ -56,7 +56,7 @@ services:
   room_service:
     build:
       context: ./services
-      dockerfile: room_service.Dockerfile
+      dockerfile: Dockerfile.room_service
     image: weixiangtoh/room_service:esd
     restart: always
     environment:
@@ -71,7 +71,7 @@ services:
   nearest_attractions:
     build:
       context: ./services
-      dockerfile: nearest_attractions.Dockerfile
+      dockerfile: Dockerfile.nearest_attractions
     image: weixiangtoh/nearest_attractions:esd
     restart: always
     environment:
@@ -99,7 +99,7 @@ services:
   notification:
     build:
       context: ./services
-      dockerfile: notification.Dockerfile
+      dockerfile: Dockerfile.notification
     image: weixiangtoh/notification:esd
     restart: always
     depends_on:
@@ -118,7 +118,7 @@ services:
   short_error_service:
     build:
       context: ./services
-      dockerfile: short_error_service.Dockerfile
+      dockerfile: Dockerfile.short_error_service
     image: weixiangtoh/short_error_service:esd
     restart: always
     depends_on:
@@ -139,7 +139,7 @@ services:
   long_error_service:
     build:
       context: ./services
-      dockerfile: long_error_service.Dockerfile
+      dockerfile: Dockerfile.long_error_service
     image: weixiangtoh/long_error_service:esd
     restart: always
     depends_on:
@@ -160,7 +160,7 @@ services:
   check_cart:
     build:
       context: ./services
-      dockerfile: check_cart.Dockerfile
+      dockerfile: Dockerfile.check_cart
     image: weixiangtoh/check_cart:esd
     restart: always
     depends_on:
@@ -181,7 +181,7 @@ services:
   order_room_service:
     build:
       context: ./services
-      dockerfile: order_room_service.Dockerfile
+      dockerfile: Dockerfile.order_room_service
     image: weixiangtoh/order_room_service:esd
     restart: always
     depends_on:
@@ -208,7 +208,7 @@ services:
   book_facilities:
     build:
       context: ./services
-      dockerfile: book_facilities.Dockerfile
+      dockerfile: Dockerfile.book_facilities
     image: weixiangtoh/book_facilities:esd
     restart: always
     depends_on:
@@ -233,7 +233,7 @@ services:
   # payment:
   #   build:
   #     context: ./services
-  #     dockerfile: payment.Dockerfile
+  #     dockerfile: Dockerfile.payment
   #   image: weixiangtoh/payment:esd
   #   restart: always
   #   environment:
@@ -248,7 +248,7 @@ services:
   # process_checkout:
   #   build:
   #     context: ./services
-  #     dockerfile: process_checkout.Dockerfile
+  #     dockerfile: Dockerfile.process_checkout
   #   image: weixiangtoh/process_checkout:esd
   #   restart: always
   #   depends_on:
