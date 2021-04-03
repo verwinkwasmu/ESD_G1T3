@@ -101,40 +101,6 @@ https://templatemo.com/tm-529-ramayana
               </div>
             </div>
           </div>
-<<<<<<< Updated upstream
-        </div>
-     
-
-      <!-- TO BE REMOVED !! redirect people to home page immediately upon successful log in -->
-      <!-- Sidebar -->
-      <div id="sidebar">
-
-        <div class="inner">
-
-          <!-- Search Box -->
-          <section id="search" class="alt">
-            <form method="get" action="#">
-              <input type="text" name="search" id="search" placeholder="Search..." />
-            </form>
-          </section>
-            
-          <!-- Menu -->
-          <nav id="menu">
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="roomservice.html">Room Service</a></li>
-              <li><a href="facility.html">Facility Booking</a></li>
-              <li><a href="cart.html">Cart</a></li>
-              <li><a href="attractions.html">Nearby Attractions</a></li>
-            </ul>
-          </nav>
-
-          <!-- Featured Posts -->
-          <div class="featured-posts">
-            <div class="heading">
-              <h2>Featured Posts</h2>
-=======
         </section>
       </div>
     </div>
@@ -173,7 +139,6 @@ https://templatemo.com/tm-529-ramayana
             <div class="featured-item">
               <img src="assets/images/featured_post_01.jpg" alt="featured one">
               <p>Travel in comfort with Singapore Airlines~!</p>
->>>>>>> Stashed changes
             </div>
           </a>
           <a href="#">
@@ -191,39 +156,17 @@ https://templatemo.com/tm-529-ramayana
         </div>
       </div>
 
-<<<<<<< Updated upstream
-  <script>  
-      //For testing 
-      sessionStorage.setItem("guest_name", "Jessie"); 
-      sessionStorage.setItem("nric_passportno", "ok"); 
-      sessionStorage.setItem("email", "ok"); 
-      sessionStorage.setItem("booking_id", 1); 
-
-      console.log(sessionStorage.getItem("guest_name"))
-      console.log(sessionStorage.getItem("nric_passportno"))
-      console.log(sessionStorage.getItem("email"))
-      console.log(sessionStorage.getItem("booking_id"))
-
-    
-    function btnclick(e) {
-    // comment and uncomment e.preventDefault to see the differences
-      e.preventDefault();
-      }
-     
-=======
       <!-- Footer -->
       <footer id="footer">
         <p class="copyright">Copyright &copy; 2021 The Dream Team
           <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
       </footer>
->>>>>>> Stashed changes
 
     </div>
   </div>
   </div>
 
   <script>
-    // sessionStorage.clear()
     async function assignSession() {
       var guest_name = document.getElementById('guest_name').value;
       var nric_passportno = document.getElementById('nric_passportno').value;
@@ -232,27 +175,6 @@ https://templatemo.com/tm-529-ramayana
 
       var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
 
-<<<<<<< Updated upstream
-      fetch(serviceURL, {
-          method: 'GET'}
-          )
-        .then(response => response.json())
-        .then(data => {
-          console.log('Success:', data);
-          var booking = data.data;
-          console.log(booking);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-
-        });
-
-        if (guest_name == booking.guest_name && nric_passportno == booking.nric_passportno && email == booking.email) {
-
-
-        }
-    }
-=======
       try {
         const response =
           await fetch(
@@ -265,18 +187,16 @@ https://templatemo.com/tm-529-ramayana
           );
         const result = await response.json();
         if (result.code === 200) {
-          console.log(result.data)
+          data = result.data
           // success case
-          console.log("user found")
-          sessionStorage.setItem("guest_name", guest_name);
-          sessionStorage.setItem("nric_passportno", nric_passportno);
-          sessionStorage.setItem("email", email);
-          sessionStorage.setItem("booking_id", booking_id);
-          console.log(sessionStorage.getItem("guest_name"))
-          console.log(sessionStorage.getItem("nric_passportno"))
-          console.log(sessionStorage.getItem("email"))
-          console.log(sessionStorage.getItem("booking_id"))
-          window.location.replace('index.html')
+          if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase()) {
+            console.log("user details match")
+            sessionStorage.setItem("guest_name", data.guest_name);
+            sessionStorage.setItem("nric_passportno", data.nric_passportno);
+            sessionStorage.setItem("email", data.email);
+            sessionStorage.setItem("booking_id", data.booking_id);
+            window.location.replace('index.html')
+          }
         } else if (result.code == 404) {
           // No booking
           console.log('no such booking exists!')
@@ -291,23 +211,6 @@ https://templatemo.com/tm-529-ramayana
         console.log(error)
       } // error
     }
-
-
-      // storing input values in session 
-      // sessionStorage.setItem("guest_name", guest_name); 
-      // sessionStorage.setItem("nric_passportno", nric_passportno); 
-      // sessionStorage.setItem("email", email); 
-      // sessionStorage.setItem("booking_id", booking_id); 
-      // console.log(sessionStorage.getItem("guest_name"))
-      // console.log(sessionStorage.getItem("nric_passportno"))
-      // console.log(sessionStorage.getItem("email"))
-      // console.log(sessionStorage.getItem("booking_id"))
->>>>>>> Stashed changes
-
-    // sessionStorage.clear();
-
-
-
 
   </script>
   <!-- Scripts -->
