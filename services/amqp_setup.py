@@ -35,11 +35,40 @@ queue_name = 'Notification'
 channel.queue_declare(queue=queue_name, durable=True) 
     # 'durable' makes the queue survive broker restarts
 
-#bind Error queue
+#bind Notification queue
 channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.notification')
     # bind the queue to the exchange via the key
     # any routing_key with two words and ending with '.notification' will be matched
     
+############   Short_Error_Service queue   #############
+#delcare Short_Error_Service queue
+queue_name = 'Short_Error_Service'
+channel.queue_declare(queue=queue_name, durable=True,  arguments={
+  'x-message-ttl' : 1800000, # Delay until the message is transferred in milliseconds.
+  'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
+  'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
+})
+    # 'durable' makes the queue survive broker restarts
+
+#bind Short_Error_Service queue
+channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.short_error_service')
+    # bind the queue to the exchange via the key
+    # any routing_key with two words and ending with '.short_error_service' will be matched
+
+############   Long_Error_Service queue   #############
+#delcare Long_Error_Service queue
+queue_name = 'Long_Error_Service'
+channel.queue_declare(queue=queue_name, durable=True,  arguments={
+  'x-message-ttl' : 3600000, # Delay until the message is transferred in milliseconds.
+  'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
+  'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
+})
+    # 'durable' makes the queue survive broker restarts
+
+#bind Long_Error_Service queue
+channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.long_error_service')
+    # bind the queue to the exchange via the key
+    # any routing_key with two words and ending with '.long_error_service' will be matched
 
 """
 This function in this module sets up a connection and a channel to a local AMQP broker,

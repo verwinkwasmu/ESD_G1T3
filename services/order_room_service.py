@@ -89,7 +89,7 @@ def processOrderRS(booking_id, room_service_orders):
         print('add_rs_result:', add_rs_result)
 
         # Check the order result; if a failure, send it to the error microservice.
-        # code = add_rs_result["code"]
+        code = add_rs_result["code"]
         email_details = {
             "email": booking_result['data']['email'],
             "guest_name": booking_result['data']['guest_name'],
@@ -98,7 +98,8 @@ def processOrderRS(booking_id, room_service_orders):
             "item_name" : order["item_name"],
             "date_time": add_rs_result["data"]["order_datetime"],
             "order_id": add_rs_result["data"]["order_id"],
-            "booking_id": add_rs_result["data"]["booking_id"]
+            "booking_id": add_rs_result["data"]["booking_id"],
+            "type": "room_service"
         }
 
         print('add_rs_result:', email_details)
@@ -117,6 +118,44 @@ def processOrderRS(booking_id, room_service_orders):
         # continue even if this invocation fails
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), message)
+
+        delay_content = {
+            "order_id": add_rs_result["data"]["order_id"],
+            "email": booking_result['data']['email'],
+            "guest_name": booking_result['data']['guest_name'],
+            "item_name" : order["item_name"],
+        }
+        delay_message = json.dumps(delay_content)
+
+        waiting_time = order['waiting_time']
+
+        if waiting_time == "30":
+            print('\n\n-----Publishing the (short error service) message with routing_key=order.notification-----')
+
+            amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.short_error_service",
+                                            body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
+            # make message persistent within the matching queues until it is received by some receiver
+            # (the matching queues have to exist and be durable and bound to the exchange)
+
+            # - reply from the invocation is not used;
+            # continue even if this invocation fails
+            print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
+                code), delay_message)
+        else:
+            print('\n\n-----Publishing the (long error service) message with routing_key=order.notification-----')
+
+            amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.long_error_service",
+                                            body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
+            # make message persistent within the matching queues until it is received by some receiver
+            # (the matching queues have to exist and be durable and bound to the exchange)
+
+            # - reply from the invocation is not used;
+            # continue even if this invocation fails
+            print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
+                code), delay_message)
+
+
+        
 
 
     return {

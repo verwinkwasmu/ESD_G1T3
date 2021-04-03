@@ -170,7 +170,8 @@ def send_hotel_facilities(booking_id, facilities_orders):
             "item_name" : order["item_name"],
             "date_time": add_fb_result["data"]["order_datetime"],
             "order_id": add_fb_result["data"]["order_id"],
-            "booking_id": add_fb_result["data"]["booking_id"]
+            "booking_id": add_fb_result["data"]["booking_id"],
+            "type": "facility"
         }
 
         print('email_details:', email_details)

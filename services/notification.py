@@ -33,11 +33,11 @@ def receiveNotification():
 # required signature for the callback; no return
 def callback(channel, method, properties, body):
     print("\nReceived an email request by " + __file__)
-    try:
-        print(body)
-        mail(json.loads(body))
-    except:
-        processError(body)
+    # try:
+    #     print(body)
+    mail(json.loads(body))
+    # except:
+    #     processError(body)
 
 
 def processError(errorMsg):
@@ -53,8 +53,19 @@ def processError(errorMsg):
 def format_email(data):
     name = str(data["guest_name"])
     qty = str(data["quantity"])
-    email_content = "<h4>Hello " + name + "!</h4><p>Here are your order details during your stay with us:</p>"
-    body = "<p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + qty + "</strong></p><p>Time ordered: " + str(data["date_time"]) + "</p>"
+    booking_type = str(data["type"])
+    email_content = "<h4>Hello " + name + "!</h4>"
+
+    if booking_type == "delay":
+        body = "<p>We apologise for the delay regarding order:</p><p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + qty + "</strong></p><p>Time ordered: " + str(data["date_time"]) + "</p><p>To make it up to you, here is a <strong>10%</strong> discount for your stay with us!</p>"
+
+    elif booking_type == "facility":
+        body = "<p>Here are your order details during your stay with us:</p><p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Time ordered: " + str(data["date_time"]) + "</p>"
+
+    else:
+        body = "<p>Here are your order details during your stay with us:</p><p>Item Name: <strong>" + str(data["item_name"]) + "</strong></p><p>Quantity: <strong>" + qty + "</strong></p><p>Time ordered: " + str(data["date_time"]) + "</p>"
+
+
     end = "<p>For your reference, here is your order number <strong>#" + str(data["order_id"]) + "</strong> and your booking number <strong>#"+ str(data["booking_id"]) +"</p>"
 
     return email_content + body + end
@@ -62,10 +73,17 @@ def format_email(data):
 def mail(json_msg):
     # email address, subject and body
     email_content = format_email(json_msg)
-    subject = "Order #" + str(json_msg["order_id"]) + " for Hotel Stay"
+    booking_type = str(json_msg["type"])
+
+    if booking_type == "facility":
+        subject = "Facility Booking Confirmation [#" + str(json_msg["order_id"]) + "]"
+    elif booking_type == "delay":
+        subject = "Update on order/booking [#" + str(json_msg["order_id"]) + "]"
+    else:
+        subject = "Order Room Service Confirmation [#" + str(json_msg["order_id"]) + "]"
 
     message = Mail(
-        from_email='hotelenterprise@esd.sg',
+        from_email= From('dreamhotel@esd.sg', 'Dream Hotel'),
         to_emails= str(json_msg["email"]),
         subject= subject,
         html_content=email_content)
@@ -83,9 +101,8 @@ def mail(json_msg):
         print(e)
 
 
-
 if __name__ == "__main__":
-    # app.run(debug=True)
+    # app.run(port=5004,debug=True)
     print("\nThis is " + os.path.basename(__file__), end='')
     print(": monitoring routing key '{}' in exchange '{}' ...".format(
         monitorBindingKey, amqp_setup.exchangename))
