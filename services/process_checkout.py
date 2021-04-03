@@ -10,6 +10,7 @@ import pika
 
 app = Flask(__name__)
 CORS(app)
+
 booking_URL = "http://localhost:5000/booking"
 cart_URL = "http://localhost:5001/cart"
 payment_URL = "http://localhost:4242/create-checkout-session"

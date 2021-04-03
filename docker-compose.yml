@@ -230,36 +230,36 @@ services:
   ##########################################################
   # Payment: The Payment microservice
   ##########################################################
-  # payment:
-  #   build:
-  #     context: ./services
-  #     dockerfile: Dockerfile.payment
-  #   image: weixiangtoh/payment:esd
-  #   restart: always
-  #   environment:
-  #     STRIPE_SK_API_KEY: "sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM"
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "4242:80"
+  payment:
+    build:
+      context: ./services
+      dockerfile: Dockerfile.payment
+    image: weixiangtoh/payment:esd
+    restart: always
+    environment:
+      STRIPE_SK_API_KEY: "sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM"
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "4242:4242"
 
   ##########################################################
   # process_checkout: The process_checkout microservice
   ##########################################################
-  # process_checkout:
-  #   build:
-  #     context: ./services
-  #     dockerfile: Dockerfile.process_checkout
-  #   image: weixiangtoh/process_checkout:esd
-  #   restart: always
-  #   depends_on:
-  #     - booking
-  #     - cart
-  #     - payment
-  #     - notification
-  #   environment:
-  #     booking_URL: "http://booking:5000/booking"
-  #     cart_URL: "http://cart:5001/cart"
-  #     payment_URL: "http://payment:5002/payment"
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5400:5400"
+  process_checkout:
+    build:
+      context: ./services
+      dockerfile: Dockerfile.process_checkout
+    image: weixiangtoh/process_checkout:esd
+    restart: always
+    depends_on:
+      - booking
+      - cart
+      - payment
+      - notification
+    environment:
+      booking_URL: "http://booking:5000/booking"
+      cart_URL: "http://cart:5001/cart"
+      payment_URL: "http://payment:4242/create-checkout-session"
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5400:5400"
