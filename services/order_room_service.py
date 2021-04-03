@@ -108,8 +108,8 @@ def processOrderRS(booking_details):
 
         delay_content = {
             "order_id": add_rs_result["data"]["order_id"],
-            "email": booking_result['data']['email'],
-            "guest_name": booking_result['data']['guest_name'],
+            "email": email,
+            "guest_name": guest_name,
             "item_name" : order["item_name"],
         }
         delay_message = json.dumps(delay_content)
