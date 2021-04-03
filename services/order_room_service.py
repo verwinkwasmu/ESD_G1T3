@@ -159,4 +159,4 @@ def processOrderRS(booking_details):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for ordering room service...")
-    app.run(port=5200, debug=True)
+    app.run(host="0.0.0.0",port=5200, debug=True)

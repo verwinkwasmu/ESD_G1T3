@@ -51,4 +51,4 @@ def get_next_page(page_token):
 
 
 if __name__ == "__main__":
-    app.run(port=5015, debug=True)
+    app.run(host="0.0.0.0",port=5015, debug=True)

@@ -18,7 +18,7 @@ services:
       dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/booking
       PYTHONUNBUFFERED: 1
     ports:
-      - "5000:80"
+      - "5000:5000"
 
   ###################################
   # Cart: The Cart microservice
@@ -33,7 +33,7 @@ services:
       cartURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/cart
       PYTHONUNBUFFERED: 1
     ports:
-      - "5001:80"
+      - "5001:5001"
   
   ##############################################
   # Facility: The Facility microservice
@@ -48,7 +48,7 @@ services:
       facilityURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/facility
       PYTHONUNBUFFERED: 1
     ports:
-      - "5002:80"
+      - "5002:5002"
 
   ##############################################
   # Room_Service: The Room_Service microservice
@@ -63,7 +63,7 @@ services:
       room_service_URL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service
       PYTHONUNBUFFERED: 1
     ports:
-      - "5003:80"
+      - "5003:5003"
 
   ############################################################
   # Nearest_Attractions: The Nearest_Attractions microservice
@@ -78,7 +78,7 @@ services:
       GOOGLE_API_KEY: "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
       PYTHONUNBUFFERED: 1
     ports:
-      - "5015:80"
+      - "5015:5015"
 
   ####################################
   # RabbitMQ: The messaging broker   
@@ -110,12 +110,12 @@ services:
       SENDGRID_API_KEY: "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"
       PYTHONUNBUFFERED: 1
     ports:
-      - "5004:80"
+      - "5004:5004"
 
   ############################################################
   # Short_Error_Service: The Short_Error_Service microservice
   ############################################################
-  Short_Error_Service:
+  short_error_service:
     build:
       context: ./services
       dockerfile: short_error_service.Dockerfile
@@ -131,7 +131,7 @@ services:
       cart_URL: "http://cart:5001/cart"
       PYTHONUNBUFFERED: 1
     ports:
-      - "5005:80"
+      - "5005:5005"
 
   ##########################################################
   # Long_Error_Service: The Long_Error_Service microservice
@@ -152,7 +152,7 @@ services:
       cart_URL: "http://cart:5001/cart"
       PYTHONUNBUFFERED: 1
     ports:
-      - "5006:80"
+      - "5006:5006"
 
   ##########################################################
   # Check_Cart: The Check_Cart microservice
