@@ -2,16 +2,18 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import os
-
+import stripe
 import requests
 from invokes import invoke_http
 
 app = Flask(__name__)
 CORS(app)
+amount = 2500
 
 booking_URL = "http://localhost:5000/booking"
 cart_URL = "http://localhost:5001/cart"
 payment_URL = "http://localhost:4242/make_payment"
+
 
 @app.route("/calc_total", methods=['POST'])
 def calc_total_payment():
@@ -37,6 +39,7 @@ def calc_total_payment():
         "message": "Invalid JSON input: " + str(request.get_data()),
         "test": str(request.is_json)
     }), 400
+
 
 def total_amount(booking_id):
     # 2. Send booking id to booking microservice to retrieve all booking items
@@ -65,7 +68,8 @@ def total_amount(booking_id):
         total = 0
         for purchase in cart_items:
             if purchase['price'] != None:
-                total += float(purchase['price']) * int(purchase['rs_quantity'])
+                total += float(purchase['price']) * \
+                    int(purchase['rs_quantity'])
 
     total = round((total + room_price) * (1 - discount), 2)
 
@@ -73,6 +77,7 @@ def total_amount(booking_id):
         "code": 200,
         "total": total
     }
+
 
 @app.route("/process_payment", methods=['POST'])
 def process_payment():
@@ -99,16 +104,39 @@ def process_payment():
         "test": str(request.is_json)
     }), 400
 
+
 def make_payment(details):
     # 2. Send details to payment microservice for stripe API
     # Invoke payment microservice
     print('\n-----Invoking payment microservice-----')
     payment_result = invoke_http(payment_URL, method='POST', json=details)
     return payment_result
+
     if payment_result['code'] == 200:
         return {
             "code": 200
         }
+
+
+@app.route("/process/payment")
+def create_checkout():
+    amount = 2500
+    stripe.api_key = "sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM"
+    response = invoke_http("http://127.0.0.1:4242/create-checkout-session", method='POST', json={"amount" : amount})
+    
+    print(response)
+    if response:
+        session_id = response["id"]  # give "id" : checkout_session.id
+    else:
+        return jsonify(
+            {
+                "code": 404,
+                "message": "error."
+            }
+        ), 404
+    result = stripe.checkout.Session.retrieve(session_id)
+    return result
+
 
 # Execute this program if it is run as a main script (not by 'import')
 if __name__ == "__main__":
