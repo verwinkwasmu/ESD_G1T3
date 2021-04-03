@@ -92,23 +92,8 @@ https://templatemo.com/tm-529-ramayana
                     <input class ="d-none" name="lon" type="text" id="lon">
                     <input class ="d-none" name="radius" type="text" id="radius" value="1000">
                     <!-- Type <input name="type" type="text" id="type" value="cafe"> -->
-
-                    <!-- <div class="dropdown">
-                      <button name= "type" id="type" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%;">
-                        Type
-                      </button>
-                      <ul class="dropdown-menu" style= "width:100%;" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Bar</a></li>
-                        <li><a class="dropdown-item" href="#">Cafe</a></li>
-                        <li><a class="dropdown-item" href="#">Convenience Store</a></li>
-                        <li><a class="dropdown-item" href="#">Library</a></li>
-                        <li><a class="dropdown-item" href="#">Shopping Mall</a></li>
-                        <li><a class="dropdown-item" href="#">Spa</a></li>
-                        <li><a class="dropdown-item" href="#">Tourist Attraction</a></li>
-                      </ul>
-                    </div> -->
-
-                    <label for="type"><h4 style="text-align: center;">Choose a type of attraction:</h4></label>
+                    <div class="col-md-12">
+                      <label for="type"><h4 style="text-align: center;">Choose a type of attraction:</h4></label>
                       <select name="type" style="margin-left: 2px; width:80%;"> 
                           <option value='tourist_attraction' class='dropdown-item'>Tourist Attraction</option>
                           <option value='shopping_mall' class='dropdown-item'>Shopping Mall</option>
@@ -117,6 +102,8 @@ https://templatemo.com/tm-529-ramayana
                           <option value='bar' class='dropdown-item'>Bar</option>
                           <option value='convenience_store' class='dropdown-item'>Convenience Store</option>
                       </select>
+                    </div>
+                    
 
                     <button type="button" class="d-none btn btn-primary" onclick="getLocation()">Current Location</button>
                     <br>
