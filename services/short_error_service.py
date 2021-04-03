@@ -13,15 +13,13 @@ from invokes import invoke_http
 import amqp_setup
 import pika
 import json
-
-from error_service import *
+import error_service
 
 app = Flask(__name__)
-CORS(app)
-
 
 monitorBindingKey = '*.short_error_service'
 queue_name = 'Short_Error_Service'
+
 
 
 if __name__ == "__main__":
@@ -29,4 +27,4 @@ if __name__ == "__main__":
     print("\nThis is " + os.path.basename(__file__), end='')
     print(": monitoring routing key '{}' in exchange '{}' ...".format(
         monitorBindingKey, amqp_setup.exchangename))
-    receiveNotification(queue_name)
+    error_service.receiveNotification(queue_name)

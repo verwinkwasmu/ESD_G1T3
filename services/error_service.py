@@ -63,7 +63,10 @@ def checkTiming(data):
             'code': 404,
             'status': 'failed to get order'
         }
-    if order_result["data"]["rs_delivered_status"] == "0":
+        
+    delivered = order_result["data"]["rs_delivered_status"]
+
+    if not delivered:
         email_details = {
             "email": data['email'],
             "guest_name": data['guest_name'],

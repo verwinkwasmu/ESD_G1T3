@@ -60,6 +60,7 @@ channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.short
 queue_name = 'Long_Error_Service'
 channel.queue_declare(queue=queue_name, durable=True,  arguments={
   'x-message-ttl' : 3600000, # Delay until the message is transferred in milliseconds.
+#   'x-message-ttl' : 36000, # Delay until the message is transferred in milliseconds.
   'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
   'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
 })
