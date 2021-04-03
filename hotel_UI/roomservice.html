@@ -72,6 +72,8 @@ https://templatemo.com/tm-529-ramayana
                 <div class="row">
                   <div class="col-md-12" style="text-align: center;">
                     <h1>Room Service 🍝</h1>
+                    <!-- not sure if my loader is working properly lol -->
+                    <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
                   </div>
                 </div>
               </div>
@@ -200,23 +202,23 @@ https://templatemo.com/tm-529-ramayana
                     rows += `<div class="card mb-3">
                                 <div class="row g-0">
                                   <div class="col-md-4">
-                                    <img src="https://esdg1t3bucket.s3.amazonaws.com/${rs.item_id}" alt="...">
+                                    <img src="assets/images/${rs.item_id}" alt="...">
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body">
                                       <h5 class="card-title item_name"><b>${rs.item_name}</b></h5>
                                       <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                          😆 ${rs.item_desc}
+                                          ${rs.item_desc} 😆
                                         </li>    
                                         <li class="list-group-item d-none item_id" id="item_id">${rs.item_id}</li>                   
                                         <li class="list-group-item">
-                                          <b>💸 Price:</b>
-                                          <div class="item_price">${rs.item_price}</div>
+                                          <b>Price:</b>
+                                          <div class="item_price">${rs.item_price} 💸 </div>
                                         </li>
                                         <li class="list-group-item" id="waiting_time">
-                                          <b>🕒 Waiting Time: </b>
-                                          <div class="waiting_time">${rs.waiting_time}</div>
+                                          <b>Waiting Time: </b>
+                                          <div class="waiting_time">${rs.waiting_time} 🕒 </div>
                                         </li>
                                         <li class="list-group-item"> 
                                           <div class="col-md-12">
