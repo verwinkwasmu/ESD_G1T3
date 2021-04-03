@@ -281,7 +281,7 @@ https://templatemo.com/tm-529-ramayana
     // Fetch for total amount 
     const data = { booking_id: booking_id };
 
-    fetch('http://localhost:5300/calc_total', {
+    fetch('http://localhost:5400/calc_total', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -305,7 +305,7 @@ https://templatemo.com/tm-529-ramayana
     var checkoutButton = document.getElementById("checkout-button");
     checkoutButton.addEventListener("click", function () {
       total = document.getElementById('total').value * 100
-      fetch("http://127.0.0.1:5300/process_payment", {
+      fetch("http://127.0.0.1:5400/process_payment", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import stripe
 # This is a sample test API key. Sign in to see examples pre-filled with your key.
-STRIPE_SK_API_KEY = 'sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM'
+stripe.api_key = 'sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM'
 
 app = Flask(__name__,
             static_url_path='',
@@ -48,4 +48,4 @@ def create_checkout_session():
         return jsonify(error=str(e)), 403
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=4242, debug=True)
+    app.run(port=4242, debug=True)

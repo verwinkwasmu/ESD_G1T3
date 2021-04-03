@@ -1,31 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-<<<<<<< Updated upstream
 import os, sys
 from os import environ
 import stripe
-=======
-import os
->>>>>>> Stashed changes
 import requests
 from invokes import invoke_http
 import pika
 
 app = Flask(__name__)
 CORS(app)
-<<<<<<< Updated upstream
-amount = 2500
-
-
-booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
-cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
-payment_URL = environ.get('payment_URL') or "http://localhost:5002/payment"
-=======
 booking_URL = "http://localhost:5000/booking"
 cart_URL = "http://localhost:5001/cart"
 payment_URL = "http://localhost:4242/create-checkout-session"
->>>>>>> Stashed changes
 
 
 @app.route("/calc_total", methods=['POST'])
