@@ -35,11 +35,10 @@
 <body>
     <div id="main-container" class="container">
         <h1 class="display-4">Book Search</h1>
-        Latitude <input name="lat" type="text" id="lat">
-        Longitude <input name="lon" type="text" id="lon">
+        <input class="d-none" name="lat" type="text" id="lat">
+        <input class="d-none" name="lon" type="text" id="lon">
         Radius <input name="radius" type="text" id="radius" value="1000">
         Type <input name="type" type="text" id="type" value="cafe">
-        <button type="button" class="btn btn-primary" onclick="getLocation()">Current Location</button>
         <br>
         <button type="button" class="btn btn-primary" onclick='search()'>Submit</button>
         <br>
@@ -72,7 +71,15 @@
         </div>
         <script>
             // Helper function to display error message
+            
+            $(document).ready(function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+            })
+
             var counter = 0;
+
             function showError(message) {
                 // Hide the table and button in the event of error
                 $('#booksTable').hide();
@@ -92,9 +99,6 @@
   <span class="sr-only"></span>
 </div>`)
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                }
 
                 let lat = $("#lat").val();
                 let lon = $("#lon").val();
@@ -123,8 +127,8 @@
                         console.log(result.results)
                         $("#searchOutput").empty()
                         for (let location of result.results) {
-                            
-                            if (location.price_level == undefined){
+
+                            if (location.price_level == undefined) {
                                 location.price_level = '-'
                             }
                             if ("photos" in location) {
