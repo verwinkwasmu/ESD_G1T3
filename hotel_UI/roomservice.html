@@ -80,17 +80,11 @@ https://templatemo.com/tm-529-ramayana
                             <div class="col-md-12">
                                 <div id='cards_rs'>
                                 </div>
+                                <div class="loader mx-auto" id="loader1" style="width: 3rem; height: 3rem; display: none;"></div>
                             </div>
                         </div>
 
-                        <div class="d-grid gap-2" style="margin-top: 30px; ">
-                            <div class=" filled-rectangle-button">
-                                <a onclick="add()" id="orderButton" style="color:white">Order</a>
-                            </div>
-                            <div id="displayAlert" class="alert alert-danger fade show d-none text-center" role="alert">
-                                Please remember to add food options to cart!
-                            </div>
-                        </div>
+                       
                     </div>
                 </section>
             </div>
@@ -166,6 +160,12 @@ https://templatemo.com/tm-529-ramayana
         var guest_name = localStorage.getItem("guest_name");
         var email = localStorage.getItem("email");
 
+        function displayLoader(){
+          var loader1 = document.getElementById('loader1');
+          loader1.style.display = 'block';
+          console.log('hi'); 
+          console.log(loader1); 
+        }
 
         //Loader stuff 
         var loader = document.getElementById('loader');
@@ -185,8 +185,6 @@ https://templatemo.com/tm-529-ramayana
         $(async () => {
             // Change serviceURL to your own
             var serviceURL = "http://127.0.0.1:5003/room_service";
-
-            //for error handling 
             try {
                 loader.style.display = 'block';
                 const response =
@@ -238,9 +236,18 @@ https://templatemo.com/tm-529-ramayana
                                     </div>
                                   </div>
                                 </div>
-                              </div>`;
+                              </div>
+                              `;
                     }
                     // add all the rows to the table
+                    rows += ` <div class="d-grid gap-2" style="margin-top: 30px; ">
+                            <div class=" filled-rectangle-button">
+                                <a onclick="add(); displayLoader();" id="orderButton" style="color:white">Order</a>
+                            </div>
+                            <div id="displayAlert" class="alert alert-danger fade show d-none text-center" role="alert">
+                                Please remember to add food options to cart!
+                            </div>
+                        </div>`;
                     document.getElementById('cards_rs').innerHTML = rows;
                 } else if (response.status == 404) {
                     // No room service 
@@ -256,9 +263,10 @@ https://templatemo.com/tm-529-ramayana
                     ('There is a problem retrieving books data, please try again later.<br />' + error);
             } // error
         });
-
+    
         // Add room services into cart
         async function add() {
+            var loader1 = document.getElementById('loader1'); 
             var room_service_orders = [];
 
             // Retrieve form input in your javascript
@@ -325,6 +333,7 @@ https://templatemo.com/tm-529-ramayana
                 const result = await response.json();
                 // code 201 is resource create
                 if (response.status === 200) {
+                  loader1.style.display = 'none';
                     $("#cards_rs").html(
                         `<div style="width:100%;height:0;padding-bottom:69%;position:relative;"><iframe src="https://giphy.com/embed/hXOdZRP5preecWgizW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br>
                   <div class=" filled-rectangle-button">
