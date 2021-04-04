@@ -15,7 +15,7 @@
   <script>
 
     async function assignSession() {
-      var serviceURL = "http://localhost:5000/checkout/" + booking_id;
+      var serviceURL = "http://localhost:5000/checkout/" + localStorage.getItem("booking_id");
 
       try {
         const response =
