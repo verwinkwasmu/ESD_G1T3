@@ -9,6 +9,14 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
+    <httpProtocol>
+        <customHeaders>
+            <add name="Access-Control-Allow-Origin" value="*" />
+            <add name="Access-Control-Allow-Headers" value="Content-Type" />
+            <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />
+        </customHeaders>
+    </httpProtocol>
+
     <title>Check-In 🧳</title>
 
     <!-- Bootstrap core CSS -->
@@ -124,7 +132,7 @@ https://templatemo.com/tm-529-ramayana
             var email = document.getElementById('email').value;
             var booking_id = document.getElementById('booking_id').value;
 
-            var serviceURL = "https://esdg1t3-booking.herokuapp.com/booking" + booking_id;
+            var serviceURL = "http://localhost:5001/booking" + booking_id;
             var errorList = []
             var error = {
                 "guest_name": "Name",
@@ -197,7 +205,7 @@ https://templatemo.com/tm-529-ramayana
                         $("#displayAlert").removeClass("d-none");
                         return false
                     }
-                    else{
+                    else {
                         $("#displayAlert").text("Please check your particulars!")
                         $("#displayAlert").removeClass("d-none");
                         return false
