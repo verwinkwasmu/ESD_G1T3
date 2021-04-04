@@ -288,14 +288,14 @@ https://templatemo.com/tm-529-ramayana
                     // console.log(item_price);  
                     // console.log(item_name); 
                     // console.log(waiting_time);
-
                     room_service_orders.push({
                         "item_id": item_id,
                         "rs_quantity": rs_quantity,
                         "item_price": item_price,
                         "item_name": item_name,
                         "waiting_time": waiting_time
-                    });
+                    }) 
+                    console.log(room_service_orders);
                 }
             }
             // if (room_service_orders.length == 0) {
@@ -318,6 +318,7 @@ https://templatemo.com/tm-529-ramayana
                 "email": email,
                 room_service_orders
             };
+            console.log(json_file)
             // Change serviceURL to your own
             var serviceURL = "https://esdg1t3-orderroomservice.herokuapp.com/order_room_service";
 
