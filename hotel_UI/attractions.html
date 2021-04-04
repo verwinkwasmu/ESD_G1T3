@@ -107,19 +107,19 @@ https://templatemo.com/tm-529-ramayana
                      <button type="button" class="d-none btn btn-primary" onclick="getLocation()">Current Location</button>
                     <br>
                     <br>
-                    <button type="button" class="button" onclick='search(); displayLoader()'>Search 👀 </button>
+                    <button type="button" class="button" onclick='search()'>Search 👀 </button>
                     <br>
                     <br>
                   </div>
                   <div class="col-md-12">
-                    <div class="loader mx-auto d-none" id="loader" style="width: 3rem; height: 3rem;"></div>
+                    <div class="loader mx-auto" id="loader" style="width: 3rem; height: 3rem; display: none;"></div>
                     <div id="searchOutput">
                     </div>
                     <div id="display_next_page_button">
                     </div>
                   </div>
                     <!-- Modal for Google Map -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 10002;">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -134,7 +134,7 @@ section {
     
 }
 .main-banner .banner-content {
-	background-image: url(https://esdg1t3bucket.s3.amazonaws.com/main-banner.jpg);
+	background-image: url(../images/main-banner.jpg);
 	background-size: cover;
 	background-repeat: no-repeat; 
        
