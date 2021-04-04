@@ -143,10 +143,6 @@ def processOrderRS(booking_details):
             print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
                 code), delay_message)
 
-
-        
-
-
     return {
         "code": 201,
         "booking_result": {
