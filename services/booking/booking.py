@@ -32,10 +32,9 @@ class Booking(db.Model):
     room_number = db.Column(db.String, nullable=False)
     room_price = db.Column(db.Float(precision=2), nullable=False)
     discount = db.Column(db.Float(precision=2), nullable=False)
-    checkin_status = db.Column(db.Boolean, nullable=False)
     checkout_status = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, booking_id, guest_name, nric_passportno, email, stay_duration, room_number, room_price, discount, checkin_status, checkout_status ):
+    def __init__(self, booking_id, guest_name, nric_passportno, email, stay_duration, room_number, room_price, discount, checkout_status ):
         self.booking_id = booking_id
         self.guest_name = guest_name
         self.nric_passportno = nric_passportno
@@ -44,12 +43,11 @@ class Booking(db.Model):
         self.room_number = room_number
         self.room_price = room_price
         self.discount = discount
-        self.checkin_status = checkin_status
         self.checkout_status = checkout_status
         
 
     def json(self):
-        return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "discount": self.discount, "checkin_status": self.checkin_status, "checkout_status": self.checkout_status}
+        return {"booking_id": self.booking_id, "guest_name": self.guest_name, "nric_passportno": self.nric_passportno, "email": self.email, "stay_duration": self.stay_duration, "room_number": self.room_number, "room_price": self.room_price, "discount": self.discount, "checkout_status": self.checkout_status}
 
 #getting specific booking with unique booking_id
 @app.route("/booking/<string:booking_id>")
@@ -103,6 +101,41 @@ def set_discount(booking_id):
                     "booking_id": booking_id
                 },
                 "message": "An error occurred while updating the order. " + str(e)
+            }
+        ), 500
+
+@app.route("/checkout/<string:booking_id>", methods=['PUT'])
+def update_checkout(booking_id):
+    try:
+        booking = Booking.query.filter_by(booking_id=booking_id).first()
+        if not booking:
+            return jsonify(
+                {
+                    "code": 404,
+                    "data": {
+                        "booking_id": booking_id
+                    },
+                    "message": "booking_id not found."
+                }
+            ), 404
+
+        # update discount
+        booking.checkout_status = True
+        db.session.commit()
+        return jsonify(
+            {
+                "code": 200,
+                "data": booking.json()
+            }
+        ), 200
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "booking_id": booking_id
+                },
+                "message": "An error occurred while checking out. " + str(e)
             }
         ), 500
 
