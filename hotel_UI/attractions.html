@@ -102,23 +102,21 @@ https://templatemo.com/tm-529-ramayana
                           <option value='bar' class='dropdown-item'>Bar</option>
                           <option value='convenience_store' class='dropdown-item'>Convenience Store</option>
                       </select>
-                    </div>
                     
-
-                    <button type="button" class="d-none btn btn-primary" onclick="getLocation()">Current Location</button>
+          
+                     <button type="button" class="d-none btn btn-primary" onclick="getLocation()">Current Location</button>
                     <br>
                     <br>
-                    <button type="button" class="btn btn-primary" onclick='search()'>Submit</button>
+                    <button type="button" class="button" onclick='search()'>Search 👀 </button>
                     <br>
                     <br>
-            
-                    <h1> Results </h1>
-                    <div class="row row-cols-3 row-cols-md-3 g-4 justify-content-center" id="searchOutput">
-            
+                  </div>
+                  <div class="col-md-12">
+                    <div id="searchOutput">
                     </div>
                     <div id="display_next_page_button">
-            
                     </div>
+                  </div>
                     <!-- Modal for Google Map -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -127,7 +125,7 @@ https://templatemo.com/tm-529-ramayana
                                     <h5 class="modal-title" id="exampleModalLabel">Directions</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                                 </div>
-                                <div class="modal-body" id="modal-body">
+                                <div class="modal-body mx-auto" id="modal-body">
                                 </div>
                             </div>
                         </div>
@@ -227,7 +225,7 @@ https://templatemo.com/tm-529-ramayana
       }
 
       async function search(page_token) {
-          $("#searchOutput").html(`<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          $("#searchOutput").html(`<div class="spinner-border text-primary mx-auto" style="width: 3rem; height: 3rem;" role="status">
 <span class="sr-only"></span>
 </div>`)
           $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -306,25 +304,38 @@ https://templatemo.com/tm-529-ramayana
                           var emoji = "&#129300"
                       }
                       $("#searchOutput").append(
-                          `<div class="col">
-                          <div class="card h-100" style="width: 350px">
-                              <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&maxheight=350&photoreference=${photo}&key=${API_KEY}
-                              " class="card-img-top">
-                              <div class="card-body">
-                                  <h5 class="card-title">${location.name}</h5>
+                          `
+                          <div class="card mb-3">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&maxheight=350&photoreference=${photo}&key=${API_KEY}
+                                " alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title item_name"><b>${location.name}</b></h5>
                                   <h6 class="card-subtitle mb-2 text-muted">${status}</h6>
                                   <ul class="list-group list-group-flush">
-                                      <li class="list-group-item"><b>Address:</b> <br>${location.vicinity}</br></li>
-                                      <li class="list-group-item"><b>Price Level:</b> ${location.price_level} &#128184</li>
-                                      <li class="list-group-item"><b>Rating:</b> ${location.rating} ${emoji}</li>
+                                    <li class="list-group-item">
+                                        <b>Address:</b> 
+                                        <br>${location.vicinity}</br>
+                                    </li>    
+                                    <li class="list-group-item">
+                                        <b>Price Level:</b> 
+                                        ${location.price_level} 💸
+                                    </li>                   
+                                    <li class="list-group-item">
+                                      <b>Rating:</b> 
+                                      ${location.rating} ${emoji}
+                                    </li>
                                   </ul>
                                   <br>
-                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getDirections('${location.place_id}','${lat}/${lon}')">Directions</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getDirections('${location.place_id}','${lat}/${lon}')">Directions</button>
+                                </div>
                               </div>
-                          </div>
-                      </div>`
-
-                      )
+                            </div>
+                          </div>`
+                      );
 
                   }
                   if ("next_page_token" in result) {

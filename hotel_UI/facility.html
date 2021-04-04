@@ -70,6 +70,7 @@ https://templatemo.com/tm-529-ramayana
             <div class="row">
               <div class="col-md-12">
                 <h1>Facility Booking 🧖‍♀️</h1>
+                <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
               </div>
             </div>
           </div>
@@ -82,12 +83,6 @@ https://templatemo.com/tm-529-ramayana
               <div class="col-md-12">
                 <div id='cards_rs'>
                 </div>
-              </div>
-            </div>
-
-            <div class="d-grid gap-2" style="margin-top: 30px; ">
-              <div class=" filled-rectangle-button">
-                <a href="#">Check Out</a>
               </div>
             </div>
           </div>
@@ -186,21 +181,21 @@ https://templatemo.com/tm-529-ramayana
             rows += `<div class="card mb-3">
                                 <div class="row g-0">
                                   <div class="col-md-4">
-                                    <img src="https://esdg1t3bucket.s3.amazonaws.com/${f.item_id}" alt="...">
+                                    <img src="assets/images/${f.item_id}" alt="...">
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body">
                                       <h5 class="card-title"><b>${f.item_name}</b></h5>
                                       <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                          😆 ${f.item_desc}
+                                          ${f.item_desc} 😆 
                                         </li>                       
                                         <li class="list-group-item">
-                                          <b>💸 Price:</b> ${f.item_price}
+                                          <b>Price:</b> ${f.item_price} 💸
                                         </li>
                                         <li class="list-group-item">
-                                          <b>🙎‍♂️ Max Capacity </b>
-                                          ${f.max_capacity}
+                                          <b>Max Capacity </b>
+                                          ${f.max_capacity} 🙎‍♂️
                                         </li>
                                         <li class="list-group-item">
                                           <div class="col-md-6">
