@@ -10,8 +10,8 @@ services:
   ###################################
   booking:
     build:
-      context: ./services
-      dockerfile: Dockerfile.booking
+      context: ./services/booking
+      dockerfile: Dockerfile
     image: weixiangtoh/booking:esd
     restart: always
     environment:
@@ -25,8 +25,8 @@ services:
   ###################################
   cart:
     build:
-      context: ./services
-      dockerfile: Dockerfile.cart
+      context: ./services/cart
+      dockerfile: Dockerfile
     image: weixiangtoh/cart:esd
     restart: always
     environment:
@@ -40,8 +40,8 @@ services:
   ##############################################
   facility:
     build:
-      context: ./services
-      dockerfile: Dockerfile.facility
+      context: ./services/facility
+      dockerfile: Dockerfile
     image: weixiangtoh/facility:esd
     restart: always
     environment:
@@ -55,8 +55,8 @@ services:
   ##############################################
   room_service:
     build:
-      context: ./services
-      dockerfile: Dockerfile.room_service
+      context: ./services/room_service
+      dockerfile: Dockerfile
     image: weixiangtoh/room_service:esd
     restart: always
     environment:
@@ -70,8 +70,8 @@ services:
   ############################################################
   nearest_attractions:
     build:
-      context: ./services
-      dockerfile: Dockerfile.nearest_attractions
+      context: ./services/nearest_attractions
+      dockerfile: Dockerfile
     image: weixiangtoh/nearest_attractions:esd
     restart: always
     environment:
@@ -98,8 +98,8 @@ services:
   #################################################
   notification:
     build:
-      context: ./services
-      dockerfile: Dockerfile.notification
+      context: ./services/notification
+      dockerfile: Dockerfile
     image: weixiangtoh/notification:esd
     restart: always
     depends_on:
@@ -117,8 +117,8 @@ services:
   ############################################################
   short_error_service:
     build:
-      context: ./services
-      dockerfile: Dockerfile.short_error_service
+      context: ./services/short_error_service
+      dockerfile: Dockerfile
     image: weixiangtoh/short_error_service:esd
     restart: always
     depends_on:
@@ -138,8 +138,8 @@ services:
   ##########################################################
   long_error_service:
     build:
-      context: ./services
-      dockerfile: Dockerfile.long_error_service
+      context: ./services/long_error_service
+      dockerfile: Dockerfile
     image: weixiangtoh/long_error_service:esd
     restart: always
     depends_on:
@@ -159,8 +159,8 @@ services:
   ##########################################################
   check_cart:
     build:
-      context: ./services
-      dockerfile: Dockerfile.check_cart
+      context: ./services/check_cart
+      dockerfile: Dockerfile
     image: weixiangtoh/check_cart:esd
     restart: always
     depends_on:
@@ -180,8 +180,8 @@ services:
   ##########################################################
   order_room_service:
     build:
-      context: ./services
-      dockerfile: Dockerfile.order_room_service
+      context: ./services/order_room_service
+      dockerfile: Dockerfile
     image: weixiangtoh/order_room_service:esd
     restart: always
     depends_on:
@@ -207,8 +207,8 @@ services:
   ##########################################################
   book_facilities:
     build:
-      context: ./services
-      dockerfile: Dockerfile.book_facilities
+      context: ./services/book_facilities
+      dockerfile: Dockerfile
     image: weixiangtoh/book_facilities:esd
     restart: always
     depends_on:
@@ -232,8 +232,8 @@ services:
   ##########################################################
   payment:
     build:
-      context: ./services
-      dockerfile: Dockerfile.payment
+      context: ./services/payment
+      dockerfile: Dockerfile
     image: weixiangtoh/payment:esd
     restart: always
     environment:
@@ -247,8 +247,8 @@ services:
   ##########################################################
   process_checkout:
     build:
-      context: ./services
-      dockerfile: Dockerfile.process_checkout
+      context: ./services/process_checkout
+      dockerfile: Dockerfile
     image: weixiangtoh/process_checkout:esd
     restart: always
     depends_on:
