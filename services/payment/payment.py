@@ -18,7 +18,7 @@ app = Flask(__name__,
             static_folder='.')
 CORS(app)
 
-YOUR_DOMAIN = 'http://localhost:4242'
+YOUR_DOMAIN = 'https://esdg1t3ui.herokuapp.com/hotel_UI'
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():

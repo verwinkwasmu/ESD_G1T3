@@ -1,8 +1,10 @@
 <html>
+
 <head>
   <title>Thanks for your order!</title>
   <link rel="stylesheet" href="success.css">
 </head>
+
 <body>
   <section>
     <p>
@@ -11,7 +13,48 @@
     </p>
   </section>
   <script>
-    localStorage.clear()
+
+    async function assignSession() {
+      var serviceURL = "http://localhost:5000/checkout/" + booking_id;
+
+      try {
+        const response =
+          await fetch(
+            serviceURL, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+          );
+        const result = await response.json();
+        if (result.code === 200) {
+          data = result.data;
+          // success case
+          localStorage.clear()
+          var delayInMilliseconds = 5000; //1 second
+
+          setTimeout(function () {
+            window.location.replace('index.html')
+          }, delayInMilliseconds);
+
+        } else if (result.code > 200) {
+          // No booking
+          console.log('Fail to checkout!')
+        } else {
+          // unexpected outcome, throw the error
+          console.log('thrown')
+          throw result.code;
+        }
+      } catch (error) {
+        // Errors when calling the service; such as network error, 
+        // service offline, etc
+        console.log(error)
+      } // error
+    }
+
+    assignSession()
   </script>
 </body>
+
 </html>
