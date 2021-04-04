@@ -18,8 +18,8 @@ app = Flask(__name__)
 CORS(app)
 
 monitorBindingKey = '*.error_service'
-cart_URL = os.environ.get(
-    "cart_URL") or "https://esdg1t3-cart.herokuapp.com"
+cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com"
+booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
 
 def receiveNotification():
     amqp_setup.check_setup()
@@ -81,6 +81,8 @@ def checkTiming(data):
             "booking_id": order_result["data"]["booking_id"],
             "type": "delay"
         }
+
+        update_discount = invoke_http(booking_URL + "/booking/" + order_result["data"]["booking_id"], method='PUT')
 
         print('email_details:', email_details)
         message = json.dumps(email_details)

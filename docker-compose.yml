@@ -125,10 +125,12 @@ services:
       - rabbitmq
       - cart
       - notification
+      - booking
     environment:
       rabbit_host: rabbitmq
       rabbit_port: 5672
       cart_URL: "http://cart:5001/cart"
+      booking_URL: "http://booking:5000/booking"
       PYTHONUNBUFFERED: 1
     ports:
       - "5006:5006"
