@@ -87,5 +87,5 @@ def processCheckCart(booking_id):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for checking all items in cart...")
-    port = int(os.environ.get('PORT', 5100))
+    port = 5100 or int(os.environ.get('PORT', 5100))
     app.run(host="0.0.0.0", port=port, debug=False)

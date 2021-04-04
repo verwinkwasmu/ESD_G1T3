@@ -111,5 +111,5 @@ def process_payment():
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for procesing checkouts...")
-    port = int(os.environ.get('PORT', 5400))
+    port = 5400 or int(os.environ.get('PORT', 5400))
     app.run(host="0.0.0.0", port=port, debug=False)

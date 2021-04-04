@@ -109,5 +109,5 @@ def send_hotel_facilities(booking_details):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for book facilities...")
-    port = int(os.environ.get('PORT', 5300))
+    port = 5300 or int(os.environ.get('PORT', 5300))
     app.run(host="0.0.0.0", port=port, debug=True)
