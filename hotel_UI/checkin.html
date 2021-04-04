@@ -107,6 +107,7 @@ https://templatemo.com/tm-529-ramayana
   </div>
 </div>
   <script>
+    //localStorage.clear();
     myStorage = window.localStorage; 
     console.log(localStorage.getItem('guest_name')); 
     async function assignSession() {
@@ -131,13 +132,14 @@ https://templatemo.com/tm-529-ramayana
         if (result.code === 200) {
           data = result.data
           // success case
-          if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase()) {
-            console.log("user details match")
+          if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == false) {
+            console.log("user details match"); 
+            console.log(data.checkout_status); 
             localStorage.setItem("guest_name", data.guest_name);
             localStorage.setItem("nric_passportno", data.nric_passportno);
             localStorage.setItem("email", data.email);
             localStorage.setItem("booking_id", data.booking_id);
-            window.location.replace('index.html')
+            window.location.replace('index.html');
           }
         } else if (result.code == 404) {
           // No booking
