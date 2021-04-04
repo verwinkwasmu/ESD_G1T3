@@ -316,8 +316,11 @@ https://templatemo.com/tm-529-ramayana
                 // response.json is to parse the response data as JSON into objects so that we can use it 
                 const result = await response.json();
                 // code 201 is resource create
-                 if (response.status === 201) {
+                 if (response.status === 200) {
                      console.log(result); 
+                     $("#cards_rs").html(
+                        `<div style="width:100%;height:0;padding-bottom:69%;position:relative;"><iframe src="https://giphy.com/embed/hXOdZRP5preecWgizW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>`
+                    )
                     // success case
                     } else if (response.status == 404) {
                         // No books
