@@ -239,12 +239,12 @@ https://templatemo.com/tm-529-ramayana
           //console.log(type);
           let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
 
-          var serviceURL = `https://esdg1t3-nearestattractions.herokuapp.com/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
+          var serviceURL = `http://localhost:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
 
           if (page_token != undefined) {
 
               console.log(page_token);
-              serviceURL = `https://esdg1t3-nearestattractions.herokuapp.com/nearest_attractions/next_page/page_token=${page_token}`
+              serviceURL = `http://localhost:5015/nearest_attractions/next_page/page_token=${page_token}`
           }
 
           try {

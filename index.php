@@ -1,1 +1,5 @@
-<?php header('Location: ./hotel_UI/index.html'); ?>
+<?php 
+header("Access-Control-Allow-Headers: Accept");
+header('Location: ./local_ui/index.html'); 
+
+?>
