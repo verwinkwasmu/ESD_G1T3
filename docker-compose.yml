@@ -112,35 +112,14 @@ services:
     ports:
       - "5004:5004"
 
-  ############################################################
-  # Short_Error_Service: The Short_Error_Service microservice
-  ############################################################
-  short_error_service:
-    build:
-      context: ./services/short_error_service
-      dockerfile: Dockerfile
-    image: weixiangtoh/short_error_service:esd
-    restart: always
-    depends_on:
-      - rabbitmq
-      - cart
-      - notification
-    environment:
-      rabbit_host: rabbitmq
-      rabbit_port: 5672
-      cart_URL: "http://cart:5001/cart"
-      PYTHONUNBUFFERED: 1
-    ports:
-      - "5005:5005"
-
   ##########################################################
-  # Long_Error_Service: The Long_Error_Service microservice
+  # Error_Service: The Long_Error_Service microservice
   ##########################################################
-  long_error_service:
+  error_service:
     build:
-      context: ./services/long_error_service
+      context: ./services/error_service
       dockerfile: Dockerfile
-    image: weixiangtoh/long_error_service:esd
+    image: weixiangtoh/error_service:esd
     restart: always
     depends_on:
       - rabbitmq
@@ -189,8 +168,7 @@ services:
       - cart
       - room_service
       - notification
-      - short_error_service
-      - long_error_service
+      - error_service
       - rabbitmq
     environment:
       rabbit_host: rabbitmq

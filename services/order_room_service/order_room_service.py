@@ -119,7 +119,7 @@ def processOrderRS(booking_details):
         if waiting_time == "30":
             print('\n\n-----Publishing the (short error service) message with routing_key=order.notification-----')
 
-            amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.short_error_service",
+            amqp_setup.delay_channel_short.basic_publish(exchange='', routing_key="Short_Error_Service",
                                             body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
             # make message persistent within the matching queues until it is received by some receiver
             # (the matching queues have to exist and be durable and bound to the exchange)
@@ -131,7 +131,7 @@ def processOrderRS(booking_details):
         else:
             print('\n\n-----Publishing the (long error service) message with routing_key=order.notification-----')
 
-            amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.long_error_service",
+            amqp_setup.delay_channel_long.basic_publish(exchange='', routing_key="Long_Error_Service",
                                             body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
             # make message persistent within the matching queues until it is received by some receiver
             # (the matching queues have to exist and be durable and bound to the exchange)
