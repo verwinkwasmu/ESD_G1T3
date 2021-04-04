@@ -9,9 +9,9 @@ from invokes import invoke_http
 app = Flask(__name__)
 CORS(app)
 
-cart_URL = "http://localhost:5001/cart"
-facility_URL = "http://localhost:5002/facility"
-room_service_URL = "http://localhost:5003/room_service"
+cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
+facility_URL = os.environ.get("facility_URL") or "https://esdg1t3-facility.herokuapp.com/facility"
+room_service_URL = os.environ.get("room_service_URL") or "https://esdg1t3-roomservice.herokuapp.com/room_service"
 
 
 @app.route("/check_cart", methods=['POST'])
@@ -87,4 +87,5 @@ def processCheckCart(booking_id):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for checking all items in cart...")
-    app.run(host="0.0.0.0", port=5100, debug=True)
+    port = int(os.environ.get('PORT', 5100))
+    app.run(host="0.0.0.0", port=port, debug=False)
