@@ -104,6 +104,7 @@ def send_hotel_facilities(booking_details):
             "status": "success"
         }
     }
+    
 # Execute this program if it is run as a main script (not by 'import')
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +

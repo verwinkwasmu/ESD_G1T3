@@ -101,6 +101,8 @@ def checkTiming(data):
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), message)
 
+receiveNotification()
+
 if __name__ == "__main__":
     # app.run(port=5004,debug=True)
     print("\nThis is " + os.path.basename(__file__), end='')
@@ -108,4 +110,3 @@ if __name__ == "__main__":
         monitorBindingKey, amqp_setup.exchangename))
     port = int(os.environ.get('PORT', 5006))
     app.run(host="0.0.0.0",port=port, debug=False)
-    receiveNotification()

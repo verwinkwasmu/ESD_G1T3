@@ -100,6 +100,7 @@ def mail(json_msg):
     except Exception as e:
         print(e)
 
+receiveNotification()
 
 if __name__ == "__main__":
     # app.run(port=5004,debug=True)
@@ -108,4 +109,3 @@ if __name__ == "__main__":
         monitorBindingKey, amqp_setup.exchangename))
     port = int(os.environ.get('PORT', 5004))
     app.run(host="0.0.0.0",port=port, debug=False)
-    receiveNotification()

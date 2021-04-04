@@ -88,7 +88,7 @@ def get_by_orderID(order_id):
 @app.route("/cart/add_fb/<string:booking_id>", methods=['POST'])
 def create_fb(booking_id):
     data = request.get_json()
-    new_fb = Cart(order_id=None, booking_id=booking_id, order_datetime=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), rs_quantity=None, price=None, rs_delivered_status=None, **data)
+    new_fb = Cart(order_id=None, booking_id=booking_id, rs_quantity=None, price=None, rs_delivered_status=None, **data)
 
     try:
         db.session.add(new_fb)
