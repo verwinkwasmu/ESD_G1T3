@@ -14,11 +14,14 @@ import amqp_setup
 import pika
 import json
 
+import threading
+import time
+
 app = Flask(__name__)
 CORS(app)
 
 monitorBindingKey = '*.error_service'
-cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com"
+cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
 booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
 
 def receiveNotification():
@@ -101,7 +104,36 @@ def checkTiming(data):
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), message)
 
-receiveNotification()
+class ThreadingExample(object):
+    """ Threading example class
+    The run() method will be started and it will run in the background
+    until the application exits.
+    """
+
+    def __init__(self, interval=1):
+        """ Constructor
+        :type interval: int
+        :param interval: Check interval, in seconds
+        """
+        self.interval = interval
+
+        thread = threading.Thread(target=self.run, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
+
+    def run(self):
+        """ Method that runs forever """
+        while True:
+            # Do something
+            receiveNotification()
+
+            time.sleep(self.interval)
+
+example = ThreadingExample()
+time.sleep(3)
+print('Checkpoint')
+time.sleep(2)
+print('Bye')
 
 if __name__ == "__main__":
     # app.run(port=5004,debug=True)
