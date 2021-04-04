@@ -18,7 +18,8 @@ app = Flask(__name__)
 CORS(app)
 
 monitorBindingKey = '*.error_service'
-cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
+cart_URL = os.environ.get(
+    "cart_URL") or "https://esdg1t3-cart.herokuapp.com"
 
 def receiveNotification():
     amqp_setup.check_setup()
@@ -103,4 +104,6 @@ if __name__ == "__main__":
     print("\nThis is " + os.path.basename(__file__), end='')
     print(": monitoring routing key '{}' in exchange '{}' ...".format(
         monitorBindingKey, amqp_setup.exchangename))
+    port = int(os.environ.get('PORT', 5006))
+    app.run(host="0.0.0.0",port=port, debug=False)
     receiveNotification()

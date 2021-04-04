@@ -11,9 +11,9 @@ import pika
 app = Flask(__name__)
 CORS(app)
 
-booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
-cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
-payment_URL = environ.get('payment_URL') or "http://localhost:4242/create-checkout-session"
+booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
+cart_URL = environ.get('cart_URL') or "https://esdg1t3-cart.herokuapp.com/cart"
+payment_URL = environ.get("payment_URL") or "https://esdg1t3-roomservice.herokuapp.com/create_checkout_session"
 
 
 @app.route("/calc_total", methods=['POST'])
@@ -111,4 +111,5 @@ def process_payment():
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for procesing checkouts...")
-    app.run(host="0.0.0.0", port=5400, debug=True)
+    port = int(os.environ.get('PORT', 5400))
+    app.run(host="0.0.0.0", port=port, debug=False)

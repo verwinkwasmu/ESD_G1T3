@@ -14,9 +14,9 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-booking_URL = environ.get('booking_URL') or "http://localhost:5000/booking"
-cart_URL = environ.get('cart_URL') or "http://localhost:5001/cart"
-facility_URL = environ.get('facility_URL') or "http://localhost:5002/facility"
+booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
+cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
+facility_URL = environ.get('facility_URL') or "https://esdg1t3-facility.herokuapp.com/facility"
 
 @app.route("/book_facilities/send_hotel_facilities", methods=['POST'])
 def send_facilities_booking():
@@ -28,7 +28,7 @@ def send_facilities_booking():
 
             # do the actual work
             # 1. Get all cart purchases using booking_id
-            result = send_hotel_facilities(request.json.get('booking_id'), request.json.get('facilities_orders'))
+            result = send_hotel_facilities(booking_details)
             return jsonify(result), 200
 
         except Exception as e:
@@ -44,74 +44,63 @@ def send_facilities_booking():
         "test": str(request.is_json)
     }), 400
 
-def send_hotel_facilities(booking_id, facilities_orders):
-    booking_result = invoke_http(booking_URL + "/" + booking_id)
-    guest_details = {
-        "email": booking_result['data']['email'],
-        "guest_name": booking_result['data']['guest_name']
+def send_hotel_facilities(booking_details):
+
+    item_name = booking_details['item_name']
+    guest_name = booking_details['name']
+    booking_id = booking_details['booking_id']
+    email = booking_details['email']
+    item_id = booking_details['item_id']
+    order_datetime = booking_details['order_datetime'][:10] + " " + booking_details['order_datetime'][11:19]
+
+    f_order = {
+        "item_id": item_id,
+        "order_datetime": order_datetime
     }
 
-    print('booking_result:', guest_details)
-
-    code = booking_result["code"]
-    if code not in range(200, 300):
-
-        # if there are no bookings, return message
+    add_fb_result = invoke_http(cart_URL + "/add_fb/" + booking_id, method='POST', json=f_order)
+    if add_fb_result['code'] not in range(200, 300):
         return {
-            "code": 404,
-            "data": {"booking_result": booking_result}
+            'code': 404,
+            'status': 'failed to add facility booking'
         }
+    
+    print("add_fb_result", add_fb_result)
 
-    for order in facilities_orders:
-        f_order = {
-            "item_id": order['item_id'],
-            "order_datetime" : order["order_datetime"]
-        }
+    email_details = {
+        "email": email,
+        "guest_name": guest_name,
+        "quantity": add_fb_result["data"]['rs_quantity'],
+        "price": add_fb_result["data"]['price'],
+        "item_name" : item_name,
+        "date_time": add_fb_result["data"]["order_datetime"],
+        "order_id": add_fb_result["data"]["order_id"],
+        "booking_id": add_fb_result["data"]["booking_id"],
+        "type": "facility"
+    }
 
-        add_fb_result = invoke_http(cart_URL + "/add_fb/" + booking_id, method='POST', json=f_order)
-        if add_fb_result['code'] not in range(200, 300):
+    print('email_details:', email_details)
+    message = json.dumps(email_details)
 
-                return {
-                    'code': 404,
-                    'status': 'failed to add facility booking'
-                }
-        
-        print("add_fb_result", add_fb_result)
+    amqp_setup.check_setup()
 
-        email_details = {
-            "email": booking_result['data']['email'],
-            "guest_name": booking_result['data']['guest_name'],
-            "quantity": add_fb_result["data"]['rs_quantity'],
-            "price": add_fb_result["data"]['price'],
-            "item_name" : order["item_name"],
-            "date_time": add_fb_result["data"]["order_datetime"],
-            "order_id": add_fb_result["data"]["order_id"],
-            "booking_id": add_fb_result["data"]["booking_id"],
-            "type": "facility"
-        }
+    print('\n\n-----Publishing the (facility notification) message with routing_key=facility.notification-----')
 
-        print('email_details:', email_details)
-        message = json.dumps(email_details)
+    amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="facility.notification",
+                                        body=message, properties=pika.BasicProperties(delivery_mode=2))
+    # make message persistent within the matching queues until it is received by some receiver
+    # (the matching queues have to exist and be durable and bound to the exchange)
 
-        amqp_setup.check_setup()
-
-        print('\n\n-----Publishing the (facility notification) message with routing_key=facility.notification-----')
-
-        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="facility.notification",
-                                         body=message, properties=pika.BasicProperties(delivery_mode=2))
-        # make message persistent within the matching queues until it is received by some receiver
-        # (the matching queues have to exist and be durable and bound to the exchange)
-
-        # - reply from the invocation is not used;
-        # continue even if this invocation fails
-        print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
-            code), message)
+    # - reply from the invocation is not used;
+    # continue even if this invocation fails
+    print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
+        add_fb_result['code']), message)
 
     return {
         "code": 201,
         "booking_result": {
-            "email": booking_result['data']['email'],
-            "guest_name": booking_result['data']['guest_name'],
+            "email": email,
+            "guest_name": guest_name,
             "status": "success"
         }
     }
@@ -119,4 +108,5 @@ def send_hotel_facilities(booking_id, facilities_orders):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for book facilities...")
-    app.run(host="0.0.0.0", port=5300, debug=True)
+    port = int(os.environ.get('PORT', 5300))
+    app.run(host="0.0.0.0", port=port, debug=True)
