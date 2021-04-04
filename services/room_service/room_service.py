@@ -79,4 +79,5 @@ def get_by_itemID(item_id):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5003, debug=True)
+    port = int(environ.get('PORT', 5003))
+    app.run(host="0.0.0.0",port=port, debug=False)
