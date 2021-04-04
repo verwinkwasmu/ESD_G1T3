@@ -13,6 +13,7 @@
 
   <title>Profile 😊</title>
 
+
   <script src="https://js.stripe.com/v3/"></script>
   <link rel="stylesheet" href="">
   <!--[if lt IE 9]>
@@ -208,8 +209,8 @@ https://templatemo.com/tm-529-ramayana
   <script>
     // Get values from session 
     // Get information on guest 
-    var guest_name = sessionStorage.getItem("guest_name");
-    var booking_id = sessionStorage.getItem("booking_id");
+    var guest_name = localStorage.getItem("guest_name");
+    var booking_id = localStorage.getItem("booking_id");
 
     // Helper function to display error message
     function showError(message) {

@@ -112,6 +112,7 @@ https://templatemo.com/tm-529-ramayana
                     <br>
                   </div>
                   <div class="col-md-12">
+                    <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
                     <div id="searchOutput">
                     </div>
                     <div id="display_next_page_button">
@@ -225,10 +226,10 @@ https://templatemo.com/tm-529-ramayana
       }
 
       async function search(page_token) {
-          $("#searchOutput").html(`<div class="spinner-border text-primary mx-auto" style="width: 3rem; height: 3rem;" role="status">
-<span class="sr-only"></span>
-</div>`)
-          $('html, body').animate({ scrollTop: 0 }, 'fast');
+//           $("#searchOutput").html(`<div class="spinner-border text-primary mx-auto" style="width: 3rem; height: 3rem;" role="status">
+// <span class="sr-only"></span>
+// </div>`)
+//           $('html, body').animate({ scrollTop: 0 }, 'fast');
 
           let lat = $("#lat").val();
           let lon = $("#lon").val();

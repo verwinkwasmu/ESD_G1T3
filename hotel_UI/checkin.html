@@ -107,6 +107,8 @@ https://templatemo.com/tm-529-ramayana
   </div>
 </div>
   <script>
+    myStorage = window.localStorage; 
+    console.log(localStorage.getItem('guest_name')); 
     async function assignSession() {
       var guest_name = document.getElementById('guest_name').value;
       var nric_passportno = document.getElementById('nric_passportno').value;
@@ -131,10 +133,10 @@ https://templatemo.com/tm-529-ramayana
           // success case
           if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase()) {
             console.log("user details match")
-            sessionStorage.setItem("guest_name", data.guest_name);
-            sessionStorage.setItem("nric_passportno", data.nric_passportno);
-            sessionStorage.setItem("email", data.email);
-            sessionStorage.setItem("booking_id", data.booking_id);
+            localStorage.setItem("guest_name", data.guest_name);
+            localStorage.setItem("nric_passportno", data.nric_passportno);
+            localStorage.setItem("email", data.email);
+            localStorage.setItem("booking_id", data.booking_id);
             window.location.replace('index.html')
           }
         } else if (result.code == 404) {

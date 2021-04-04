@@ -82,7 +82,7 @@ https://templatemo.com/tm-529-ramayana
             <section class="simple-post">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="row-1 row-cols-1 row-cols-md-3 g-4">
+                        <div class="col-md-12">
                             <div id='cart_items'></div>
                         </div>
                     </div> 
@@ -154,12 +154,14 @@ https://templatemo.com/tm-529-ramayana
   </div>
 
     <script> 
-    var booking_id = sessionStorage.getItem("booking_id");
-    console.log(booking_id); 
-    const data = { booking_id: booking_id };
-    console.log(data); 
+      var booking_id = localStorage.getItem("booking_id");
+      console.log("booking_id:" + booking_id);
+        
+      // Change serviceURL to your own
+      var serviceURL = "http://localhost:5100/check_cart";
+      const data = { booking_id : booking_id};
 
-      fetch("http://localhost:5100/check_cart", {
+      fetch(serviceURL, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -169,91 +171,43 @@ https://templatemo.com/tm-529-ramayana
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
+        console.log(data.data.cart_result.message);
+        var cart_items = data.data.all_bookings.bookings;
+        // some error with cart !! 
+        console.log(cart_items);
+        var rows = "";
+        for (const item of cart_items) {
+          if (item.rs_quantity != null){
+            rows += `<div class="card mb-3">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="..." alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title"><b>${item.item_name}</b></h5>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">
+                                ${item.rs_delivered_status ? 'Delivered' : 'Not delivered'}
+                              </li>                       
+                              <li class="list-group-item">
+                                <b>💸 Price:</b> ${item.price}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+          } 
+        }
+        // add all the rows to the table
+          document.getElementById('cart_items').innerHTML = rows; 
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-
-
-      // function showError(message) {
-      //           // Hide the table and button in the event of error
-      //           $('#cards_rs').hide();
-
-      //           // Display an error under the main container
-      //           $('#cards_rs')
-      //               .append("<label>" + message + "</label>");
-      //       }
-
-      // var booking_id = sessionStorage.getItem("booking_id");
-      // console.log("booking_id:" + booking_id);
-      // //async ensure that the document is fully loaded before the function is being executed 
-      // // anonymous async function 
-      // // - using await requires the function that calls it to be async
-      // $(async() => {        
-      //     // Change serviceURL to your own
-      //     var serviceURL = "http://0.0.0.0:5100/check_cart";
-      //     const data = { booking_id: booking_id };
           
-      //     //for error handling 
-      //     try {
-      //         const response =
-      //          await fetch(
-      //           serviceURL,  {
-      //           method: 'POST', // or 'PUT'
-      //           headers: {
-      //             'Content-Type': 'application/json',
-      //           },
-      //           body: JSON.stringify(data),
-      //       }
-      //         );
-      //         // response.json is to parse the response data as JSON into objects so that we can use it 
-      //         const result = await response.json();
-      //         console.log(result)
-      //          if (response.status === 200) {
-      //             // success case
-      //             var cart_items = result.all_bookings.bookings; 
-      //             var rows = "";
-      //             for (const item of cart_items) {
-      //               if (item.rs_delivered_status == null){
-      //                   item.rs_delivered_status = 'timeslot'; 
-      //               }
-      //               rows += `<div class="card mb-3">
-      //                           <div class="row g-0">
-      //                             <div class="col-md-4">
-      //                               <img src="..." alt="...">
-      //                             </div>
-      //                             <div class="col-md-8">
-      //                               <div class="card-body">
-      //                                 <h5 class="card-title"><b>${item.item_name}</b></h5>
-      //                                 <ul class="list-group list-group-flush">
-      //                                   <li class="list-group-item">
-      //                                     ${item.rs_delivered_status ? 'Delivered' : 'Not delivered'}
-      //                                   </li>                       
-      //                                   <li class="list-group-item">
-      //                                     <b>💸 Price:</b> ${item.price}
-      //                                   </li>
-      //                                 </ul>
-      //                               </div>
-      //                             </div>
-      //                           </div>
-      //                         </div>`;
-      //            }
-      //               // add all the rows to the table
-      //               document.getElementById('cards_rs').innerHTML = rows; 
-      //             } else if (response.status == 404) {
-      //                 // No room service 
-      //                 showError(result.message);
-      //             } else {
-      //                 // unexpected outcome, throw the error
-      //                 throw response.status;
-      //             }
-      //         } catch (error) {
-      //             // Errors when calling the service; such as network error, 
-      //             // service offline, etc
-      //             showError
-      // ('There is a problem retrieving books data, please try again later.<br />' + error);
-      //         } // error
-      // });
+
       
      
 

@@ -68,7 +68,7 @@ https://templatemo.com/tm-529-ramayana
         <div class="page-heading">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="text-align: center;">
                 <h1>Facility Booking 🧖‍♀️</h1>
                 <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
               </div>
@@ -153,9 +153,9 @@ https://templatemo.com/tm-529-ramayana
 
   <script>
     // Get booking_id upon log in 
-    var booking_id = sessionStorage.getItem("booking_id")
-    var guest_name = sessionStorage.getItem("guest_name")
-    var email = sessionStorage.getItem("email")
+    var booking_id = localStorage.getItem("booking_id")
+    var guest_name = localStorage.getItem("guest_name")
+    var email = localStorage.getItem("email")
     console.log(email)
     console.log(booking_id)
     //async ensure that the document is fully loaded before the function is being executed 

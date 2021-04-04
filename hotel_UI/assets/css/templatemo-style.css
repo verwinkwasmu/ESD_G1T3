@@ -10,6 +10,11 @@ https://templatemo.com/tm-529-ramayana
 @import url(fontawesome.css);
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700");
 
+a:hover, button:hover{
+    cursor:pointer;
+}
+
+
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #535ba0; /* Purple*/
