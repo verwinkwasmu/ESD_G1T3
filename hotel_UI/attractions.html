@@ -107,12 +107,12 @@ https://templatemo.com/tm-529-ramayana
                      <button type="button" class="d-none btn btn-primary" onclick="getLocation()">Current Location</button>
                     <br>
                     <br>
-                    <button type="button" class="button" onclick='search()'>Search 👀 </button>
+                    <button type="button" class="button" onclick='search(); displayLoader()'>Search 👀 </button>
                     <br>
                     <br>
                   </div>
                   <div class="col-md-12">
-                    <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
+                    <div class="loader mx-auto d-none" id="loader" style="width: 3rem; height: 3rem;"></div>
                     <div id="searchOutput">
                     </div>
                     <div id="display_next_page_button">
@@ -201,7 +201,8 @@ https://templatemo.com/tm-529-ramayana
     </div>
 
     <script>
-      // Helper function to display error message
+           //Loader stuff 
+      var loader = document.getElementById('loader'); 
       
       $(document).ready(function () {
           if (navigator.geolocation) {
@@ -225,7 +226,7 @@ https://templatemo.com/tm-529-ramayana
           $("#lon").val(position.coords.longitude);
       }
 
-      async function search(page_token) {
+    async function search(page_token) {
 //           $("#searchOutput").html(`<div class="spinner-border text-primary mx-auto" style="width: 3rem; height: 3rem;" role="status">
 // <span class="sr-only"></span>
 // </div>`)
@@ -247,6 +248,7 @@ https://templatemo.com/tm-529-ramayana
           }
 
           try {
+            loader.style.display = 'block';
               const response =
                   await fetch(
                       serviceURL, { method: 'GET' }
@@ -255,7 +257,7 @@ https://templatemo.com/tm-529-ramayana
               const result = await response.json();
               if (response.status === 200) {
                   // success case
-
+                loader.style.display = 'none';
                   console.log(result.results)
                   $("#searchOutput").empty()
                   for (let location of result.results) {

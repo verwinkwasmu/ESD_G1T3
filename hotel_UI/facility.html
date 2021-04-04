@@ -70,7 +70,7 @@ https://templatemo.com/tm-529-ramayana
             <div class="row">
               <div class="col-md-12" style="text-align: center;">
                 <h1>Facility Booking 🧖‍♀️</h1>
-                <div class="loader mx-auto" style="width: 3rem; height: 3rem;"></div>
+                <div class="loader mx-auto" id="loader" style="width: 3rem; height: 3rem;"></div>
               </div>
             </div>
           </div>
@@ -158,15 +158,17 @@ https://templatemo.com/tm-529-ramayana
     var email = localStorage.getItem("email")
     console.log(email)
     console.log(booking_id)
-    //async ensure that the document is fully loaded before the function is being executed 
-    // anonymous async function 
-    // - using await requires the function that calls it to be async
+
+      //Loader stuff 
+      var loader = document.getElementById('loader'); 
+
     $(async () => {
       // Change serviceURL to your own
       var serviceURL = " http://127.0.0.1:5002/facility";
 
       //for error handling 
       try {
+        loader.style.display = 'block';
         const response =
           await fetch(
             serviceURL, { method: 'GET' }
@@ -175,6 +177,7 @@ https://templatemo.com/tm-529-ramayana
         const result = await response.json();
         if (response.status === 200) {
           // success case
+          loader.style.display = 'none';
           var facilities = result.data.facilities;
           var rows = "";
           for (const f of facilities) {

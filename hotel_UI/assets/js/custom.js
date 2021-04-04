@@ -275,11 +275,11 @@
 
 })(jQuery);
 
-function hideLoader() {
-    $('.loader').hide();
-}
+// function hideLoader() {
+//     $('.loader').hide();
+// }
 
-$(window).ready(hideLoader);
+// $(window).ready(hideLoader);
 
-// Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
-setTimeout(hideLoader, 20 * 1000);
+// // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+// setTimeout(hideLoader, 20 * 1000);
