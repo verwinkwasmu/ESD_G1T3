@@ -105,12 +105,12 @@ https://templatemo.com/tm-529-ramayana
       </div>
     </div>
   </div>
-</div>
+  </div>
   <script>
     //localStorage.clear();
     async function assignSession() {
-      myStorage = window.localStorage; 
-      console.log(localStorage.getItem('guest_name')); 
+      myStorage = window.localStorage;
+      console.log(localStorage.getItem('guest_name'));
       var guest_name = document.getElementById('guest_name').value;
       var nric_passportno = document.getElementById('nric_passportno').value;
       var email = document.getElementById('email').value;
@@ -133,25 +133,29 @@ https://templatemo.com/tm-529-ramayana
           data = result.data;
           // success case
           if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == false) {
-            console.log("user details match"); 
-            console.log(data.checkout_status); 
-            localStorage.setItem("room_number", data.room_number); 
-            localStorage.setItem("stay_duration", data.stay_duration); 
-            localStorage.setItem("room_price", data.room_price); 
+            if (data.checkout_status == 1) {
+              errorList.push("You have already checked out of the hotel!")
+            }
+            console.log("user details match");
+            console.log(data.checkout_status);
+            localStorage.setItem("room_number", data.room_number);
+            localStorage.setItem("stay_duration", data.stay_duration);
+            localStorage.setItem("room_price", data.room_price);
             localStorage.setItem("guest_name", data.guest_name);
             localStorage.setItem("nric_passportno", data.nric_passportno);
             localStorage.setItem("email", data.email);
             localStorage.setItem("booking_id", data.booking_id);
             window.location.replace('index.html');
 
-            console.log(room_number); 
-            console.log(stay_duration); 
-            console.log(room_price); 
-            console.log(guest_name); 
-            console.log(booking_id); 
+            console.log(room_number);
+            console.log(stay_duration);
+            console.log(room_price);
+            console.log(guest_name);
+            console.log(booking_id);
           }
         } else if (result.code == 404) {
           // No booking
+          errorList.push("Please check your particulars!")
           console.log('no such booking exists!')
         } else {
           // unexpected outcome, throw the error
