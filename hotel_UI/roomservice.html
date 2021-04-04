@@ -303,12 +303,14 @@ https://templatemo.com/tm-529-ramayana
 
             // }
             if (room_service_orders.length == 0){
-                
-                $("#displayAlert").removeClass("d-none");
-                return false
+              $("#loader1").removeClass("loader");
+              $("#displayAlert").removeClass("d-none");
+              return false
+               
             }
             else{
                 $("#displayAlert").addClass("d-none");
+                $("#loader1").addClass("loader");
             }
             var json_file = {
                 "booking_id": booking_id,

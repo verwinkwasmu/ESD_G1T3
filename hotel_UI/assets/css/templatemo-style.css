@@ -914,19 +914,19 @@ section.buttons .container-fluid {
     transition: margin-left 0.5s ease, box-shadow 0.5s ease;
     background-color: #24252d;
     position: relative;
-    width: 300px;
+    width: 380px;
 }
 
 #sidebar > .inner {
     position: relative;
-    width: 300px;
+    width: 380px;
     padding: 0px 50px;
 }
 
 #sidebar > .inner > #search  {
     background-color: #2d2e39;
     height: 100px;
-    width: 300px;
+    width: 380px;
     display: inline-block;
     margin-left: -50px;
 }
