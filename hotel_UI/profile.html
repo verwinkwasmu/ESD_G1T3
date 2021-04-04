@@ -94,7 +94,7 @@ https://templatemo.com/tm-529-ramayana
           <!--Button trigger modal-->
           <div class="d-grid gap-2" style="margin-top: 30px; color:white; ">
             <div class="filled-radius-button">
-              <a data-bs-toggle="modal" data-bs-target="#exampleModal">Check Out</a>
+              <a data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="checkout()">Check Out</a>
             </div>
           </div>
 
@@ -108,7 +108,9 @@ https://templatemo.com/tm-529-ramayana
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
-                  <div id="modal-body" style="color:black;"></div>
+                  <div id="modal-body" style="color:black;"> 
+                    <div class="loader mx-auto" id="loader" style="width: 3rem; height: 3rem;"></div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="filled-rectangle-button" data-bs-dismiss="modal"
@@ -186,7 +188,18 @@ https://templatemo.com/tm-529-ramayana
   </div>
 
 
-  <script>
+  <script>  
+  
+  
+  function showError(message) {
+    // Hide the table and button in the event of error
+    $('#profile_details').hide();
+
+    // Display an error under the main container
+    $('#profile_details')
+        .append("<label>" + message + "</label>");
+}
+
     var guest_name = localStorage.getItem("guest_name");
     var booking_id = localStorage.getItem("booking_id");
     var room_number = localStorage.getItem("room_number");
@@ -219,27 +232,73 @@ https://templatemo.com/tm-529-ramayana
           document.getElementById('profile_details').innerHTML = details;
           document.getElementById('name').innerHTML = name;
 
-    // Fetch for total amount 
-    const data = { booking_id: booking_id };
+    async function checkout() {  
+    //Loader stuff 
+    var loader = document.getElementById('loader'); 
+    const data = { booking_id: booking_id };    
 
-    fetch('http://127.0.0.1:5400/calc_total', {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        var total = data.total
-        document.getElementById('total').value = total;
-        total = total.toString();
-        document.getElementById('modal-body').innerHTML = `Total amount payable: <b>$${total}</b>`;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+        // Change serviceURL to your own
+        var serviceURL = "http://127.0.0.1:5400/calc_total"; 
+        
+        //for error handling 
+        try {
+            loader.style.display = 'block';
+            // POST have different way of arranging the fetch
+            const response =
+             await fetch(
+               serviceURL, { 
+                   method: 'POST', 
+                   headers: {"Content-Type": "application/json"}, body: JSON.stringify (data) 
+            });
+
+            // response.json is to parse the response data as JSON into objects so that we can use it 
+            const result = await response.json();
+            // code 201 is resource create
+             if (response.status === 200) {
+                loader.style.display = 'none';
+                console.log('Success:', data);
+                var total = result.total;
+                document.getElementById('total').value = total;
+                total = total.toString();
+                document.getElementById('modal-body').innerHTML = `Total amount payable: <b>$${total}</b>`;
+                // success case
+                } else if (response.status == 404) {
+                    // No books
+                    showError(result.message);
+                } else {
+                    // unexpected outcome, throw the error
+                    throw response.status;
+                }
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                showError
+    ('There is a problem adding order, please try again later.<br />' + error);
+            } // error
+  };
+    // // Fetch for total amount 
+    // //Loader stuff 
+    // var loader = document.getElementById('loader'); 
+    // const data = { booking_id: booking_id };
+
+    // fetch('http://127.0.0.1:5400/calc_total', {
+    //   method: 'POST', // or 'PUT'
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log('Success:', data);
+    //     var total = data.total
+    //     document.getElementById('total').value = total;
+    //     total = total.toString();
+    //     document.getElementById('modal-body').innerHTML = `Total amount payable: <b>$${total}</b>`;
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
 
     var stripe = Stripe("pk_test_51HeLb7GWjRGxBOOYJHyXsBtfO49mPEkfCLrwSS2xTcAA6UZdZ6Y84JkEsY00Y8wuOFcbWny9a4g9kiXIeoDELCxI00UDh6OC0c");
     var checkoutButton = document.getElementById("checkout-button");
