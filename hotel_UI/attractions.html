@@ -230,7 +230,7 @@ https://templatemo.com/tm-529-ramayana
 //           $("#searchOutput").html(`<div class="spinner-border text-primary mx-auto" style="width: 3rem; height: 3rem;" role="status">
 // <span class="sr-only"></span>
 // </div>`)
-//           $('html, body').animate({ scrollTop: 0 }, 'fast');
+          $('html, body').animate({ scrollTop: 0 }, 'fast');
 
           let lat = $("#lat").val();
           let lon = $("#lon").val();
@@ -375,7 +375,7 @@ https://templatemo.com/tm-529-ramayana
           let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
           $("#modal-body").html(
               `<iframe width="300" height="300" frameborder="0" style="border:0;"
-                      src="https://www.google.com/maps/embed/v1/directions?key=${API_KEY}&origin=${current_coor}&mode=transit&destination=place_id:${place_id}"
+                      src="https://www.google.com/maps/embed/v1/directions?key=${API_KEY}&origin=${current_coor}&destination=place_id:${place_id}"
                       allowfullscreen>
               </iframe>`
 
