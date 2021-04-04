@@ -115,8 +115,10 @@ def processOrderRS(booking_details):
         delay_message = json.dumps(delay_content)
 
         waiting_time = order['waiting_time']
+        print(type(waiting_time))
+        print(waiting_time)
 
-        if waiting_time == "30":
+        if int(waiting_time) == 30:
             print('\n\n-----Publishing the (short error service) message with routing_key=order.notification-----')
 
             amqp_setup.delay_channel_short.basic_publish(exchange='', routing_key="Short_Error_Service",
