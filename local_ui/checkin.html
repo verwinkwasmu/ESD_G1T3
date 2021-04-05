@@ -110,6 +110,9 @@ https://templatemo.com/tm-529-ramayana
                                             <button type="submit" onclick="assignSession(event); return false;"
                                                 id="form-submit" class="button">Check-In</button>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="loader mx-auto" id="loader1" style="width: 3rem; height: 3rem; display: none;"></div>
+                                        </div>
 
                                     </div>
                                 </form>
@@ -131,7 +134,7 @@ https://templatemo.com/tm-529-ramayana
             var nric_passportno = document.getElementById('nric_passportno').value;
             var email = document.getElementById('email').value;
             var booking_id = document.getElementById('booking_id').value;
-
+            var loader1 = document.getElementById('loader1');
             var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
             var errorList = []
             var error = {
@@ -166,6 +169,7 @@ https://templatemo.com/tm-529-ramayana
 
 
             try {
+                loader1.style.display = 'block';
                 const response =
                     await fetch(
                         serviceURL, {
@@ -205,16 +209,21 @@ https://templatemo.com/tm-529-ramayana
                         console.log(booking_id);
                     }
                     else if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == true) {
+                        loader1.style.display = "none";
                         $("#displayAlert").text("You have already checked out of the hotel!")
                         $("#displayAlert").removeClass("d-none");
                         return false
                     }
                     else if (Date.parse(datestart) >= Date.now() || Date.parse(dateend) <= Date.now()){
+                        loader1.style.display = "none";
+                    
                         $("#displayAlert").text("Thanks for using our application! However, you are checking in outside of your stay period")
                         $("#displayAlert").removeClass("d-none");
                         return false
                     }
                     else {
+                        loader1.style.display = "none";
+
                         $("#displayAlert").text("Please check your particulars!")
                         $("#displayAlert").removeClass("d-none");
                         return false
@@ -224,6 +233,8 @@ https://templatemo.com/tm-529-ramayana
 
                 } else if (result.code == 404) {
                     // No booking
+                    loader1.style.display = "none";
+
                     $("#displayAlert").text("Please check your particulars!")
                     $("#displayAlert").removeClass("d-none");
                     return false
@@ -234,6 +245,8 @@ https://templatemo.com/tm-529-ramayana
                     throw result.code;
                 }
             } catch (error) {
+                loader1.style.display = "none";
+
                 // Errors when calling the service; such as network error, 
                 // service offline, etc
                 console.log(error)
