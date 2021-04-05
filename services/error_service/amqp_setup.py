@@ -58,16 +58,17 @@ channel.queue_bind(exchange=exchangename, queue=queue_name)
 
 
 # Create our delay channel.
-delay_channel_long = connection.channel()
-delay_channel_long.confirm_delivery()
-delay_channel_short = connection.channel()
-delay_channel_short.confirm_delivery()
+delay_channel = connection.channel()
+# delay_channel_long = connection.channel()
+# delay_channel_long.confirm_delivery()
+# delay_channel_short = connection.channel()
+# delay_channel_short.confirm_delivery()
 
 ############   Short_Error_Service queue   #############
 #delcare Short_Error_Service queue
 delay_queue_short_name = 'Short_Error_Service'
-delay_channel_short.queue_declare(queue=delay_queue_short_name, durable=True,  arguments={
-  'x-message-ttl' : 180000, # Delay until the message is transferred in milliseconds.
+delay_channel.queue_declare(queue=delay_queue_short_name, durable=True,  arguments={
+  'x-message-ttl' : 60000, # Delay until the message is transferred in milliseconds.
   'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
   'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
 })
@@ -76,8 +77,8 @@ delay_channel_short.queue_declare(queue=delay_queue_short_name, durable=True,  a
 ############   Long_Error_Service queue   #############
 #delcare Long_Error_Service queue
 delay_queue_long_name = 'Long_Error_Service'
-delay_channel_long.queue_declare(queue=delay_queue_long_name, durable=True,  arguments={
-  'x-message-ttl' : 900000, # Delay until the message is transferred in milliseconds.
+delay_channel.queue_declare(queue=delay_queue_long_name, durable=True,  arguments={
+  'x-message-ttl' : 120000, # Delay until the message is transferred in milliseconds.
   'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
   'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
 })
