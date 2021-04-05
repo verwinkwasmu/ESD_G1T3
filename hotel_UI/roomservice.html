@@ -320,7 +320,7 @@ https://templatemo.com/tm-529-ramayana
             };
             
             // Change serviceURL to your own
-            var serviceURL = "https://esdg1t3-orderroomservice.herokuapp.com/order_room_service";
+            var serviceURL = "https://esdg1t3-orderroomservice.herokuapp.com/order_room_service/";
 
             //for error handling 
             try {
@@ -329,6 +329,7 @@ https://templatemo.com/tm-529-ramayana
                     await fetch(
                         serviceURL, {
                         method: 'POST',
+                        mode: 'cors',
                         headers: { 
                             "Content-Type": "application/json"
                         }, 
