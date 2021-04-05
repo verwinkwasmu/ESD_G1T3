@@ -318,7 +318,7 @@ https://templatemo.com/tm-529-ramayana
                 "email": email,
                 room_service_orders
             };
-            console.log(json_file)
+            
             // Change serviceURL to your own
             var serviceURL = "https://esdg1t3-orderroomservice.herokuapp.com/order_room_service";
 
@@ -329,7 +329,10 @@ https://templatemo.com/tm-529-ramayana
                     await fetch(
                         serviceURL, {
                         method: 'POST',
-                        headers: { "Content-Type": "application/json" }, body: JSON.stringify(json_file)
+                        headers: { 
+                            "Content-Type": "application/json"
+                        }, 
+                        body: JSON.stringify(json_file)
                     });
 
                 // response.json is to parse the response data as JSON into objects so that we can use it 

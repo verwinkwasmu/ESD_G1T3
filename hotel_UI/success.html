@@ -19,7 +19,7 @@
 
     async function assignSession() {
       console.log(localStorage.getItem("booking_id"))
-      var serviceURL = "http://localhost:5000/checkout/" + localStorage.getItem("booking_id");
+      var serviceURL = "https://esdg1t3-booking.herokuapp.com/checkout/" + localStorage.getItem("booking_id");
 
       try {
         const response =
