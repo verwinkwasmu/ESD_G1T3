@@ -72,6 +72,7 @@ https://templatemo.com/tm-529-ramayana
                   <div class="row">
                     <div class="col-md-12" style="text-align: center;">
                       <h1>Cart 🛒</h1>
+                      <div class="loader mx-auto" id="loader" style="width: 3rem; height: 3rem;"></div>
                     </div>
                   </div>
                 </div>
@@ -154,6 +155,9 @@ https://templatemo.com/tm-529-ramayana
   </div>
 
     <script> 
+    //Loader stuff 
+    var loader = document.getElementById('loader'); 
+
       var booking_id = localStorage.getItem("booking_id");
       console.log("booking_id:" + booking_id);
         
@@ -171,6 +175,7 @@ https://templatemo.com/tm-529-ramayana
       })
       .then(response => response.json())
       .then(data => {
+        loader.style.display = 'none';
         console.log(data); 
         var cart_items = data.all_bookings.bookings;
         // some error with cart !! 
