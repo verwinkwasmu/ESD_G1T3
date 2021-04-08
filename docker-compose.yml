@@ -5,6 +5,21 @@ volumes:
 
 services:
  
+  ####################################
+  # RabbitMQ: The messaging broker   
+  ####################################
+  rabbitmq:
+    build:
+      context: ./services/rabbit
+      dockerfile: Dockerfile
+    image: weixiangtoh/rabbitmq-custom:esd
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - rabbitmq_data:/var/lib/rabbitmq
+
   ###################################
   # Booking: The Booking microservice
   ###################################
@@ -80,18 +95,18 @@ services:
     ports:
       - "5015:5015"
 
-  ####################################
-  # RabbitMQ: The messaging broker   
-  ####################################
-  rabbitmq:
-    image: rabbitmq:3-management
-    hostname: esd-rabbit
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    volumes: 
-      - rabbitmq_data:/var/lib/rabbitmq
+  # ####################################
+  # # RabbitMQ: The messaging broker   
+  # ####################################
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   hostname: esd-rabbit
+  #   restart: always
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   volumes: 
+  #     - rabbitmq_data:/var/lib/rabbitmq    
       
   #################################################
   # Notification: The Notification microservice
@@ -112,28 +127,28 @@ services:
     ports:
       - "5004:5004"
 
-  ##########################################################
-  # Error_Service: The Long_Error_Service microservice
-  ##########################################################
-  # error_service:
-  #   build:
-  #     context: ./services/error_service
-  #     dockerfile: Dockerfile
-  #   image: weixiangtoh/error_service:esd
-  #   restart: always
-  #   depends_on:
-  #     - rabbitmq
-  #     - cart
-  #     - notification
-  #     - booking
-  #   environment:
-  #     rabbit_host: rabbitmq
-  #     rabbit_port: 5672
-  #     cart_URL: "http://cart:5001/cart"
-  #     booking_URL: "http://booking:5000/booking"
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5006:5006"
+  #########################################################
+  # Error_Service: The Error_Service microservice
+  #########################################################
+  error_service:
+    build:
+      context: ./services/error_service
+      dockerfile: Dockerfile
+    image: weixiangtoh/error_service:esd
+    restart: always
+    depends_on:
+      - rabbitmq
+      - cart
+      - notification
+      - booking
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      cart_URL: "http://cart:5001/cart"
+      booking_URL: "http://booking:5000/booking"
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5006:5006"
 
   ##########################################################
   # Check_Cart: The Check_Cart microservice
@@ -170,7 +185,7 @@ services:
       - cart
       - room_service
       - notification
-      # - error_service
+      - error_service
       - rabbitmq
     environment:
       rabbit_host: rabbitmq

@@ -42,8 +42,9 @@ CREATE TABLE IF NOT EXISTS `booking` (
 --
 
 INSERT INTO `booking` (`booking_id`, `guest_name`, `nric_passportno`, `email`, `stay_duration`, `room_number`, `room_price`, `discount`, `checkout_status`) VALUES
-(1, "Jessie", "S9920937I", "jessie.ng.2019@smu.edu.sg", "14 March-18 March 2021", "A800", 299.99, 0, FALSE), 
-(2, "James", "S9920347I", "weixiangtoh.2019@smu.edu.sg", "21 March- 23 March 2021", "A801", 299.99, 0, TRUE); 
+(1, "Jessie", "S9920937I", "jessie.ng.2019@smu.edu.sg", "4 Apr-15 Apr 2021", "A800", 299.99, 0, FALSE), 
+(2, "James", "S9920347I", "weixiangtoh.2019@smu.edu.sg", "4 Apr-15 Apr 2021", "A801", 299.99, 0, FALSE); 
+(3, "test", "test", "test@gmail.com", "21 Apr-28 Apr 2021", "A802", 299.99, 0, FALSE); 
 
 
 --
