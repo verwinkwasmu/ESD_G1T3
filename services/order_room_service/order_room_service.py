@@ -106,42 +106,31 @@ def processOrderRS(booking_details):
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), message)
 
-        # delay_content = {
-        #     "order_id": add_rs_result["data"]["order_id"],
-        #     "email": email,
-        #     "guest_name": guest_name,
-        #     "item_name" : order["item_name"],
-        # }
-        # delay_message = json.dumps(delay_content)
+        delay_content = {
+            "order_id": add_rs_result["data"]["order_id"],
+            "email": email,
+            "guest_name": guest_name,
+            "item_name" : order["item_name"],
+        }
+        delay_message = json.dumps(delay_content)
 
-        # waiting_time = order['waiting_time']
-        # print(type(waiting_time))
-        # print(waiting_time)
+        # waiting_time = int(order['waiting_time']) * 60000
+        waiting_time = 5 * 60000
+        
+        amqp_setup.check_setup()
+        print('\n\n-----Publishing the (error service) message with routing_key=order.notification-----')
 
-        # if int(waiting_time) == 30:
-        #     print('\n\n-----Publishing the (short error service) message with routing_key=order.notification-----')
+        amqp_setup.channel.basic_publish(exchange=amqp_setup.delay_exchangename, routing_key="order.error_service",
+                                        body=delay_message, properties=pika.BasicProperties(delivery_mode=2, headers={
+                                            "x-delay": waiting_time
+                                        }))
+        # make message persistent within the matching queues until it is received by some receiver
+        # (the matching queues have to exist and be durable and bound to the exchange)
 
-        #     amqp_setup.delay_channel.basic_publish(exchange='', routing_key="Short_Error_Service",
-        #                                     body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
-        #     # make message persistent within the matching queues until it is received by some receiver
-        #     # (the matching queues have to exist and be durable and bound to the exchange)
-
-        #     # - reply from the invocation is not used;
-        #     # continue even if this invocation fails
-        #     print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
-        #         code), delay_message)
-        # else:
-        #     print('\n\n-----Publishing the (long error service) message with routing_key=order.notification-----')
-
-        #     amqp_setup.delay_channel.basic_publish(exchange='', routing_key="Long_Error_Service",
-        #                                     body=delay_message, properties=pika.BasicProperties(delivery_mode=2))
-        #     # make message persistent within the matching queues until it is received by some receiver
-        #     # (the matching queues have to exist and be durable and bound to the exchange)
-
-        #     # - reply from the invocation is not used;
-        #     # continue even if this invocation fails
-        #     print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
-        #         code), delay_message)
+        # - reply from the invocation is not used;
+        # continue even if this invocation fails
+        print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
+            code), delay_message)
 
     return {
         "code": 201,

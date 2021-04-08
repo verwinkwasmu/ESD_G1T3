@@ -23,6 +23,8 @@ connection = pika.BlockingConnection(
     # - Try: simply re-run the program or refresh the page.
     # For rare cases, it's incompatibility between RabbitMQ and the machine running it,
     # - Use the Docker version of RabbitMQ instead: https://www.rabbitmq.com/download.html
+
+############   Main Channel and Exchange   #############
 channel = connection.channel()
 # Set up the exchange if the exchange doesn't exist
 # - use a 'topic' exchange to enable interaction
@@ -45,6 +47,13 @@ channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.notif
     # bind the queue to the exchange via the key
     # any routing_key with two words and ending with '.notification' will be matched
 
+############   Delay Exchange   #############
+# Create our delay channel.
+delay_exchangename="delay"
+delay_exchangetype="x-delayed-message"
+channel.exchange_declare(exchange=delay_exchangename, exchange_type=delay_exchangetype, durable=True, arguments={
+  'x-delayed-type': "topic" 
+})
 ############   Error_Service queue   #############
 #delcare Error_Service queue
 queue_name = 'Error_Service'
@@ -52,37 +61,9 @@ channel.queue_declare(queue=queue_name, durable=True)
     # 'durable' makes the queue survive broker restarts
 
 #bind Error_Service queue
-channel.queue_bind(exchange=exchangename, queue=queue_name)
+channel.queue_bind(exchange=delay_exchangename, queue=queue_name, routing_key='*.error_service')
     # bind the queue to the exchange via the key
-    # any routing_key with two words and ending with '.notification' will be matched
-
-
-# Create our delay channel.
-delay_channel = connection.channel()
-# delay_channel_long = connection.channel()
-# delay_channel_long.confirm_delivery()
-# delay_channel_short = connection.channel()
-# delay_channel_short.confirm_delivery()
-
-############   Short_Error_Service queue   #############
-#delcare Short_Error_Service queue
-delay_queue_short_name = 'Short_Error_Service'
-delay_channel.queue_declare(queue=delay_queue_short_name, durable=True,  arguments={
-  'x-message-ttl' : 60000, # Delay until the message is transferred in milliseconds.
-  'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
-  'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
-})
-    # 'durable' makes the queue survive broker restarts
-
-############   Long_Error_Service queue   #############
-#delcare Long_Error_Service queue
-delay_queue_long_name = 'Long_Error_Service'
-delay_channel.queue_declare(queue=delay_queue_long_name, durable=True,  arguments={
-  'x-message-ttl' : 120000, # Delay until the message is transferred in milliseconds.
-  'x-dead-letter-exchange' : exchangename, # Exchange used to transfer the message from A to B.
-  'x-dead-letter-routing-key' : queue_name # Name of the queue we want the message transferred to.
-})
-    # 'durable' makes the queue survive broker restarts
+    # any routing_key with two words and ending with '.error_service' will be matched
 
 """
 This function in this module sets up a connection and a channel to a local AMQP broker,

@@ -37,11 +37,11 @@ def receiveNotification():
 # required signature for the callback; no return
 def callback(channel, method, properties, body):
     print("\nReceived an email request by " + __file__)
-    # try:
-    #     print(body)
-    mail(json.loads(body))
-    # except:
-    #     processError(body)
+    try:
+        print(body)
+        mail(json.loads(body))
+    except:
+        processError(body)
 
 
 def processError(errorMsg):

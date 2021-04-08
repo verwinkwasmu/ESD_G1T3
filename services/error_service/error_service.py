@@ -59,9 +59,10 @@ def processError(errorMsg):
 
 def checkTiming(data):
     order_id = str(data["order_id"])
-    print('\n-----Invoking order microservice-----')
+    print('\n-----Invoking Cart microservice-----')
     order_result = invoke_http(
         cart_URL + "/order/" + order_id, method='GET')
+    
     code = order_result['code']
     if order_result['code'] not in range(200, 300):
 
@@ -85,14 +86,14 @@ def checkTiming(data):
             "type": "delay"
         }
 
-        update_discount = invoke_http(booking_URL + "/booking/" + order_result["data"]["booking_id"], method='PUT')
+        update_discount = invoke_http(booking_URL + "/" + str(order_result["data"]["booking_id"]), method='PUT')
 
         print('email_details:', email_details)
         message = json.dumps(email_details)
 
         amqp_setup.check_setup()
 
-        print('\n\n-----Publishing the (order notification) message with routing_key=order.notification-----')
+        print('\n\n-----Publishing the (delay notification) message with routing_key=delay.notification-----')
 
         amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="delay.notification",
                                          body=message, properties=pika.BasicProperties(delivery_mode=2))
