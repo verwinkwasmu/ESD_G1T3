@@ -113,6 +113,7 @@ https://templatemo.com/tm-529-ramayana
                                 <div class="col-md-12">
                                     <div class="loader mx-auto" id="loader"
                                         style="width: 3rem; height: 3rem; display: none;"></div>
+                                        <br>
                                     <div id="searchOutput">
                                     </div>
                                     <div id="display_next_page_button">
@@ -146,12 +147,7 @@ https://templatemo.com/tm-529-ramayana
 
             <div class="inner">
 
-                <!-- Search Box -->
-                <section id="search" class="alt">
-                    <form method="get" action="#">
-                        <input type="text" name="search" id="search" placeholder="Search..." />
-                    </form>
-                </section>
+                
 
                 <!-- Menu -->
                 <nav id="menu">
@@ -345,16 +341,23 @@ https://templatemo.com/tm-529-ramayana
                 } else if (response.status == 404) {
                     // No books
                     showError(result.message);
+                    loader.style.display = 'none';
+
                     $("#searchOutput").html(`<div class="alert alert-danger" role="alert">
                                             Unable to retrieve places of attraction, please try again!
                                         </div>`);
+
                 } else {
                     // unexpected outcome, throw the error
+                    loader.style.display = 'none';
+
                     throw response.status;
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, 
                 // service offline, etc
+                loader.style.display = 'none';
+
                 $("#searchOutput").html(`<div class="alert alert-danger" role="alert">
                                             Unable to retrieve places of attraction, please try again!
                                         </div>`);

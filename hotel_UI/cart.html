@@ -96,12 +96,7 @@ https://templatemo.com/tm-529-ramayana
 
         <div class="inner">
 
-          <!-- Search Box -->
-          <section id="search" class="alt">
-            <form method="get" action="#">
-              <input type="text" name="search" id="search" placeholder="Search..." />
-            </form>
-          </section>
+          
             
           <!-- Menu -->
           <nav id="menu">
@@ -176,8 +171,9 @@ https://templatemo.com/tm-529-ramayana
         console.log(cart_items);
         var rows = "";
         for (const item of cart_items) {
-          if (item.rs_quantity != null){
-            rows += `<div class="card mb-3">
+          if (item.rs_quantity != null) {
+                        
+                        rows += `<div class="card mb-3">
                       <div class="row g-0">
                         <div class="col-md-4">
                           <img src="assets/images/${item.item_id}" alt="...">
@@ -188,7 +184,10 @@ https://templatemo.com/tm-529-ramayana
                             <ul class="list-group list-group-flush">
                               <li class="list-group-item">
                                 <b>Status: </b>${item.rs_delivered_status ? 'Delivered' : 'Not Delivered'} 📆
-                              </li>                       
+                              </li>         
+                              <li class="list-group-item">
+                                <b>Quantity:</b> ${item.rs_quantity} 😃
+                              </li>             
                               <li class="list-group-item">
                                 <b>Price:</b> ${item.price} 💸
                               </li>
@@ -197,7 +196,30 @@ https://templatemo.com/tm-529-ramayana
                         </div>
                       </div>
                     </div>`;
-          } 
+                    }
+                    if (item.rs_quantity == null) {
+                        
+                        rows += `<div class="card mb-3">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="assets/images/${item.item_id}" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title"><b>${item.item_name}</b></h5>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">
+                                <b>Status: </b>${item.rs_delivered_status ? 'Delivered' : 'Not Delivered'} 📆
+                              </li>         
+                              <li class="list-group-item">
+                                <b>Price:</b> ${item.price} 💸
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+                    }
         }
         // add all the rows to the table
           document.getElementById('cart_items').innerHTML = rows; 
