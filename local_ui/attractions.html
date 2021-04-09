@@ -227,7 +227,6 @@ https://templatemo.com/tm-529-ramayana
 
             if (page_token != undefined) {
 
-                console.log(page_token);
                 serviceURL = `http://127.0.0.1:5015/nearest_attractions/next_page/page_token=${page_token}`
             }
 
@@ -237,14 +236,12 @@ https://templatemo.com/tm-529-ramayana
                     await fetch(
                         serviceURL, { method: 'GET' }
                     );
-
                 const result = await response.json();
-                if (response.status === 200) {
+                if (result.code === 200) {
                     // success case
                     loader.style.display = 'none';
-                    console.log(result.results)
                     $("#searchOutput").empty()
-                    for (let location of result.results) {
+                    for (let location of result.data.results){
 
                         if (location.price_level == undefined) {
                             location.price_level = '-'
@@ -325,9 +322,8 @@ https://templatemo.com/tm-529-ramayana
                         );
 
                     }
-                    if ("next_page_token" in result) {
-                        var next_page_token = result.next_page_token;
-
+                    if ("next_page_token" in result.data) {
+                        var next_page_token = result.data.next_page_token;
                         $("#display_next_page_button").html(
                             `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="nextPageButton" onclick="search('${next_page_token}')">Next Page</button>
 `                               )
@@ -338,7 +334,7 @@ https://templatemo.com/tm-529-ramayana
 
 
 
-                } else if (response.status == 404) {
+                } else if (result.code == 404) {
                     // No books
                     showError(result.message);
                     loader.style.display = 'none';
@@ -365,6 +361,7 @@ https://templatemo.com/tm-529-ramayana
             } // error
 
         }
+
         function getDirections(place_id, current_coor) {
             let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
             $("#modal-body").html(

@@ -24,7 +24,13 @@ def get_nearest_attractions(radius, type_of_attraction, lat, lon):
         f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lon}&radius={radius}&type={type_of_attraction}&key={GOOGLE_API_KEY}")
 
     if response.status_code == 200:
-        return response.json()
+        result = response.json()
+        return jsonify(
+            {
+                "code" : 200,
+                "data" : result
+            }
+        )
     else:
         return jsonify(
         {
@@ -40,7 +46,13 @@ def get_next_page(page_token):
         f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={page_token}&key={GOOGLE_API_KEY}")
 
     if response.status_code == 200:
-        return response.json()
+        result = response.json()
+        return jsonify(
+            {
+                "code" : 200,
+                "data" : result
+            }
+        )
     else:
         return jsonify(
         {
