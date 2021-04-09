@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 from flask_cors import CORS
 import datetime
 
@@ -219,10 +220,42 @@ def update_room_service(order_id):
             }
         ), 500
 
+#cancel facility booking
+@app.route("/cart/cancel_booking", methods=['DELETE'])
+def delete_booking():
+    try:
+        data = request.get_json()
+        booking_id = data['booking_id']
+        event_time = data['event_time'][:10] + " " + data['event_time'][11:19]
+        fb = data['fb']
+        facility = Cart.query.filter((Cart.booking_id==booking_id) & (Cart.order_datetime==event_time) & (Cart.item_id==fb)).first()
+        if facility:
+            db.session.delete(facility)
+            db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": facility.json()
+                }
+            )
+        return jsonify(
+            {
+                "code": 404,
+                "message": "Facility booking not found."
+            }
+        ), 404
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "message": "An error occurred while deleting the order. " + str(e)
+            }
+        ), 500
+
 
 if __name__ == '__main__':
     port = int(environ.get('PORT', 5001)) or 5001
-    app.run(host="0.0.0.0",port=port, debug=False)
+    app.run(host="0.0.0.0",port=5001, debug=True)
 
 
 
