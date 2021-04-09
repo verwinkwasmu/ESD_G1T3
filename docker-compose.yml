@@ -95,19 +95,6 @@ services:
     ports:
       - "5015:5015"
 
-  # ####################################
-  # # RabbitMQ: The messaging broker   
-  # ####################################
-  # rabbitmq:
-  #   image: rabbitmq:3-management
-  #   hostname: esd-rabbit
-  #   restart: always
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
-  #   volumes: 
-  #     - rabbitmq_data:/var/lib/rabbitmq    
-      
   #################################################
   # Notification: The Notification microservice
   #################################################
@@ -120,7 +107,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      rabbit_host: rabbitmq
+      rabbit_host: host.docker.internal
       rabbit_port: 5672
       SENDGRID_API_KEY: "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"
       PYTHONUNBUFFERED: 1
@@ -142,7 +129,7 @@ services:
       - notification
       - booking
     environment:
-      rabbit_host: rabbitmq
+      rabbit_host: host.docker.internal
       rabbit_port: 5672
       cart_URL: "http://cart:5001/cart"
       booking_URL: "http://booking:5000/booking"
@@ -188,7 +175,7 @@ services:
       - error_service
       - rabbitmq
     environment:
-      rabbit_host: rabbitmq
+      rabbit_host: host.docker.internal
       rabbit_port: 5672
       booking_URL: "http://booking:5000/booking"
       cart_URL: "http://cart:5001/cart"
@@ -207,13 +194,13 @@ services:
     image: weixiangtoh/book_facilities:esd
     restart: always
     depends_on:
+      - rabbitmq
       - booking
       - cart
       - facility
       - notification
-      - rabbitmq
     environment:
-      rabbit_host: rabbitmq
+      rabbit_host: host.docker.internal
       rabbit_port: 5672
       booking_URL: "http://booking:5000/booking"
       cart_URL: "http://cart:5001/cart"
