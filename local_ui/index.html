@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Home 🏘️</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!--
+Ramayana CSS Template
+https://templatemo.com/tm-529-ramayana
+-->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-style.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+
+  </head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+        <div id="main">
+          <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+              <div class="logo">
+                <a href="index.html">Hotel</a>
+              </div>
+            </header>
+
+            <!-- Banner -->
+            <section class="main-banner">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="banner-content">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="banner-caption">
+                            <h4>Welcome to <em>Dream Hotel 🏨</em> !</h4>
+                            <br>
+                            <p>An all-in-one app dedicated to giving you the best holiday ever!</p>
+                            <div class="primary-button" >
+                              <a href="checkin.html" id="checkIn">Check-in</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          
+
+            <!-- listing of functionalities -->
+          
+            <section class="services" id="portals">
+           
+              <h4 style="text-align: center; margin-bottom: 20px; background-color: rgb(212, 202, 212);">✨ Explore ! Shop ! Experience ! ✨</h4>
+              <div class="row-1 row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <a href="profile.html">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">Profile 😊</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="roomservice.html">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">Room Service 🥘</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="facility.html">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">Facility Booking 🛶</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="cart.html">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">Cart 🛒</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="attractions.html">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">Nearby Attractions 🗼</h4>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- <div class="container-fluid">
+                <div class="row">
+                  <div class="col-6 col-sm-3 h-100">
+                    <a href="profile.html">
+                      <div class="service-item ">
+                        <div class="icon"></div>
+                        <h4>Profile 😊</h4>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-6 col-sm-3 h-100">
+                    <a href="roomservice.html">
+                      <div class="service-item">
+                        <div class="icon"></div>
+                        <h4>Room Service 🥘</h4>
+                      </div> 
+                    </a>
+                  </div>
+                  <div class="col-6 col-sm-3 h-100">
+                    <a href="facility.html">
+                      <div class="service-item">
+                        <div class="icon"></div>
+                        <h4>Facility Booking 🛶</h4>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-6 col-sm-3 h-100">
+                    <a href="attractions.html">
+                      <div class="service-item">
+                        <div class="icon"></div>
+                        <h4>Nearby Attractions 🗼</h4>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div> -->
+          </section>
+          </div>
+        </div>    
+    </div>
+
+    <script> 
+      //localStorage.clear();
+      var guest_name =localStorage.getItem("guest_name");
+      var nric_passportno = localStorage.getItem("nric_passportno")
+      var booking_id = localStorage.getItem("booking_id");
+      var email = localStorage.getItem("email"); 
+      console.log(booking_id);
+      
+      if (guest_name == null || nric_passportno == null || booking_id == null || email == null) {
+        document.getElementById('portals').style.display = "none"; 
+      } 
+      // to remove checkIN button in situation where person is already logged in !
+      else{
+        document.getElementById('checkIn').style.display = "none"; 
+      }
+
+  </script>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/transition.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+
+  </body>
+
+</html>

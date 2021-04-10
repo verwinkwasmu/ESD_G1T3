@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <!-- <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content=""> -->
+
+  <title>Profile 😊</title>
+
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" href="">
+  <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  <!-- Bootstrap libraries -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+  <!--
+Ramayana CSS Template
+https://templatemo.com/tm-529-ramayana
+-->
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-style.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
+
+        <!-- Header -->
+        <header id="header">
+          <div class="logo">
+            <a href="index.html">Hotel</a>
+          </div>
+        </header>
+
+        <!-- Page Heading -->
+        <div class="page-heading">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div id='name' style="text-align: center;">
+                  <h1>guest_name 😊</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simple Post -->
+        <section class="simple-post">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <img src="assets/images/simple-post.jpg" alt="">
+                <div id='profile_details'>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Button trigger modal-->
+          <div class="d-grid gap-2" style="margin-top: 30px; color:white; ">
+            <div class="filled-radius-button">
+              <a data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="checkout()">Check Out</a>
+            </div>
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true" style="z-index: 10002;">
+            <div class="modal-dialog mx-7">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Check Out</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                  <div id="modal-body" style="color:black;"> 
+                    <div class="loader mx-auto" id="loader" style="width: 3rem; height: 3rem;"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="filled-rectangle-button" data-bs-dismiss="modal"
+                    id='checkout-button'>Pay</button>
+                  <input type="hidden" id="total" name="total" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+
+      <div class="inner">
+
+        
+
+        <!-- Menu -->
+        <nav id="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="roomservice.html">Room Service</a></li>
+            <li><a href="facility.html">Facility Booking</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="attractions.html">Nearby Attractions</a></li>
+          </ul>
+        </nav>
+
+        <!-- Featured Posts -->
+        <div class="featured-posts">
+          <div class="heading">
+            <h2>Featured Posts</h2>
+          </div>
+          <div class="owl-carousel owl-theme">
+            <a href="#">
+              <div class="featured-item">
+                <img src="assets/images/featured_post_01.jpg" alt="featured one">
+                <p>Travel in comfort with Singapore Airlines~!</p>
+              </div>
+            </a>
+            <a href="#">
+              <div class="featured-item">
+                <img src="assets/images/featured_post_02.jpg" alt="featured two">
+                <p>Patiently waiting for your arrival...</p>
+              </div>
+            </a>
+            <a href="#">
+              <div class="featured-item">
+                <img src="assets/images/featured_post_03.jpg" alt="featured three">
+                <p>Where elegance meets comfort in the heart of the city</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">Copyright &copy; 2021 The Dream Team
+            <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>  
+    function showError(message) {
+      // Hide the table and button in the event of error
+      $('#profile_details').hide();
+
+      // Display an error under the main container
+      $('#profile_details')
+          .append("<label>" + message + "</label>");
+  }
+
+    var guest_name = localStorage.getItem("guest_name");
+    var booking_id = localStorage.getItem("booking_id");
+    var room_number = localStorage.getItem("room_number");
+    var room_price = localStorage.getItem("room_price");
+    var stay_duration = localStorage.getItem("stay_duration");
+    console.log(stay_duration); 
+
+    var details = `<div class="down-content my-3">
+                        <ul class="list-group">
+                          <li class="list-group-item" style="text-align: center;">
+                            <b>${booking_id}</b>
+                            <br> Booking ID
+                          </li>
+                          <li class="list-group-item" style="text-align: center;">
+                            <b>${room_number}</b>
+                            <br> Room Number
+                          </li>
+                          <li class="list-group-item" style="text-align: center;">
+                            <b>${stay_duration}</b>
+                            <br> Stay Duration
+                          </li>
+                          <li class="list-group-item" style="text-align: center;">
+                            <b>${room_price}</b>
+                            <br> Room Price
+                          </li>
+                        </ul>
+                      </div>`;
+          var name = `<h1>${guest_name} 😊</h1>`
+          // replace original table 
+          document.getElementById('profile_details').innerHTML = details;
+          document.getElementById('name').innerHTML = name;
+
+    async function checkout() {  
+    //Loader stuff 
+    var loader = document.getElementById('loader'); 
+    const data = { booking_id: booking_id };    
+
+        // Change serviceURL to your own
+        // var serviceURL = "http://127.0.0.1:5400/calc_total"; 
+        var serviceURL = "http://13.212.251.199:5400/calc_total"; 
+        
+        //for error handling 
+        try {
+            loader.style.display = 'block';
+            // POST have different way of arranging the fetch
+            const response =
+             await fetch(
+               serviceURL, { 
+                   method: 'POST', 
+                   headers: {"Content-Type": "application/json"}, body: JSON.stringify (data) 
+            });
+
+            // response.json is to parse the response data as JSON into objects so that we can use it 
+            const result = await response.json();
+            // code 201 is resource create
+             if (response.status === 200) {
+                loader.style.display = 'none';
+                console.log('Success:', data);
+                var total = result.total;
+                document.getElementById('total').value = total;
+                total = total.toString();
+                document.getElementById('modal-body').innerHTML = `Total amount payable: <b>$${total}</b>`;
+                // success case
+                } else if (response.status == 404) {
+                    // No books
+                    showError(result.message);
+                } else {
+                    // unexpected outcome, throw the error
+                    throw response.status;
+                }
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                showError
+    ('There is a problem adding order, please try again later.<br />' + error);
+            } // error
+  };
+    // // Fetch for total amount 
+    // //Loader stuff 
+    // var loader = document.getElementById('loader'); 
+    // const data = { booking_id: booking_id };
+
+    // fetch('http://127.0.0.1:5400/calc_total', {
+    //   method: 'POST', // or 'PUT'
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log('Success:', data);
+    //     var total = data.total
+    //     document.getElementById('total').value = total;
+    //     total = total.toString();
+    //     document.getElementById('modal-body').innerHTML = `Total amount payable: <b>$${total}</b>`;
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
+
+    var stripe = Stripe("pk_test_51HeLb7GWjRGxBOOYJHyXsBtfO49mPEkfCLrwSS2xTcAA6UZdZ6Y84JkEsY00Y8wuOFcbWny9a4g9kiXIeoDELCxI00UDh6OC0c");
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+      total = document.getElementById('total').value * 100
+      // fetch("http://127.0.0.1:5400/process_payment", {
+      fetch("http://13.212.251.199:5400/process_payment", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          "amount": parseInt(total)
+        }) // body data type must match "Content-Type" header
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    });
+
+  </script>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/transition.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/custom.js"></script>
+</body>
+
+
+
+
+</html>
