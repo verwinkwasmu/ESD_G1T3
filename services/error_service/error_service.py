@@ -21,8 +21,11 @@ app = Flask(__name__)
 CORS(app)
 
 monitorBindingKey = '*.error_service'
-cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
-booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
+# cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
+# booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
+
+booking_URL = "http://13.213.13.210:5000"
+cart_URL = "http://18.141.190.114:5001"
 
 def receiveNotification():
     amqp_setup.check_setup()
@@ -105,42 +108,9 @@ def checkTiming(data):
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), message)
 
-# class ThreadingExample(object):
-#     """ Threading example class
-#     The run() method will be started and it will run in the background
-#     until the application exits.
-#     """
-
-#     def __init__(self, interval=1):
-#         """ Constructor
-#         :type interval: int
-#         :param interval: Check interval, in seconds
-#         """
-#         self.interval = interval
-
-#         thread = threading.Thread(target=self.run, args=())
-#         thread.daemon = True                            # Daemonize thread
-#         thread.start()                                  # Start the execution
-
-#     def run(self):
-#         """ Method that runs forever """
-#         while True:
-#             # Do something
-#             receiveNotification()
-
-#             time.sleep(self.interval)
-
-# example = ThreadingExample()
-# time.sleep(3)
-# print('Checkpoint')
-# time.sleep(2)
-# print('Bye')
-
 if __name__ == "__main__":
     # app.run(port=5004,debug=True)
     print("\nThis is " + os.path.basename(__file__), end='')
     print(": monitoring routing key '{}' in exchange '{}' ...".format(
         monitorBindingKey, amqp_setup.exchangename))
     receiveNotification()
-    # port = int(os.environ.get('PORT', 5006))
-    # app.run(host="0.0.0.0",port=port, debug=False)

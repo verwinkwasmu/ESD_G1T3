@@ -63,5 +63,5 @@ def get_next_page(page_token):
 
 
 if __name__ == "__main__":
-    port = 5015 or int(os.environ.get('PORT', 5015))
+    port = int(os.environ.get('PORT', 5015)) or 5015
     app.run(host="0.0.0.0",port=port, debug=False)

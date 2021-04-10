@@ -246,12 +246,13 @@ def delete_booking():
         return jsonify(
             {
                 "code": 500,
-                "message": "An error occurred while deleting the order. " + str(e)
+                "message": "An error occurred while deleting the order. " + str(e),
+                "body": request.get_json()
             }
         ), 500
 
 if __name__ == '__main__':
-    port = 5001 or int(environ.get('PORT', 5001))
+    port = int(environ.get('PORT', 5001)) or 5001
     app.run(host="0.0.0.0",port=port, debug=False)
 
 

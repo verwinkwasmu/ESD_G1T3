@@ -14,9 +14,14 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
-cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
-facility_URL = environ.get('facility_URL') or "https://esdg1t3-facility.herokuapp.com/facility"
+# booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
+# cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
+# facility_URL = environ.get('facility_URL') or "https://esdg1t3-facility.herokuapp.com/facility"
+
+booking_URL = "54.254.44.150:5000"
+cart_URL = "54.255.239.141:5001"
+facility_URL = "54.255.242.176:5002"
+
 
 @app.route("/book_facilities/send_hotel_facilities", methods=['POST'])
 def send_facilities_booking():
@@ -110,4 +115,4 @@ if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for book facilities...")
     port = 5300 or int(os.environ.get('PORT', 5300))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=False)
