@@ -84,7 +84,7 @@ https://templatemo.com/tm-529-ramayana
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <img src="assets/images/simple-post.jpg" alt="">
+                <img src="https://esdg1t3bucket.s3.amazonaws.com/simple-post.jpg" alt="">
                 <div id='profile_details'>
                 </div>
               </div>
@@ -153,19 +153,19 @@ https://templatemo.com/tm-529-ramayana
           <div class="owl-carousel owl-theme">
             <a href="#">
               <div class="featured-item">
-                <img src="assets/images/featured_post_01.jpg" alt="featured one">
+                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_01.jpg" alt="featured one">
                 <p>Travel in comfort with Singapore Airlines~!</p>
               </div>
             </a>
             <a href="#">
               <div class="featured-item">
-                <img src="assets/images/featured_post_02.jpg" alt="featured two">
+                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_02.jpg" alt="featured two">
                 <p>Patiently waiting for your arrival...</p>
               </div>
             </a>
             <a href="#">
               <div class="featured-item">
-                <img src="assets/images/featured_post_03.jpg" alt="featured three">
+                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_03.jpg" alt="featured three">
                 <p>Where elegance meets comfort in the heart of the city</p>
               </div>
             </a>
@@ -232,7 +232,7 @@ https://templatemo.com/tm-529-ramayana
 
         // Change serviceURL to your own
         // var serviceURL = "http://127.0.0.1:5400/calc_total"; 
-        var serviceURL = "http://13.212.251.199:5400/calc_total"; 
+        var serviceURL = "http://13.229.216.136:5400/calc_total"; 
         
         //for error handling 
         try {
@@ -299,7 +299,7 @@ https://templatemo.com/tm-529-ramayana
     checkoutButton.addEventListener("click", function () {
       total = document.getElementById('total').value * 100
       // fetch("http://127.0.0.1:5400/process_payment", {
-      fetch("http://13.212.251.199:5400/process_payment", {
+      fetch("http://13.229.216.136:5400/process_payment", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
