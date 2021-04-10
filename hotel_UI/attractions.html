@@ -113,7 +113,7 @@ https://templatemo.com/tm-529-ramayana
                                 <div class="col-md-12">
                                     <div class="loader mx-auto" id="loader"
                                         style="width: 3rem; height: 3rem; display: none;"></div>
-                                        <br>
+                                    <br>
                                     <div id="searchOutput">
                                     </div>
                                     <div id="display_next_page_button">
@@ -147,7 +147,7 @@ https://templatemo.com/tm-529-ramayana
 
             <div class="inner">
 
-                
+
 
                 <!-- Menu -->
                 <nav id="menu">
@@ -169,19 +169,22 @@ https://templatemo.com/tm-529-ramayana
                     <div class="owl-carousel owl-theme">
                         <a href="#">
                             <div class="featured-item">
-                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_01.jpg" alt="featured one">
+                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_01.jpg"
+                                    alt="featured one">
                                 <p>Travel in comfort with Singapore Airlines~!</p>
                             </div>
                         </a>
                         <a href="#">
                             <div class="featured-item">
-                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_02.jpg" alt="featured two">
+                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_02.jpg"
+                                    alt="featured two">
                                 <p>Patiently waiting for your arrival...</p>
                             </div>
                         </a>
                         <a href="#">
                             <div class="featured-item">
-                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_03.jpg" alt="featured three">
+                                <img src="https://esdg1t3bucket.s3.amazonaws.com/featured_post_03.jpg"
+                                    alt="featured three">
                                 <p>Where elegance meets comfort in the heart of the city</p>
                             </div>
                         </a>
@@ -202,18 +205,20 @@ https://templatemo.com/tm-529-ramayana
         //Loader stuff 
         var loader = document.getElementById('loader');
         let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
+
+        let geolocationURL = `http://127.0.0.1:5015/nearest_attractions/currentCoordinates`;
+
         $(document).ready(function () {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            }
+            fetch(geolocationURL)
+                .then(response => response.json())
+                .then(function (data) {
+                    $("#lat").val(data.data.location.lat);
+                    $("#lon").val(data.data.location.lng);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
         })
-
-        var counter = 0;
-
-        function showPosition(position) {
-            $("#lat").val(position.coords.latitude);
-            $("#lon").val(position.coords.longitude);
-        }
 
         async function search(page_token) {
             $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -243,7 +248,7 @@ https://templatemo.com/tm-529-ramayana
                     // success case
                     loader.style.display = 'none';
                     $("#searchOutput").empty()
-                    for (let location of result.data.results){
+                    for (let location of result.data.results) {
 
                         if (location.price_level == undefined) {
                             location.price_level = '-'
