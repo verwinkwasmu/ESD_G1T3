@@ -15,9 +15,9 @@ CORS(app)
 # cart_URL = environ.get('cart_URL') or "https://esdg1t3-cart.herokuapp.com/cart"
 # payment_URL = environ.get("payment_URL") or "https://esdg1t3-roomservice.herokuapp.com/create_checkout_session"
 
-booking_URL = "54.254.44.150:5000"
-cart_URL = "54.255.239.141:5001"
-payment_URL = "54.169.236.242:4242/create-checkout-session"
+booking_URL = 'http://13.213.13.210:5000/booking'
+cart_URL = "http://18.141.190.114:5001/cart"
+payment_URL = "http://54.254.235.148:4242/create-checkout-session"
 
 
 @app.route("/calc_total", methods=['POST'])

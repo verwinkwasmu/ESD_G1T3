@@ -13,9 +13,9 @@ CORS(app)
 # facility_URL = os.environ.get("facility_URL") or "https://esdg1t3-facility.herokuapp.com/facility"
 # room_service_URL = os.environ.get("room_service_URL") or "https://esdg1t3-roomservice.herokuapp.com/room_service"
 
-cart_URL = "54.255.239.141:5001"
-facility_URL = "54.255.242.176:5002"
-room_service_URL = "54.169.14.14:5003"
+cart_URL = "http://18.141.190.114:5001/cart"
+facility_URL = "http://54.255.129.160:5002/facility"
+room_service_URL = "http://18.141.172.149:5003/room_service"
 
 
 @app.route("/check_cart", methods=['POST'])

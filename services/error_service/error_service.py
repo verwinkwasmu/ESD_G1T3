@@ -24,8 +24,8 @@ monitorBindingKey = '*.error_service'
 # cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
 # booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
 
-booking_URL = "http://13.213.13.210:5000"
-cart_URL = "http://18.141.190.114:5001"
+booking_URL = "http://13.213.13.210:5000/booking"
+cart_URL = "http://18.141.190.114:5001/cart"
 
 def receiveNotification():
     amqp_setup.check_setup()

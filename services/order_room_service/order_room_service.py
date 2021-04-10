@@ -18,9 +18,9 @@ CORS(app)
 # cart_URL = environ.get('cart_URL') or "https://esdg1t3-cart.herokuapp.com/cart"
 # room_service_URL = environ.get("room_service_URL") or "https://esdg1t3-roomservice.herokuapp.com/room_service"
 
-booking_URL = "54.254.44.150:5000"
-cart_URL = "54.255.239.141:5001"
-room_service_URL = '54.169.14.14:5003'
+booking_URL = "http://13.213.13.210:5000/booking"
+cart_URL = "http://18.141.190.114:5001/cart"
+room_service_URL = "http://18.141.172.149:5003/room_service"
 
 @app.route("/order_room_service", methods=['POST'])
 def order_room_service():

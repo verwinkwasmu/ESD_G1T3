@@ -7,7 +7,7 @@ from os import environ
 # hostname = environ.get('rabbit_host') or '0.0.0.0'
 # port = environ.get('rabbit_port') or 5672
 
-url = "http://54.179.47.210:5672"
+url = "http://54.169.201.130:5672"
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
 
