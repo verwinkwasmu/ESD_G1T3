@@ -179,7 +179,8 @@ https://templatemo.com/tm-529-ramayana
         // - using await requires the function that calls it to be async
         $(async () => {
             // Change serviceURL to your own
-            var serviceURL = "https://esdg1t3-roomservice.herokuapp.com/room_service";
+            // var serviceURL = "http://127.0.0.1:5003/room_service";
+            var serviceURL = "http://18.141.172.149:5003/room_service";
             try {
                 loader.style.display = 'block';
                 const response =
@@ -283,14 +284,14 @@ https://templatemo.com/tm-529-ramayana
                     // console.log(item_price);  
                     // console.log(item_name); 
                     // console.log(waiting_time);
+
                     room_service_orders.push({
                         "item_id": item_id,
                         "rs_quantity": rs_quantity,
                         "item_price": item_price,
                         "item_name": item_name,
                         "waiting_time": waiting_time
-                    }) 
-                    console.log(room_service_orders);
+                    });
                 }
             }
             // if (room_service_orders.length == 0) {
@@ -313,9 +314,9 @@ https://templatemo.com/tm-529-ramayana
                 "email": email,
                 room_service_orders
             };
-            
             // Change serviceURL to your own
-            var serviceURL = "https://esdg1t3-orderroomservice.herokuapp.com/order_room_service/";
+            // var serviceURL = "http://127.0.0.1:5200/order_room_service";
+            var serviceURL = "http://54.251.128.102:5200/order_room_service";
 
             //for error handling 
             try {
@@ -324,20 +325,13 @@ https://templatemo.com/tm-529-ramayana
                     await fetch(
                         serviceURL, {
                         method: 'POST',
-                        mode: 'cors',
-                        headers: { 
-                            "Content-Type": "application/json",
-                            'Access-Control-Allow-Origin': '*'
-                        }, 
-                        body: JSON.stringify(
-                            json_file
-                            )
+                        headers: { "Content-Type": "application/json" }, body: JSON.stringify(json_file)
                     });
 
                 // response.json is to parse the response data as JSON into objects so that we can use it 
                 const result = await response.json();
                 // code 201 is resource create
-                if (response.status === 201) {
+                if (response.status === 200) {
                   loader1.style.display = 'none';
                     $("#cards_rs").html(
                         `<div style="width:100%;height:0;padding-bottom:69%;position:relative;"><iframe src="https://giphy.com/embed/hXOdZRP5preecWgizW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br>

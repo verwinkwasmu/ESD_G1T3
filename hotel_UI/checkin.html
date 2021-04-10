@@ -9,6 +9,14 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
+    <httpProtocol>
+        <customHeaders>
+            <add name="Access-Control-Allow-Origin" value="*" />
+            <add name="Access-Control-Allow-Headers" value="Content-Type" />
+            <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />
+        </customHeaders>
+    </httpProtocol>
+
     <title>Check-In 🧳</title>
 
     <!-- Bootstrap core CSS -->
@@ -26,7 +34,7 @@ https://templatemo.com/tm-529-ramayana
 
 </head>
 
-<body   class="is-preload">
+<body class="is-preload">
 
     <!-- Wrapper -->
     <div id="wrapper">
@@ -121,13 +129,15 @@ https://templatemo.com/tm-529-ramayana
         async function assignSession() {
 
             myStorage = window.localStorage;
-            console.log(localStorage.getItem('guest_name'));
+            //console.log(localStorage.getItem('guest_name'));
             var guest_name = document.getElementById('guest_name').value;
             var nric_passportno = document.getElementById('nric_passportno').value;
             var email = document.getElementById('email').value;
             var booking_id = document.getElementById('booking_id').value;
             var loader1 = document.getElementById('loader1');
-            var serviceURL = "https://esdg1t3-booking.herokuapp.com/booking/" + booking_id;
+            // var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
+            var serviceURL = "http://13.213.13.210:5000/booking/" + booking_id;
+            // var serviceURL = "https://i6cmruq0ci.execute-api.us-east-1.amazonaws.com/prod/booking/" + booking_id;
             var errorList = []
             var error = {
                 "guest_name": "Name",
@@ -174,9 +184,13 @@ https://templatemo.com/tm-529-ramayana
                 const result = await response.json();
                 if (result.code === 200) {
                     data = result.data;
+                    staydur = data.stay_duration
+                    
+                    datestart = staydur.split("-")[0] + " 2021"
+                    dateend = staydur.split("-")[1]
 
                     // success case
-                    if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == false) {
+                    if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == false && (Date.parse(datestart) <= Date.now() && Date.parse(dateend) >= Date.now())){
                         console.log(data.checkout_status)
 
                         console.log("user details match");
@@ -202,8 +216,16 @@ https://templatemo.com/tm-529-ramayana
                         $("#displayAlert").removeClass("d-none");
                         return false
                     }
-                    else{
+                    else if (Date.parse(datestart) >= Date.now() || Date.parse(dateend) <= Date.now()){
                         loader1.style.display = "none";
+                    
+                        $("#displayAlert").text("Thanks for using our application! However, you are checking in outside of your stay period")
+                        $("#displayAlert").removeClass("d-none");
+                        return false
+                    }
+                    else {
+                        loader1.style.display = "none";
+
                         $("#displayAlert").text("Please check your particulars!")
                         $("#displayAlert").removeClass("d-none");
                         return false
@@ -214,20 +236,21 @@ https://templatemo.com/tm-529-ramayana
                 } else if (result.code == 404) {
                     // No booking
                     loader1.style.display = "none";
+
                     $("#displayAlert").text("Please check your particulars!")
                     $("#displayAlert").removeClass("d-none");
                     return false
                 }
                 else {
                     // unexpected outcome, throw the error
-                    loader1.style.display = "none";
                     console.log('thrown')
                     throw result.code;
                 }
             } catch (error) {
-                // Errors when calling the service; such as network error, 
-                // service offline, etc2
                 loader1.style.display = "none";
+
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
                 console.log(error)
             } // error
         }
