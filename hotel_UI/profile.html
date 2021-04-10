@@ -231,7 +231,8 @@ https://templatemo.com/tm-529-ramayana
     const data = { booking_id: booking_id };    
 
         // Change serviceURL to your own
-        var serviceURL = "https://esdg1t3-processcheckout.herokuapp.com/calc_total"; 
+        // var serviceURL = "http://127.0.0.1:5400/calc_total"; 
+        var serviceURL = "http://13.212.251.199:5400/calc_total"; 
         
         //for error handling 
         try {
@@ -297,7 +298,8 @@ https://templatemo.com/tm-529-ramayana
     var checkoutButton = document.getElementById("checkout-button");
     checkoutButton.addEventListener("click", function () {
       total = document.getElementById('total').value * 100
-      fetch("https://esdg1t3-processcheckout.herokuapp.com/process_payment", {
+      // fetch("http://127.0.0.1:5400/process_payment", {
+      fetch("http://13.212.251.199:5400/process_payment", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
