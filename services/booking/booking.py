@@ -5,13 +5,6 @@ from flask_cors import CORS
 from os import environ 
 
 app = Flask(__name__)
-#For Mac
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/booking'
-
-#For windows
-# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/booking'
-
-# RDS url
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/booking'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -20,7 +13,6 @@ db = SQLAlchemy(app)
 
 CORS(app)  
 
-#do i have to write down all columns in db or just the ones i want? 
 class Booking(db.Model):
     __tablename__ = 'booking'
 
@@ -141,4 +133,5 @@ def update_checkout(booking_id):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000, debug=False)
+    port = 5000 or int(environ.get('PORT', 5000))
+    app.run(host="0.0.0.0",port=port, debug=False)

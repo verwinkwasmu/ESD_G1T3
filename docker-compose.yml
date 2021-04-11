@@ -10,7 +10,7 @@ services:
   ####################################
   rabbitmq:
     build:
-      context: ./services/rabbit
+      context: ./services/rabbitmq
       dockerfile: Dockerfile
     image: weixiangtoh/rabbitmq-custom:esd
     restart: always
@@ -220,12 +220,13 @@ services:
     restart: always
     environment:
       STRIPE_SK_API_KEY: "sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM"
+      YOUR_DOMAIN: "http://localhost:9000"
       PYTHONUNBUFFERED: 1
     ports:
       - "4242:4242"
 
   ##########################################################
-  # process_checkout: The process_checkout microservice
+  # Process_Checkout: The Process_Checkout microservice
   ##########################################################
   process_checkout:
     build:
@@ -245,3 +246,18 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5400:5400"
+
+  ##########################################################
+  # Hotel_UI: The Hotel_UI microservice
+  ##########################################################
+  hotel_ui:
+    build:
+      context: ./hotel_UI
+      dockerfile: Dockerfile
+    image: weixiangtoh/hotel_ui:esd
+    restart: always
+    environment:
+      GOOGLE_API_KEY: "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "9000:80"

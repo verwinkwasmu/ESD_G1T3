@@ -5,11 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content=""> -->
-
 
     <title>Nearby Attractions 🗼</title>
 
@@ -46,10 +41,6 @@ https://templatemo.com/tm-529-ramayana
 <!-- Bootstrap libraries -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
-<!-- Latest compiled and minified JavaScript -->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
 <body class="is-preload">
 
     <!-- Wrapper -->
@@ -85,7 +76,6 @@ https://templatemo.com/tm-529-ramayana
                                 <input class="d-none" name="lat" type="text" id="lat">
                                 <input class="d-none" name="lon" type="text" id="lon">
                                 <input class="d-none" name="radius" type="text" id="radius" value="1000">
-                                <!-- Type <input name="type" type="text" id="type" value="cafe"> -->
                                 <div class="col-md-12">
                                     <label for="type">
                                         <h4 style="text-align: center;">Choose a type of attraction:</h4>
@@ -194,7 +184,6 @@ https://templatemo.com/tm-529-ramayana
                 <!-- Footer -->
                 <footer id="footer">
                     <p class="copyright">Copyright &copy; 2021 The Dream Team
-                        <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
                 </footer>
 
             </div>
@@ -204,12 +193,10 @@ https://templatemo.com/tm-529-ramayana
     <script>
         //Loader stuff 
         var loader = document.getElementById('loader');
-        let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
-
-        // let geolocationURL = `http://18.138.251.96:5015/nearest_attractions/currentCoordinates`;
+        let GOOGLE_API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
 
         $(document).ready(function () {
-            fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${API_KEY}`, {
+            fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GOOGLE_API_KEY}`, {
                 method: 'post'
             })
                 .then(response => response.json())
@@ -230,13 +217,13 @@ https://templatemo.com/tm-529-ramayana
             let radius = $("#radius").val();
             let type = $("option:selected").val();
 
-            // var serviceURL = `http://127.0.0.1:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
-            var serviceURL = `http://13.250.22.68:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
+            var serviceURL = `http://127.0.0.1:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
+            // var serviceURL = `http://13.250.22.68:5015/nearest_attractions/radius=${radius}&type_of_attraction=${type}&lat=${lat}&lon=${lon}`;
 
             if (page_token != undefined) {
 
-                // serviceURL = `http://127.0.0.1:5015/nearest_attractions/next_page/page_token=${page_token}`
-                serviceURL = `http://13.250.22.68:5015/nearest_attractions/next_page/page_token=${page_token}`
+                serviceURL = `http://127.0.0.1:5015/nearest_attractions/next_page/page_token=${page_token}`
+                // serviceURL = `http://13.250.22.68:5015/nearest_attractions/next_page/page_token=${page_token}`
             }
 
             try {
@@ -301,7 +288,7 @@ https://templatemo.com/tm-529-ramayana
                           <div class="card mb-3">
                             <div class="row g-0">
                               <div class="col-md-4">
-                                <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&maxheight=350&photoreference=${photo}&key=${API_KEY}
+                                <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&maxheight=350&photoreference=${photo}&key=${GOOGLE_API_KEY}
                                 " alt="...">
                               </div>
                               <div class="col-md-8">
@@ -372,10 +359,10 @@ https://templatemo.com/tm-529-ramayana
         }
 
         function getDirections(place_id, current_coor) {
-            let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
+            let GOOGLE_API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
             $("#modal-body").html(
                 `<iframe width="300" height="300" frameborder="0" style="border:0;"
-                      src="https://www.google.com/maps/embed/v1/directions?key=${API_KEY}&origin=${current_coor}&mode=transit&destination=place_id:${place_id}"
+                      src="https://www.google.com/maps/embed/v1/directions?key=${GOOGLE_API_KEY}&origin=${current_coor}&mode=transit&destination=place_id:${place_id}"
                       allowfullscreen>
               </iframe>`
 

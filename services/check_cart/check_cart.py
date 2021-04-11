@@ -9,14 +9,9 @@ from invokes import invoke_http
 app = Flask(__name__)
 CORS(app)
 
-# cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
-# facility_URL = os.environ.get("facility_URL") or "https://esdg1t3-facility.herokuapp.com/facility"
-# room_service_URL = os.environ.get("room_service_URL") or "https://esdg1t3-roomservice.herokuapp.com/room_service"
-
-cart_URL = "http://18.141.190.114:5001/cart"
-facility_URL = "http://54.255.129.160:5002/facility"
-room_service_URL = "http://18.141.172.149:5003/room_service"
-
+cart_URL = os.environ.get("cart_URL") or "http://18.141.190.114:5001/cart"
+facility_URL = os.environ.get("facility_URL") or "http://54.255.129.160:5002/facility"
+room_service_URL = os.environ.get("room_service_URL") or "http://18.141.172.149:5003/room_service"
 
 @app.route("/check_cart", methods=['POST'])
 def check_cart():

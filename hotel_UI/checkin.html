@@ -22,11 +22,6 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!--
-Ramayana CSS Template
-https://templatemo.com/tm-529-ramayana
--->
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-style.css">
@@ -125,7 +120,6 @@ https://templatemo.com/tm-529-ramayana
     </div>
     </div>
     <script>
-        // localStorage.clear();
         async function assignSession() {
 
             myStorage = window.localStorage;
@@ -135,9 +129,10 @@ https://templatemo.com/tm-529-ramayana
             var email = document.getElementById('email').value;
             var booking_id = document.getElementById('booking_id').value;
             var loader1 = document.getElementById('loader1');
-            // var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
-            var serviceURL = "http://13.213.13.210:5000/booking/" + booking_id;
-            // var serviceURL = "https://i6cmruq0ci.execute-api.us-east-1.amazonaws.com/prod/booking/" + booking_id;
+
+            var serviceURL = "http://127.0.0.1:5000/booking/" + booking_id;
+            // var serviceURL = "http://13.213.13.210:5000/booking/" + booking_id;
+
             var errorList = []
             var error = {
                 "guest_name": "Name",
@@ -191,10 +186,7 @@ https://templatemo.com/tm-529-ramayana
 
                     // success case
                     if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == false && (Date.parse(datestart) <= Date.now() && Date.parse(dateend) >= Date.now())){
-                        console.log(data.checkout_status)
 
-                        console.log("user details match");
-                        console.log(data.checkout_status);
                         localStorage.setItem("room_number", data.room_number);
                         localStorage.setItem("stay_duration", data.stay_duration);
                         localStorage.setItem("room_price", data.room_price);
@@ -203,12 +195,6 @@ https://templatemo.com/tm-529-ramayana
                         localStorage.setItem("email", data.email);
                         localStorage.setItem("booking_id", data.booking_id);
                         window.location.replace('index.html');
-
-                        console.log(room_number);
-                        console.log(stay_duration);
-                        console.log(room_price);
-                        console.log(guest_name);
-                        console.log(booking_id);
                     }
                     else if (guest_name.toUpperCase() == data.guest_name.toUpperCase() && nric_passportno.toUpperCase() == data.nric_passportno.toUpperCase() && email.toUpperCase() == data.email.toUpperCase() && data.checkout_status == true) {
                         loader1.style.display = "none";
@@ -231,8 +217,6 @@ https://templatemo.com/tm-529-ramayana
                         return false
                     }
 
-
-
                 } else if (result.code == 404) {
                     // No booking
                     loader1.style.display = "none";
@@ -243,7 +227,6 @@ https://templatemo.com/tm-529-ramayana
                 }
                 else {
                     // unexpected outcome, throw the error
-                    console.log('thrown')
                     throw result.code;
                 }
             } catch (error) {

@@ -11,14 +11,9 @@ import pika
 app = Flask(__name__)
 CORS(app)
 
-# booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
-# cart_URL = environ.get('cart_URL') or "https://esdg1t3-cart.herokuapp.com/cart"
-# payment_URL = environ.get("payment_URL") or "https://esdg1t3-roomservice.herokuapp.com/create_checkout_session"
-
-booking_URL = 'http://13.213.13.210:5000/booking'
-cart_URL = "http://18.141.190.114:5001/cart"
-payment_URL = "http://3.1.20.44:4242/create-checkout-session"
-
+booking_URL = environ.get('booking_URL') or "http://13.213.13.210:5000/booking"
+cart_URL = environ.get('cart_URL') or "http://18.141.190.114:5001/cart"
+payment_URL = environ.get("payment_URL") or "http://3.1.20.44:4242/create-checkout-session"
 
 @app.route("/calc_total", methods=['POST'])
 def calc_total_payment():

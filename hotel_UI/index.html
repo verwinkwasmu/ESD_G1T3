@@ -14,10 +14,6 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!--
-Ramayana CSS Template
-https://templatemo.com/tm-529-ramayana
--->
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
@@ -119,55 +115,16 @@ https://templatemo.com/tm-529-ramayana
                   </a>
                 </div>
               </div>
-
-              <!-- <div class="container-fluid">
-                <div class="row">
-                  <div class="col-6 col-sm-3 h-100">
-                    <a href="profile.html">
-                      <div class="service-item ">
-                        <div class="icon"></div>
-                        <h4>Profile 😊</h4>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-6 col-sm-3 h-100">
-                    <a href="roomservice.html">
-                      <div class="service-item">
-                        <div class="icon"></div>
-                        <h4>Room Service 🥘</h4>
-                      </div> 
-                    </a>
-                  </div>
-                  <div class="col-6 col-sm-3 h-100">
-                    <a href="facility.html">
-                      <div class="service-item">
-                        <div class="icon"></div>
-                        <h4>Facility Booking 🛶</h4>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-6 col-sm-3 h-100">
-                    <a href="attractions.html">
-                      <div class="service-item">
-                        <div class="icon"></div>
-                        <h4>Nearby Attractions 🗼</h4>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div> -->
           </section>
           </div>
         </div>    
     </div>
 
     <script> 
-      //localStorage.clear();
       var guest_name =localStorage.getItem("guest_name");
       var nric_passportno = localStorage.getItem("nric_passportno")
       var booking_id = localStorage.getItem("booking_id");
       var email = localStorage.getItem("email"); 
-      console.log(booking_id);
       
       if (guest_name == null || nric_passportno == null || booking_id == null || email == null) {
         document.getElementById('portals').style.display = "none"; 

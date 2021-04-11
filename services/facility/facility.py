@@ -5,9 +5,7 @@ from flask_cors import CORS
 from os import environ
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root:root@localhost:8889/facility'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('facility_dbURL') or 'mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/facility'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/facility'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -72,5 +70,5 @@ def get_by_item_id(item_id):
     ), 404
 
 if __name__ == '__main__':
-    port = int(environ.get('PORT', 5002)) or 5002
+    port = 5002 or int(environ.get('PORT', 5002))
     app.run(host="0.0.0.0",port=port, debug=False)

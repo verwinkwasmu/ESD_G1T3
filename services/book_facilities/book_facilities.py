@@ -14,10 +14,6 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-# booking_URL = environ.get('booking_URL') or "https://esdg1t3-booking.herokuapp.com/booking"
-# cart_URL = os.environ.get("cart_URL") or "https://esdg1t3-cart.herokuapp.com/cart"
-# facility_URL = environ.get('facility_URL') or "https://esdg1t3-facility.herokuapp.com/facility"
-
 booking_URL = "http://13.213.13.210:5000/booking"
 cart_URL = "http://18.141.190.114:5001/cart"
 facility_URL = "http://54.255.129.160:5002/facility"

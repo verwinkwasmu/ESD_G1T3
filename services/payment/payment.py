@@ -1,15 +1,9 @@
 #! /usr/bin/env python3.6
-
-"""
-server.py
-Stripe Sample.
-Python 3.6 or newer required.
-"""
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import stripe
-# This is a sample test API key. Sign in to see examples pre-filled with your key.
+
 stripe.api_key = os.environ.get(
     "STRIPE_SK_API_KEY") or 'sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM'
 
@@ -18,9 +12,8 @@ app = Flask(__name__,
             static_folder='.')
 CORS(app)
 
-YOUR_DOMAIN = 'http://54.179.215.61'
-# YOUR_DOMAIN = 'https://esdg1t3ui.herokuapp.com/hotel_UI'
-# YOUR_DOMAIN = 'http://localhost/esd/ESD_G1T3/local_ui'
+# YOUR_DOMAIN = 'http://54.179.215.61'
+YOUR_DOMAIN = os.environ.get('YOUR_DOMAIN') or 'http://54.179.215.61'
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():

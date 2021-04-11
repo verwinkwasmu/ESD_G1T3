@@ -6,10 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content=""> -->
 
     <title>Cart 🛒</title>
 
@@ -135,7 +131,6 @@ https://templatemo.com/tm-529-ramayana
                 <!-- Footer -->
                 <footer id="footer">
                     <p class="copyright">Copyright &copy; 2021 The Dream Team
-                        <!-- <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p> -->
                 </footer>
 
             </div>
@@ -148,12 +143,10 @@ https://templatemo.com/tm-529-ramayana
         var loader = document.getElementById('loader');
 
         var booking_id = localStorage.getItem("booking_id");
-        console.log("booking_id:" + booking_id);
 
-        // Change serviceURL to your own
-        // var serviceURL = "http://127.0.0.1:5100/check_cart";
-        var serviceURL = "http://54.169.237.148:5100/check_cart";
-        // var serviceURL = "https://esdg1t3-checkcart.herokuapp.com/check_cart";
+        var serviceURL = "http://127.0.0.1:5100/check_cart";
+        // var serviceURL = "http://54.169.237.148:5100/check_cart";
+
         const data = { "booking_id": booking_id };
 
         fetch(serviceURL, {
@@ -166,7 +159,6 @@ https://templatemo.com/tm-529-ramayana
             .then(response => response.json())
             .then(data => {
                 loader.style.display = 'none';
-                console.log(data);
                 var cart_items = data.all_bookings.bookings;
                 // some error with cart !! 
                 console.log(cart_items);
@@ -229,10 +221,6 @@ https://templatemo.com/tm-529-ramayana
             .catch((error) => {
                 console.error('Error:', error);
             });
-
-
-
-
 
     </script>
 
