@@ -18,25 +18,25 @@ GOOGLE_API_KEY = os.environ.get(
     "GOOGLE_API_KEY") or "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
 
 
-@app.route("/nearest_attractions/currentCoordinates")
-def get_current_coordinates():
-    response = requests.post(
-        f"https://www.googleapis.com/geolocation/v1/geolocate?key={GOOGLE_API_KEY}")
-    if response.status_code == 200:
-        result = response.json()
-        return jsonify(
-            {
-                "code": 200,
-                "data": result
-            }
-        )
-    else:
-        return jsonify(
-            {
-                "code": 400,
-                "message": "Unable to retrieve coordinates"
-            }
-        )
+# @app.route("/nearest_attractions/currentCoordinates")
+# def get_current_coordinates():
+#     response = requests.post(
+#         f"https://www.googleapis.com/geolocation/v1/geolocate?key={GOOGLE_API_KEY}")
+#     if response.status_code == 200:
+#         result = response.json()
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": result
+#             }
+#         )
+#     else:
+#         return jsonify(
+#             {
+#                 "code": 400,
+#                 "message": "Unable to retrieve coordinates"
+#             }
+#         )
 
 
 @app.route("/nearest_attractions/radius=<int:radius>&type_of_attraction=<string:type_of_attraction>&lat=<float:lat>&lon=<float:lon>")

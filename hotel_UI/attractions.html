@@ -206,14 +206,16 @@ https://templatemo.com/tm-529-ramayana
         var loader = document.getElementById('loader');
         let API_KEY = 'AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ';
 
-        let geolocationURL = `http://18.138.251.96:5015/nearest_attractions/currentCoordinates`;
+        // let geolocationURL = `http://18.138.251.96:5015/nearest_attractions/currentCoordinates`;
 
         $(document).ready(function () {
-            fetch(geolocationURL)
+            fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${API_KEY}`, {
+                method: 'post'
+            })
                 .then(response => response.json())
                 .then(function (data) {
-                    $("#lat").val(data.data.location.lat);
-                    $("#lon").val(data.data.location.lng);
+                    $("#lat").val(data.location.lat);
+                    $("#lon").val(data.location.lng);
                 }).catch(function (error) {
                     console.log(error);
                 });
