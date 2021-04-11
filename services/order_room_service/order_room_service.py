@@ -117,8 +117,8 @@ def processOrderRS(booking_details):
         }
         delay_message = json.dumps(delay_content)
 
-        # waiting_time = int(order['waiting_time']) * 60000
-        waiting_time = 5 * 60000
+        waiting_time = int(order['waiting_time']) * 60000
+        # waiting_time = 5 * 60000
         
         amqp_setup.check_setup()
         print('\n\n-----Publishing the (error service) message with routing_key=order.notification-----')
