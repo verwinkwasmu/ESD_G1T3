@@ -1,13 +1,10 @@
 
 import requests
-
 import os
-
 
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
 
 import json
 
@@ -16,28 +13,6 @@ CORS(app)
 
 GOOGLE_API_KEY = os.environ.get(
     "GOOGLE_API_KEY") or "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
-
-
-# @app.route("/nearest_attractions/currentCoordinates")
-# def get_current_coordinates():
-#     response = requests.post(
-#         f"https://www.googleapis.com/geolocation/v1/geolocate?key={GOOGLE_API_KEY}")
-#     if response.status_code == 200:
-#         result = response.json()
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": result
-#             }
-#         )
-#     else:
-#         return jsonify(
-#             {
-#                 "code": 400,
-#                 "message": "Unable to retrieve coordinates"
-#             }
-#         )
-
 
 @app.route("/nearest_attractions/radius=<int:radius>&type_of_attraction=<string:type_of_attraction>&lat=<float:lat>&lon=<float:lon>")
 def get_nearest_attractions(radius, type_of_attraction, lat, lon):
@@ -82,7 +57,6 @@ def get_next_page(page_token):
                 "message": "Attractions not found."
             }
         ), 404
-
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5015)) or 5015
