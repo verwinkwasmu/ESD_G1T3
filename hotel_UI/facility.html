@@ -156,7 +156,15 @@ https://templatemo.com/tm-529-ramayana
 
       //Loader stuff 
       var loader = document.getElementById('loader'); 
+      function showError(message) {
+            // Hide the table and button in the event of error
+            $('#cards_rs').hide();
 
+            // Display an error under the main container
+            $('#cards_rs')
+                .append("<label>" + message + "</label>");
+        }
+        
     $(async () => {
       // Change serviceURL to your own
       // var serviceURL = "http://127.0.0.1:5002/facility";
@@ -219,7 +227,7 @@ https://templatemo.com/tm-529-ramayana
         // Errors when calling the service; such as network error, 
         // service offline, etc
         showError
-          ('There is a problem retrieving books data, please try again later.<br />' + error);
+          ('There is a problem retrieving facility data, please try again later.<br />' + error);
       } // error
     });
 
