@@ -232,7 +232,7 @@ https://templatemo.com/tm-529-ramayana
 
         // Change serviceURL to your own
         // var serviceURL = "http://127.0.0.1:5400/calc_total"; 
-        var serviceURL = "http://13.229.216.136:5400/calc_total"; 
+        var serviceURL = "http://13.212.229.141:5400/calc_total"; 
         
         //for error handling 
         try {
@@ -299,7 +299,7 @@ https://templatemo.com/tm-529-ramayana
     checkoutButton.addEventListener("click", function () {
       total = document.getElementById('total').value * 100
       // fetch("http://127.0.0.1:5400/process_payment", {
-      fetch("http://13.229.216.136:5400/process_payment", {
+      fetch("http://13.212.229.141:5400/process_payment", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

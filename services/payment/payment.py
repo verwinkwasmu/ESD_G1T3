@@ -18,7 +18,7 @@ app = Flask(__name__,
             static_folder='.')
 CORS(app)
 
-YOUR_DOMAIN = 'http://54.179.215.61/hotel_UI'
+YOUR_DOMAIN = 'http://54.179.215.61'
 # YOUR_DOMAIN = 'https://esdg1t3ui.herokuapp.com/hotel_UI'
 # YOUR_DOMAIN = 'http://localhost/esd/ESD_G1T3/local_ui'
 

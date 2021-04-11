@@ -17,7 +17,7 @@ CORS(app)
 
 booking_URL = 'http://13.213.13.210:5000/booking'
 cart_URL = "http://18.141.190.114:5001/cart"
-payment_URL = "http://54.169.241.240:4242/create-checkout-session"
+payment_URL = "http://3.1.20.44:4242/create-checkout-session"
 
 
 @app.route("/calc_total", methods=['POST'])
