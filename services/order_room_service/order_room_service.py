@@ -117,10 +117,12 @@ def processOrderRS(booking_details):
         }
         delay_message = json.dumps(delay_content)
 
-        waiting_time = int(order['waiting_time']) * 60000
+        order_time = [int(s) for s in order['waiting_time'].split() if s.isdigit()]
+        waiting_time = order_time[0] * 60000
+        print("waiting_time:", str(waiting_time))
         # waiting_time = 5 * 60000
         
-        amqp_setup.check_setup()
+        # amqp_setup.check_setup()
         print('\n\n-----Publishing the (error service) message with routing_key=order.notification-----')
 
         amqp_setup.channel.basic_publish(exchange=amqp_setup.delay_exchangename, routing_key="order.error_service",
@@ -150,4 +152,4 @@ if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for ordering room service...")
     port = 5200 or int(os.environ.get('PORT', 5200))
-    app.run(host="0.0.0.0",port=port, debug=True)
+    app.run(host="0.0.0.0",port=port, debug=False)
