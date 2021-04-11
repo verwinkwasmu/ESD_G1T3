@@ -1,5 +1,4 @@
-# Dream Hotel
-###### ESD_G1T3
+# Dream Hotel 
 Dream Hotel is a hotel stay application that enhances the hotel stay experience for customers by providing an all-encompassing hotel stay application. 
 
 # Functionalities
@@ -27,15 +26,12 @@ Name : Jessie
 Email: jessie.ng.2019@smu.edu.sg
 NRIC/PassportNo: S9920937I
 Booking ID: 1
-<br/>
 
 2. James (Checked out User)
 Name : James
 Email: weixiangtoh.2019@smu.edu.sg
 NRIC/PassportNo: S9920347I
 Booking ID: 2
-<br/>
-
 
 3. User not within stay duration
 Name : test
