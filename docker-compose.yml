@@ -30,7 +30,7 @@ services:
     image: weixiangtoh/booking:esd
     restart: always
     environment:
-      dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/booking
+      dbURL: mysql+mysqlconnector://root:passwd@host.docker.internal:3306/booking
       PYTHONUNBUFFERED: 1
     ports:
       - "5000:5000"
@@ -45,7 +45,7 @@ services:
     image: weixiangtoh/cart:esd
     restart: always
     environment:
-      cart_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/cart
+      cart_dbURL: mysql+mysqlconnector://root:passwd@host.docker.internal:3306/cart
       PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
@@ -60,7 +60,7 @@ services:
     image: weixiangtoh/facility:esd
     restart: always
     environment:
-      facility_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/facility
+      facility_dbURL: mysql+mysqlconnector://root:passwd@host.docker.internal:3306/facility
       PYTHONUNBUFFERED: 1
     ports:
       - "5002:5002"
@@ -75,7 +75,7 @@ services:
     image: weixiangtoh/room_service:esd
     restart: always
     environment:
-      room_service_dbURL: mysql+mysqlconnector://admin:esdg1t32021@esd-prod.ckcprxmpwut9.us-east-1.rds.amazonaws.com:3306/room_service
+      room_service_dbURL: mysql+mysqlconnector://root:passwd@host.docker.internal:3306/room_service
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
@@ -90,7 +90,7 @@ services:
     image: weixiangtoh/nearest_attractions:esd
     restart: always
     environment:
-      GOOGLE_API_KEY: "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
+      GOOGLE_API_KEY: <GOOGLE_API_KEY>
       PYTHONUNBUFFERED: 1
     ports:
       - "5015:5015"
@@ -109,7 +109,7 @@ services:
     environment:
       rabbit_host: host.docker.internal
       rabbit_port: 5672
-      SENDGRID_API_KEY: "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"
+      SENDGRID_API_KEY: <SENDGRID_API_KEY>
       PYTHONUNBUFFERED: 1
     ports:
       - "5004:5004"
@@ -219,7 +219,7 @@ services:
     image: weixiangtoh/payment:esd
     restart: always
     environment:
-      STRIPE_SK_API_KEY: "sk_test_51HeLb7GWjRGxBOOYruap689xNCFhMWetmp25MiJz4LGZoJPqSLTCsNhhoqtvt6DW6qKRHf7iiyyZMeRbN61lL6A500O0PzD1vM"
+      STRIPE_SK_API_KEY: <STRIPE_SK_API_KEY>
       YOUR_DOMAIN: "http://localhost:9000"
       PYTHONUNBUFFERED: 1
     ports:
@@ -257,7 +257,7 @@ services:
     image: weixiangtoh/hotel_ui:esd
     restart: always
     environment:
-      GOOGLE_API_KEY: "AIzaSyAw3Q7eJyqIazB2ucevU3NhnVmsqs5Z3bQ"
+      GOOGLE_API_KEY: <GOOGLE_API_KEY>
       PYTHONUNBUFFERED: 1
     ports:
       - "9000:80"
